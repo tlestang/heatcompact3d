@@ -1,5 +1,5 @@
 program main
-  use differentiate, only: diff
+  use differentiate, only: diff2
   implicit none
 
   real :: f(100), df(100)
@@ -9,7 +9,7 @@ program main
 
   dx = 2. * 3.14 / (nx - 1)
   f = [(sin((i-1)*dx), i=1,nx)]
-  df = diff(f, dx)
+  df = diff2(f, dx)
   write(*,*) df
 
 end program main
