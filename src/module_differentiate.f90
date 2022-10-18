@@ -71,7 +71,9 @@ contains
     real, intent(in) :: dx
 
     real, allocatable :: ddf(:)
+    real, allocatable :: rhs(:)
     real, allocatable :: f_haloed(:)
+    real, allocatable :: diag(:), u(:), v(:), q(:), y(:)
     integer :: nx, i
     real :: w(7)
 
@@ -84,12 +86,20 @@ contains
     f_haloed(nx + 1) = f(2)
     f_haloed(nx + 2) = f(3)
     f_haloed(nx + 3) = f(4)
+    f_haloed(1:nx) = f
 
-    w = weights2 / dx / dx
-    allocate(ddf, source=f)
+    w = weights2 / (dx * dx)
+    allocate(rhs, source=f)
     do i=1,nx
-       ddf(i) = sum(f_haloed([i-3, i-2, i-1, i, i+1, i+2, i+3]) * w)
+       rhs(i) = sum(f_haloed([i-3, i-2, i-1, i, i+1, i+2, i+3]) * w)
     end do
+    diag = [1. - gamma, (1., i=2, nx - 1), 1. + alpha2 * alpha2]
+    u = [gamma, (0., i=2, nx-1), alpha2]
+    v = [1., (0., i=2, nx-1), - alpha2]
+    q = thomas(diag, u, alpha2)
+    y = thomas(diag, rhs, alpha2)
+
+    ddf = y - ((y(1) - alpha2 * y(nx)) / (1. + q(1) - alpha2 * q(nx))) * q
   end function diff2
 
 end module differentiate
