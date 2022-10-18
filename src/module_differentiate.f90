@@ -1,8 +1,10 @@
 module differentiate
+  use thomas_module, only: thomas
   implicit none
 
   real, parameter :: afix = (7. / 9.)
   real, parameter :: bfix = (1. / 36.)
+  real, parameter :: alpha = 1. / 3.
 
   real, parameter :: asix = 12. / 11.
   real, parameter :: bsix = 3. / 11.
@@ -25,6 +27,8 @@ module differentiate
        & csix &
        & ]
 
+  real, parameter :: gamma = -1.
+
 contains
 
   pure function diff(f, dx) result(df)
@@ -32,7 +36,9 @@ contains
     real, intent(in) :: dx
 
     real, allocatable :: df(:)
+    real, allocatable :: rhs(:)
     real, allocatable :: f_haloed(:)
+    real, allocatable :: diag(:), u(:), v(:), q(:), y(:)
     integer :: nx, i
     real :: w(4)
 
@@ -46,10 +52,17 @@ contains
     f_haloed(1:nx) = f
 
     w = weights / dx
-    allocate(df, source=f)
+    allocate(rhs, source=f)
     do i=1,nx
-       df(i) = sum(f_haloed([i-2, i-1, i+1, i+2]) * w)
+       rhs(i) = sum(f_haloed([i-2, i-1, i+1, i+2]) * w)
     end do
+    diag = [1. - gamma, (1., i=2, nx - 1), 1. + alpha * alpha]
+    u = [gamma, (0., i=2, nx-1), alpha]
+    v = [1., (0., i=2, nx-1), - alpha]
+    q = thomas(diag, u, alpha)
+    y = thomas(diag, rhs, alpha)
+
+    df = y - ((y(1) - alpha * y(nx)) / (1. + q(1) - alpha * q(nx))) * q
   end function diff
 
 
