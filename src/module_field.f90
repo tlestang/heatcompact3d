@@ -35,37 +35,36 @@ contains
     nz = size(self%data, 3)
   end function nz
 
-  ! pure function rhs(self)
-  !   type(Field), intent(in) :: self
-  !   real, allocatable :: d2_dx2, d2_dy2, d2_dz2
-  !   integer :: nx, ny, nz
-  !   type(Field) :: rhs
+  pure function rhs(self, dx)
+    use differentiate, only: diff2
 
-  !   nx = size(self%data, 1)
-  !   ny = size(self%data, 2)
-  !   nz = size(self%data, 3)
+    real, intent(in) :: dx
+    type(Field), intent(in) :: self
+    real, allocatable :: ddx(:, :, :), ddy(:, :, :), ddz(:, :, :)
+    type(Field) :: rhs
+    integer :: ix, iy, iz
 
-  !   allocate(d2_dx2, source=self%data)
-  !   do iz = 1,nz
-  !      do iy = 1,nz
-  !         d2_dx2(:, iy, iz) = diff2(data(:, iy, iz))
-  !      end do
-  !   end do
+    allocate(ddx, source=self%data)
+    do iz = 1,self%nz()
+       do iy = 1,self%ny()
+          ddx(:, iy, iz) = diff2(self%data(:, iy, iz), dx)
+       end do
+    end do
 
-  !   allocate(d2_dy2, source=self%data)
-  !   do iz = 1,nz
-  !      do ix = 1,nx
-  !         d2_dy2(ix, :, iz) = diff2(data(ix, :, iz))
-  !      end do
-  !   end do
+    allocate(ddy, source=self%data)
+    do iz = 1,self%nz()
+       do ix = 1,self%nx()
+          ddy(ix, :, iz) = diff2(self%data(ix, :, iz), dx)
+       end do
+    end do
 
-  !   allocate(d2_dz2, source=self%data)
-  !   do iy = 1,ny
-  !      do ix = 1,nx
-  !         d2_dz2(ix, iy, :) = diff2(data(ix, iy, :))
-  !      end do
-  !   end do
+    allocate(ddz, source=self%data)
+    do iy = 1,self%ny()
+       do ix = 1,self%nx()
+          ddz(ix, iy, :) = diff2(self%data(ix, iy, :), dx)
+       end do
+    end do
 
-  !   rhs%data = d2_dx2 + d2_dy2 + d2_dz2
-  ! end function rhs
+    rhs%data = ddx + ddy + ddz
+  end function rhs
 end module field_module
