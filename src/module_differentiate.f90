@@ -7,8 +7,9 @@ module differentiate
   real, parameter :: alpha = 1. / 3.
 
   real, parameter :: asix = 12. / 11.
-  real, parameter :: bsix = 3. / 11.
+  real, parameter :: bsix = 3. / 44.
   real, parameter :: csix = 0.
+  real, parameter :: alpha2 = 2. / 11.
 
   real, parameter :: weights(4) = [ &
        - bfix, &
