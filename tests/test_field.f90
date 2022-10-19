@@ -25,4 +25,12 @@ program test_field
   end do
 
   temp_field = Field(u0)
+
+  if (.not. all([nx, ny, nz] == &
+       &[temp_field%nx(), temp_field%ny(), temp_field%nz()])) then
+     write(stderr, '(a)') 'Field data has the correct rank and size... failed.'
+
+  else
+     write(stderr, '(a)') 'Field data has the correct rank and size... passed.'
+  end if
 end program test_field

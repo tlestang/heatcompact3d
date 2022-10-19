@@ -4,8 +4,8 @@ module field_module
   type :: Field
      private
      real, allocatable :: data(:, :, :)
-   ! contains
-   !   procedure, public :: rhs
+   contains
+     procedure, public :: nx, ny, nz
   end type Field
 
   interface Field
@@ -19,6 +19,21 @@ contains
     type(Field) :: afield
     allocate(afield%data, source=initial)
   end function constructor
+
+  pure integer function nx(self)
+    class(Field), intent(in) :: self
+    nx = size(self%data, 1)
+  end function nx
+
+  pure integer function ny(self)
+    class(Field), intent(in) :: self
+    ny = size(self%data, 2)
+  end function ny
+
+  pure integer function nz(self)
+    class(Field), intent(in) :: self
+    nz = size(self%data, 3)
+  end function nz
 
   ! pure function rhs(self)
   !   type(Field), intent(in) :: self
