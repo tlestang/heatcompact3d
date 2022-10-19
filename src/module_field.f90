@@ -6,6 +6,7 @@ module field_module
      real, allocatable :: data(:, :, :)
    contains
      procedure, public :: nx, ny, nz
+     procedure, public :: is_equal
   end type Field
 
   interface Field
@@ -34,6 +35,16 @@ contains
     class(Field), intent(in) :: self
     nz = size(self%data, 3)
   end function nz
+
+  pure logical function is_equal(self, lhs, tol)
+    class(Field), intent(in) :: self
+    class(Field), intent(in) :: lhs
+    real, intent(in) :: tol
+    logical, allocatable :: elmt_is_equal(:, :, :)
+
+    elmt_is_equal = abs(self%data - lhs%data) < tol
+    is_equal = all(elmt_is_equal)
+  end function is_equal
 
   pure function rhs(self, dx)
     use differentiate, only: diff2

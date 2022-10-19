@@ -33,4 +33,10 @@ program test_field
   else
      write(stderr, '(a)') 'Field data has the correct rank and size... passed.'
   end if
+
+  if(.not. temp_field%is_equal(Field(u0), tol)) then
+     write(stderr, '(a)') 'Field equal operator... failed.'
+  else
+     write(stderr, '(a)') 'Field equal operator... passed.'
+  end if
 end program test_field
