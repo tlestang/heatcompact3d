@@ -7,6 +7,7 @@ module field_module
    contains
      procedure, public :: nx, ny, nz
      procedure, public :: is_equal
+     procedure, public :: rhs
   end type Field
 
   interface Field
@@ -50,7 +51,7 @@ contains
     use differentiate, only: diff2
 
     real, intent(in) :: dx
-    type(Field), intent(in) :: self
+    class(Field), intent(in) :: self
     real, allocatable :: ddx(:, :, :), ddy(:, :, :), ddz(:, :, :)
     type(Field) :: rhs
     integer :: ix, iy, iz

@@ -4,7 +4,7 @@ program test_field
   implicit none
 
   real :: u0(16, 16, 16)
-  type(Field) :: temp_field
+  type(Field) :: temp_field, rhs, expected
   real, parameter :: tol = 0.1
   integer :: i, j, k, nx, ny, nz
   logical :: allpass
@@ -38,5 +38,13 @@ program test_field
      write(stderr, '(a)') 'Field equal operator... failed.'
   else
      write(stderr, '(a)') 'Field equal operator... passed.'
+  end if
+
+  expected = Field(-1. * 3. * u0)
+  rhs = temp_field%rhs(dx)
+  if(.not. expected%is_equal(rhs, tol)) then
+     write(stderr, '(a)') 'Field right hand side is computed correctly... failed.'
+  else
+     write(stderr, '(a)') 'Field right hand side is computed correctly... passed.'
   end if
 end program test_field
