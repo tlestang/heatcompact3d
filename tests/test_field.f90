@@ -13,6 +13,7 @@ program test_field
   nx = size(u0, 1)
   ny = size(u0, 2)
   nz = size(u0, 3)
+  dx = 2. * acos(-1.) / (nx - 1)
 
   do k = 1, nz
      do j = 1, ny
