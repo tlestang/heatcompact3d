@@ -33,7 +33,7 @@ program test_field
   euler = euler_integrator_type(starttime=0., endtime=0.5, dt=0.1)
   call euler%integrate(temp_field)
   expected = Field( &
-       & (1. - 3. * self%a * self%dt) ** 5 * u0)
+       & (1. - 3. * 0.1) ** 5 * u0, dx)
   if (.not. expected%is_equal(temp_field, tol)) then
      write(stderr, '(a)') 'Foward integration is computed correctly... failed.'
      allpass = .false.
