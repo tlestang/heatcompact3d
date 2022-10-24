@@ -8,6 +8,11 @@ module field_module
      procedure, public :: nx, ny, nz
      procedure, public :: is_equal
      procedure, public :: rhs
+     procedure, private :: field_add_field, field_sub_field, &
+          & field_mul_real
+     generic :: operator(+) => field_add_field
+     generic :: operator(-) => field_sub_field
+     generic :: operator(*) => field_mul_real
   end type Field
 
   interface Field
@@ -79,4 +84,21 @@ contains
 
     rhs%data = ddx + ddy + ddz
   end function rhs
+
+  pure type(Field) function field_add_field(self, afield)
+    class(Field), intent(in) :: self, afield
+    field_add_field%data = self%data + afield%data
+  end function field_add_field
+
+  pure type(Field) function field_sub_field(self, afield)
+    class(Field), intent(in) :: self, afield
+    field_sub_field%data = self%data - afield%data
+  end function field_sub_field
+
+  pure type(Field) function field_mul_real(self, a)
+    class(Field), intent(in) :: self
+    real, intent(in) :: a
+    field_mul_real%data = self%data * a
+  end function field_mul_real
+
 end module field_module

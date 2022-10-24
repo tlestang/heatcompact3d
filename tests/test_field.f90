@@ -52,6 +52,30 @@ program test_field
      write(stderr, '(a)') 'Field right hand side is computed correctly... passed.'
   end if
 
+  expected = Field(2. * u0)
+  if(.not. expected%is_equal(temp_field + temp_field, tol)) then
+     write(stderr, '(a)') 'Field-Field addition is computed correctly... failed.'
+     allpass = .false.
+  else
+     write(stderr, '(a)') 'Field-Field addition is computed correctly... passed.'
+  end if
+
+  expected = Field(reshape([(0., i=1, size(u0, 1)**3)], [16, 16, 16]))
+  if(.not. expected%is_equal(temp_field - temp_field, tol)) then
+     write(stderr, '(a)') 'Field-Field difference is computed correctly... failed.'
+     allpass = .false.
+  else
+     write(stderr, '(a)') 'Field-Field difference is computed correctly... passed.'
+  end if
+
+  expected = Field(1.5 * u0)
+  if(.not. expected%is_equal(temp_field * 1.5, tol)) then
+     write(stderr, '(a)') 'Field-Scalar multiplication is computed correctly... failed.'
+     allpass = .false.
+  else
+     write(stderr, '(a)') 'Field-Scalar multiplication is computed correctly... passed.'
+  end if
+
   if (allpass) then
      write(stderr, '(a)') 'All tests passed successfully'
   else
