@@ -96,7 +96,7 @@ contains
     real, allocatable :: ddf(:)
     real, allocatable :: rhs(:)
     real, allocatable :: f_haloed(:)
-    real, allocatable :: diag(:), u(:), v(:), q(:), y(:)
+    real, allocatable :: diag(:), u(:), v(:), q(:), y(:), as(:), cs(:)
     integer :: nx, i
     real :: w(7)
 
@@ -119,8 +119,10 @@ contains
     diag = [1. - gamma, (1., i=2, nx - 1), 1. + alpha2 * alpha2]
     u = [gamma, (0., i=2, nx-1), alpha2]
     v = [1., (0., i=2, nx-1), - alpha2]
-    q = thomas(diag, u, alpha2)
-    y = thomas(diag, rhs, alpha2)
+    as = [(alpha2, i=1, nx)]
+    cs = [(alpha2, i=1, nx)]
+    q = thomas(as, diag, cs, u)
+    y = thomas(as, diag, cs, rhs)
 
     ddf = y - ((y(1) - alpha2 * y(nx)) / (1. + q(1) - alpha2 * q(nx))) * q
   end function diff2
