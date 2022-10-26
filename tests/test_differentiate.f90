@@ -28,6 +28,16 @@ program test_differentiate
      write(stderr, '(a)') 'First derivatives are computed correctly... passed'
   end if
 
+  ! Second derivative
+  expected = [(- sin((i-1)*dx), i=1, n)]
+  df = differentiator%diff2(f, dx)
+  if (.not. all(abs(df - expected) < tol)) then
+     allpass = .false.
+     write(stderr, '(a)') 'Second derivatives are computed correctly... failed'
+  else
+     write(stderr, '(a)') 'Second derivatives are computed correctly... passed'
+  end if
+
   dx = acos(-1.) / (n - 1)
   f = [(cos((i-1)*dx), i=1,n)]
   ! First derivative with neumann odd both ends
@@ -39,18 +49,6 @@ program test_differentiate
      write(stderr, '(a)') 'First derivatives are computed correctly... failed'
   else
      write(stderr, '(a)') 'First derivatives are computed correctly... passed'
-  end if
-
-  dx = 2. * acos(-1.) / (n - 1)
-  f = [(sin((i-1)*dx), i=1,n)]
-  ! Second derivative
-  expected = [(- sin((i-1)*dx), i=1,n)]
-  df = diff2(f, dx)
-  if (.not. all(abs(df - expected) < tol)) then
-     allpass = .false.
-     write(stderr, '(a)') 'Second derivatives are computed correctly... failed'
-  else
-     write(stderr, '(a)') 'Second derivatives are computed correctly... passed'
   end if
 
   if (allpass) then
