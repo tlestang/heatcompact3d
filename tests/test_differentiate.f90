@@ -1,7 +1,7 @@
 program test_differentiate
   use iso_fortran_env, only: stderr => error_unit
   use differentiate, only: differentiator_type, &
-       & dirichlet_differentiator, diff2
+       & dirichlet_differentiator, neumann_odd_differentiator, diff2
   implicit none
 
   real :: f(20), df(20), expected(20)
@@ -28,6 +28,21 @@ program test_differentiate
      write(stderr, '(a)') 'First derivatives are computed correctly... passed'
   end if
 
+  dx = acos(-1.) / (n - 1)
+  f = [(cos((i-1)*dx), i=1,n)]
+  ! First derivative with neumann odd both ends
+  expected = [(-sin((i-1)*dx), i=1,n)]
+  differentiator = neumann_odd_differentiator()
+  df = differentiator%diff(f, dx)
+  if (.not. all(abs(df - expected) < tol)) then
+     allpass = .false.
+     write(stderr, '(a)') 'First derivatives are computed correctly... failed'
+  else
+     write(stderr, '(a)') 'First derivatives are computed correctly... passed'
+  end if
+
+  dx = 2. * acos(-1.) / (n - 1)
+  f = [(sin((i-1)*dx), i=1,n)]
   ! Second derivative
   expected = [(- sin((i-1)*dx), i=1,n)]
   df = diff2(f, dx)

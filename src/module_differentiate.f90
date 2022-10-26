@@ -18,6 +18,10 @@ module differentiate
        & + afix, &
        & + bfix &
        & ]
+  real, parameter :: neumann_odd_coeffs(8) = [ &
+       & 0., 0., 0., 0., &
+       & -afix, -bfix, afix, bfix &
+       & ]
   real, parameter :: alpha = 1. / 3.
 
   real, parameter :: asix = 12. / 11.
@@ -57,6 +61,16 @@ contains
          & east_stencils = reshape(dirichlet_stencils, [4, 2]) &
          & )
   end function dirichlet_differentiator
+
+    function neumann_odd_differentiator()
+    type(differentiator_type) :: neumann_odd_differentiator
+
+    neumann_odd_differentiator = differentiator_type( &
+         & east_coeffs = reshape(neumann_odd_coeffs, [4, 2]), &
+         & west_coeffs = reshape(neumann_odd_coeffs, [4, 2]), &
+         & east_stencils = reshape(dirichlet_stencils, [4, 2]) &
+         & )
+  end function neumann_odd_differentiator
 
   pure function diff(self, f, dx) result(df)
     class(differentiator_type), intent(in) :: self
