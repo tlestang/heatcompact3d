@@ -1,10 +1,12 @@
 program test_differentiate
   use iso_fortran_env, only: stderr => error_unit
-  use differentiate, only: diff, diff2
+  use differentiate, only: differentiator_type, &
+       & dirichlet_differentiator, diff2
   implicit none
 
   real :: f(20), df(20), expected(20)
   real, parameter :: tol = 0.1
+  type(differentiator_type) :: differentiator
   integer :: i, n
   logical :: allpass
   real :: dx
@@ -15,9 +17,10 @@ program test_differentiate
 
   allpass = .true.
 
-  ! First derivative
+  ! First derivative with dirichlet both ends
   expected = [(cos((i-1)*dx), i=1,n)]
-  df = diff(f, dx)
+  differentiator = dirichlet_differentiator()
+  df = differentiator%diff(f, dx)
   if (.not. all(abs(df - expected) < tol)) then
      allpass = .false.
      write(stderr, '(a)') 'First derivatives are computed correctly... failed'
