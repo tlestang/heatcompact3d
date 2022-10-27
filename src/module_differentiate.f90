@@ -11,7 +11,6 @@ module differentiate
      private
      real :: east_coeffs(4, 2)
      real :: east_coeffs2(4, 2)
-     real :: west_coeffs(4, 2)
      integer :: east_stencils(4, 2)
    contains
      procedure, public :: diff, diff2
@@ -27,7 +26,6 @@ contains
     dirichlet_differentiator = differentiator_type( &
          & east_coeffs = reshape(dirichlet_coeffs, [4, 2]), &
          & east_coeffs2 = reshape(dirichlet_2_coeffs, [4, 2]), &
-         & west_coeffs = reshape(dirichlet_coeffs, [4, 2]), &
          & east_stencils = reshape(dirichlet_stencils, [4, 2]) &
          & )
   end function dirichlet_differentiator
@@ -39,7 +37,6 @@ contains
     neumann_odd_differentiator = differentiator_type( &
          & east_coeffs = reshape(neumann_odd_coeffs, [4, 2]), &
          & east_coeffs2 = reshape(neumann_odd_coeffs, [4, 2]), &
-         & west_coeffs = reshape(neumann_odd_coeffs, [4, 2]), &
          & east_stencils = reshape(dirichlet_stencils, [4, 2]) &
          & )
   end function neumann_odd_differentiator
