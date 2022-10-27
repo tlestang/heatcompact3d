@@ -52,7 +52,7 @@ module differentiate
 
 contains
 
-  function dirichlet_differentiator()
+  pure function dirichlet_differentiator()
     type(differentiator_type) :: dirichlet_differentiator
 
     dirichlet_differentiator = differentiator_type( &
