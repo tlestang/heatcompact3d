@@ -56,31 +56,34 @@ contains
   end function is_equal
 
   pure function rhs(self)
-    use differentiate, only: diff2
+    use differentiate, only: differentiator_type, dirichlet_differentiator
 
     class(Field), intent(in) :: self
     real, allocatable :: ddx(:, :, :), ddy(:, :, :), ddz(:, :, :)
     type(Field) :: rhs
     integer :: ix, iy, iz
+    type(differentiator_type) :: differentiator
+
+    differentiator = dirichlet_differentiator()
 
     allocate(ddx, source=self%data)
     do iz = 1,self%nz()
        do iy = 1,self%ny()
-          ddx(:, iy, iz) = diff2(self%data(:, iy, iz), self%dx)
+          ddx(:, iy, iz) = differentiator%diff2(self%data(:, iy, iz), self%dx)
        end do
     end do
 
     allocate(ddy, source=self%data)
     do iz = 1,self%nz()
        do ix = 1,self%nx()
-          ddy(ix, :, iz) = diff2(self%data(ix, :, iz), self%dx)
+          ddy(ix, :, iz) = differentiator%diff2(self%data(ix, :, iz), self%dx)
        end do
     end do
 
     allocate(ddz, source=self%data)
     do iy = 1,self%ny()
        do ix = 1,self%nx()
-          ddz(ix, iy, :) = diff2(self%data(ix, iy, :), self%dx)
+          ddz(ix, iy, :) = differentiator%diff2(self%data(ix, iy, :), self%dx)
        end do
     end do
 
