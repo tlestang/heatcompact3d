@@ -2,43 +2,10 @@ module differentiate
   use thomas_module, only: thomas
   implicit none
 
-  real, parameter :: dirichlet_coeffs(8) = [ &
-       & -5. / 2., 2., 0.5, 0., &
-       & -3. / 4., 0., 3. / 4., 0. &
-       & ]
-  real, parameter :: dirichlet_coeffs2(8) = [ &
-       & 13., -27., 15., -1., &
-       & 6. / 5., -12. / 5., 6. / 5., 0. &
-       & ]
   integer, parameter :: dirichlet_stencils(8) = [ &
        & 1, 2, 3, 4, &
        & 1, 2, 3, 4 &
        & ]
-  real, parameter :: afix = (7. / 9.)
-  real, parameter :: bfix = (1. / 36.)
-  real, parameter :: sixth_order_compact(4) = [ &
-       - bfix, &
-       & - afix, &
-       & + afix, &
-       & + bfix &
-       & ]
-  real, parameter :: neumann_odd_coeffs(8) = [ &
-       & 0., 0., 0., 0., &
-       & -afix, -bfix, afix, bfix &
-       & ]
-  real, parameter :: alpha = 1. / 3.
-
-  real, parameter :: asix = 12. / 11.
-  real, parameter :: bsix = 3. / 44.
-  real, parameter :: sixth_order_compact2(5) = [ &
-       & bsix, &
-       & asix, &
-       & -2. * (asix + bsix), &
-       & asix, &
-       & bsix &
-       & ]
-  real, parameter :: alpha2 = 2. / 11.
-  real, parameter :: gamma = -1.
 
   type :: differentiator_type
      private
@@ -53,17 +20,20 @@ module differentiate
 contains
 
   pure function dirichlet_differentiator()
+    use coefficients_module, only: dirichlet_coeffs, &
+         & dirichlet_2_coeffs
     type(differentiator_type) :: dirichlet_differentiator
 
     dirichlet_differentiator = differentiator_type( &
          & east_coeffs = reshape(dirichlet_coeffs, [4, 2]), &
-         & east_coeffs2 = reshape(dirichlet_coeffs2, [4, 2]), &
+         & east_coeffs2 = reshape(dirichlet_2_coeffs, [4, 2]), &
          & west_coeffs = reshape(dirichlet_coeffs, [4, 2]), &
          & east_stencils = reshape(dirichlet_stencils, [4, 2]) &
          & )
   end function dirichlet_differentiator
 
   function neumann_odd_differentiator()
+    use coefficients_module, only: neumann_odd_coeffs
     type(differentiator_type) :: neumann_odd_differentiator
 
     neumann_odd_differentiator = differentiator_type( &
@@ -75,6 +45,7 @@ contains
   end function neumann_odd_differentiator
 
   pure function diff(self, f, dx) result(df)
+    use coefficients_module, only: sixth_order_compact_coeffs, alpha_coeffs
     class(differentiator_type), intent(in) :: self
     real, intent(in) :: f(:)
     real, intent(in) :: dx
@@ -89,7 +60,7 @@ contains
     rhs(2) = dot_product(f(self%east_stencils(:, 2)), self%east_coeffs(:, 2) / dx)
 
     nx = size(f)
-    w = sixth_order_compact / dx
+    w = sixth_order_compact_coeffs / dx
     do i=3,nx-2
        rhs(i) = dot_product(f([i-2, i-1, i+1, i+2]), w)
     end do
@@ -99,12 +70,13 @@ contains
     rhs(nx) = dot_product(f(west_stencils(:, 1)), - self%east_coeffs(:, 1) / dx)
 
     diag = [(1., i=1, nx)]
-    cs = [2., 1. / 4., (alpha, i=3, nx-2), 1. / 4., 0.]
-    as = [0., 1. / 4., (alpha, i=3, nx-2), 1. / 4., 2.]
+    cs = [2., 1. / 4., (alpha_coeffs, i=3, nx-2), 1. / 4., 0.]
+    as = [0., 1. / 4., (alpha_coeffs, i=3, nx-2), 1. / 4., 2.]
     df = thomas(as, diag, cs, rhs)
   end function diff
 
   pure function diff2(self, f, dx) result(ddf)
+    use coefficients_module, only: sixth_order_compact_2_coeffs, alpha_2_coeffs
     class(differentiator_type), intent(in) :: self
     real, intent(in) :: f(:)
     real, intent(in) :: dx
@@ -119,7 +91,7 @@ contains
     rhs(2) = dot_product(f(self%east_stencils(:, 2)), self%east_coeffs2(:, 2) / dx / dx)
 
     nx = size(f)
-    w = sixth_order_compact2 / dx / dx
+    w = sixth_order_compact_2_coeffs / dx / dx
     do i=3,nx-2
        rhs(i) = dot_product(f([i-2, i-1, i, i+1, i+2]), w)
     end do
@@ -129,8 +101,8 @@ contains
     rhs(nx) = dot_product(f(west_stencils(:, 1)), self%east_coeffs2(:, 1) / dx / dx)
 
     diag = [(1., i=1, nx)]
-    cs = [11., 1. / 10., (alpha2, i=3, nx-2), 1. / 10., 0.]
-    as = [0., 1. / 10., (alpha2, i=3, nx-2), 1. / 10., 11.]
+    cs = [11., 1. / 10., (alpha_2_coeffs, i=3, nx-2), 1. / 10., 0.]
+    as = [0., 1. / 10., (alpha_2_coeffs, i=3, nx-2), 1. / 10., 11.]
     ddf = thomas(as, diag, cs, rhs)
   end function diff2
 
