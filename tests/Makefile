@@ -1,3 +1,6 @@
+test_stencil: module_stencil.o test_stencil.o
+	gfortran -g -o test_stencil module_stencil.o test_stencil.o
+
 test_thomas:  module_thomas.o test_thomas.o
 	gfortran -g -o test_thomas module_thomas.o test_thomas.o
 
@@ -26,7 +29,9 @@ test_%.o : test_%.f90
 .PHONY: clean test
 clean:
 	rm *.o *.mod
-test: test_thomas test_differentiate test_field test_time_integration
+test: test_stencil test_thomas test_differentiate test_field test_time_integration
+	echo "-*-*-*- TESTING STENCIL MODULE -*-*-*-"
+	./test_stencil
 	echo "-*-*-*- TESTING THOMAS SOLVER MODULE -*-*-*-"
 	./test_thomas
 	echo "-*-*-*- TESTING SPATIAL DIFFERENTIATION MODULE -*-*-*-"
