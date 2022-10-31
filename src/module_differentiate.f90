@@ -6,17 +6,17 @@ module differentiate
 
   type :: differentiator_type
      private
-     type(stencil_type) :: east_stencils(2)
-     type(stencil_type) :: west_stencils(2)
      type(stencil_type) :: bulk_stencil
    contains
-     procedure, public :: diff
+     procedure, public :: diff => diff_periodic
   end type differentiator_type
 
-  type, extends(differentiator_type) :: periodic_differentiator_type
+  type, extends(differentiator_type) :: nonperiodic_differentiator_type
+     type(stencil_type) :: east_stencils(2)
+     type(stencil_type) :: west_stencils(2)
    contains
-     procedure, public :: diff => diff_periodic
-  end type periodic_differentiator_type
+     procedure, public :: diff => diff_nonperiodic
+  end type nonperiodic_differentiator_type
 
 contains
 
@@ -31,8 +31,8 @@ contains
          & )
   end function sixth_order_compact
 
-  pure function diff(self, f, dx) result(df)
-    class(differentiator_type), intent(in) :: self
+  pure function diff_nonperiodic(self, f, dx) result(df)
+    class(nonperiodic_differentiator_type), intent(in) :: self
     real, allocatable, intent(in) :: f(:)
     real, intent(in) :: dx
     real, allocatable :: df(:), rhs(:), diag(:), lower_diag(:), upper_diag(:)
@@ -77,7 +77,7 @@ contains
          & reverse(self%west_stencils%get_upper()) &
          ]
     df = thomas(lower_diag, diag, upper_diag, rhs)
-  end function diff
+  end function diff_nonperiodic
 
   pure function diff_periodic(self, f, dx) result(df)
     class(differentiator_type), intent(in) :: self
