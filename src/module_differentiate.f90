@@ -18,18 +18,29 @@ module differentiate
      procedure, public :: diff => diff_nonperiodic
   end type nonperiodic_differentiator_type
 
+  interface sixth_order_compact
+     module procedure :: sixth_order_compact_periodic
+     module procedure :: sixth_order_compact_nonperiodic
+  end interface sixth_order_compact
+
 contains
 
-  pure function sixth_order_compact(east, west)
+  pure function sixth_order_compact_nonperiodic(east, west)
     type(boundary_type), intent(in) :: east, west
-    type(differentiator_type) :: sixth_order_compact
-
-    sixth_order_compact = differentiator_type( &
+    type(nonperiodic_differentiator_type) :: sixth_order_compact_nonperiodic
+    sixth_order_compact_nonperiodic = nonperiodic_differentiator_type( &
          & east_stencils = east%first_order_east, &
          & west_stencils = west%first_order_west, &
          & bulk_stencil = sixth_order_compact_stencil &
          & )
-  end function sixth_order_compact
+  end function sixth_order_compact_nonperiodic
+
+  pure function sixth_order_compact_periodic()
+    type(differentiator_type) :: sixth_order_compact_periodic
+    sixth_order_compact_periodic = differentiator_type( &
+         & bulk_stencil = sixth_order_compact_stencil &
+         & )
+  end function sixth_order_compact_periodic
 
   pure function diff_nonperiodic(self, f, dx) result(df)
     class(nonperiodic_differentiator_type), intent(in) :: self
