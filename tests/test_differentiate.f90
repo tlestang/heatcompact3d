@@ -7,7 +7,7 @@ program test_differentiate
 
   real, allocatable :: f(:), df(:), expected(:)
   real, parameter :: tol = 0.1
-  type(differentiator_type) :: differentiator
+  class(differentiator_type), allocatable :: differentiator
   type(boundary_type) :: dirichlet
   integer :: i, n
   logical :: allpass
@@ -19,6 +19,17 @@ program test_differentiate
 
   allpass = .true.
 
+  ! First derivative with periodic boundary conditions
+  expected = [(cos((i-1)*dx), i=1,n)]
+  differentiator = sixth_order_compact()
+  df = differentiator%diff(f, dx)
+  if (.not. all(abs(df - expected) < tol)) then
+     allpass = .false.
+     write(stderr, '(a)') 'First derivatives (periodic) are computed correctly... failed'
+  else
+     write(stderr, '(a)') 'First derivatives (periodic) are computed correctly... passed'
+  end if
+  deallocate(differentiator)
   ! First derivative with dirichlet both ends
   expected = [(cos((i-1)*dx), i=1,n)]
   dirichlet = get_dirichlet_boundary()
@@ -29,9 +40,9 @@ program test_differentiate
   df = differentiator%diff(f, dx)
   if (.not. all(abs(df - expected) < tol)) then
      allpass = .false.
-     write(stderr, '(a)') 'First derivatives are computed correctly... failed'
+     write(stderr, '(a)') 'First derivatives (Dirichlet) are computed correctly... failed'
   else
-     write(stderr, '(a)') 'First derivatives are computed correctly... passed'
+     write(stderr, '(a)') 'First derivatives (Dirichlet) are computed correctly... passed'
   end if
 
   ! ! Second derivative
