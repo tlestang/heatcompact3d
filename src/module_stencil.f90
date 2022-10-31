@@ -2,11 +2,12 @@ module stencil
   implicit none
   type :: stencil_type
      integer :: nodes(4)
-     real :: coeffs(4)
+     real :: coeffs(4), lower, upper
    contains
      procedure, private :: stencil_mul_real
      procedure, public :: apply => apply_stencil
      procedure, public :: apply_along => apply_stencil_along
+     procedure, public :: get_upper, get_lower
      procedure, public :: flip, is_equal
      generic :: operator(*) => stencil_mul_real
   end type stencil_type
@@ -14,7 +15,9 @@ module stencil
   type(stencil_type), parameter :: sixth_order_compact_stencil = &
        stencil_type( &
        & nodes = [-2, -1, 1, 2], &
-       & coeffs = [- 1. / 36., - 7. / 9., + 7. / 9., + 1. / 36.] &
+       & coeffs = [- 1. / 36., - 7. / 9., + 7. / 9., + 1. / 36.], &
+       & upper = 1. / 3.,  &
+       & lower = 1. / 3. &
        & )
 
 contains
@@ -35,7 +38,8 @@ contains
     real, intent(in) :: a
     stencil_mul_real = stencil_type( &
          & nodes = self%nodes, &
-         & coeffs = a * self%coeffs &
+         & coeffs = a * self%coeffs, &
+         & lower = self%lower, upper = self%upper &
          & )
   end function stencil_mul_real
 
@@ -43,9 +47,20 @@ contains
     class(stencil_type), intent(in) :: self
     flip = stencil_type( &
          & nodes = - self%nodes, &
-         & coeffs = self%coeffs &
+         & coeffs = self%coeffs, &
+         & lower = self%lower, upper = self%upper &
          & )
   end function flip
+
+  pure elemental real function get_upper(self)
+    class(stencil_type), intent(in) :: self
+    get_upper = self%upper
+  end function get_upper
+
+  pure elemental real function get_lower(self)
+    class(stencil_type), intent(in) :: self
+    get_lower = self%lower
+  end function get_lower
 
   pure real function apply_stencil(self, f, ref)
     class(stencil_type), intent(in) :: self
@@ -96,19 +111,23 @@ contains
 
     first_order_east(1) = stencil_type( &
          & nodes = [0, 1, 2, 3], &
-         & coeffs = [-5. / 2., 2., 0.5, 0.] &
+         & coeffs = [-5. / 2., 2., 0.5, 0.], &
+         & lower = 0., upper = 2. &
          & )
     first_order_east(2) = stencil_type( &
          & nodes = [-1, 0, 1, 2], &
-         & coeffs = [-3. / 4., 0., 3. / 4., 0.] &
+         & coeffs = [-3. / 4., 0., 3. / 4., 0.], &
+         & lower = 1. / 4., upper = 1. / 4. &
          & )
     second_order_east(1) = stencil_type( &
          & nodes = [0, 1, 2, 3], &
-         & coeffs = [13., -27., 15., -1.] &
+         & coeffs = [13., -27., 15., -1.], &
+         & lower = 0., upper = 11. &
          & )
     second_order_east(2) = stencil_type( &
          & nodes = [-1, 0, 1, 2], &
-         & coeffs = [6. / 5., -12. / 5., 6. / 5., 0.] &
+         & coeffs = [6. / 5., -12. / 5., 6. / 5., 0.], &
+         & lower = 1. / 10., upper = 1. / 10. &
          & )
     first_order_west = first_order_east%flip() * (-1.)
     second_order_west = second_order_east%flip()

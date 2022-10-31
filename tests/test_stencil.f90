@@ -15,7 +15,7 @@ program test_stencil
   coeffs = [2., 1., 2., 1.]
   st = stencil_type( &
        & nodes = [-1, 0, 1, 2], &
-       & coeffs = coeffs &
+       & coeffs = coeffs, upper = 0., lower = 0. &
        & )
   f = [1., 2., 3., 4., 5., 6., 7., 8.]
 
@@ -42,7 +42,7 @@ program test_stencil
   st_res = st%flip()
   st_expected = stencil_type( &
        & nodes = [+1, 0, -1, -2], &
-       & coeffs = coeffs &
+       & coeffs = coeffs, upper = 0., lower = 0.&
        & )
   if (.not. st_expected%is_equal(st_res, tol)) then
      allpass = .false.
@@ -54,7 +54,7 @@ program test_stencil
   st_res = st * 1.3
   st_expected = stencil_type( &
        & nodes = [-1, 0, 1, 2], &
-       & coeffs = 1.3 * coeffs &
+       & coeffs = 1.3 * coeffs, upper = 0., lower = 0. &
        & )
   if (.not. st_expected%is_equal(st_res, tol)) then
      allpass = .false.
