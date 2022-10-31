@@ -80,12 +80,42 @@ contains
   end function diff
 
   pure function diff_periodic(self, f, dx) result(df)
-    class(periodic_differentiator_type), intent(in) :: self
+    class(differentiator_type), intent(in) :: self
     real, allocatable, intent(in) :: f(:)
     real, intent(in) :: dx
-    real, allocatable :: df(:), rhs(:), diag(:), as(:), cs(:)
+    real, allocatable :: df(:), rhs(:), diag(:), lower_diag(:), upper_diag(:)
+    real, allocatable :: u(:), v(:), q(:), y(:)
+    real :: gamma, up, low
+    integer :: nx, i
 
     rhs = self%bulk_stencil%apply_along(f)
+    rhs = rhs / dx
+    ! Solve quasi-tridiagonal system of equations using the
+    ! Shermann-Morrison formula
+    up = self%bulk_stencil%get_upper()
+    low = self%bulk_stencil%get_lower()
+    gamma = -1.
+    nx = size(f)
+    diag = [ &
+         & 1. - gamma, &
+         & (1., i=2, nx - 1), &
+         & 1. - (up * low) / gamma &
+         & ]
+    ! Both upper and lower diagonals are declared of size n = size(f)
+    ! instead of n-1, out of convenience. Components upper_diag(n) and
+    ! lower_diag(1) will not be accessed by the thomas solver as they
+    ! do not appear in the tridiagonal system.
+    nx = size(f)
+
+    lower_diag = [(low, i = 1, nx)]
+    upper_diag = [(up, i = 1, nx)]
+    u = [gamma, (0., i=2, nx-1), up]
+    v = [1., (0., i=2, nx-1), low / gamma]
+    q = thomas(lower_diag, diag, upper_diag, u)
+    y = thomas(lower_diag, diag, upper_diag, rhs)
+
+    df = y - ((y(1) - low * y(nx)) &
+         & / (1. + q(1) - low * q(nx))) * q
   end function diff_periodic
 
   pure function reverse(x)
