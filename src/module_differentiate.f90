@@ -35,7 +35,7 @@ contains
     class(differentiator_type), intent(in) :: self
     real, allocatable, intent(in) :: f(:)
     real, intent(in) :: dx
-    real, allocatable :: df(:), rhs(:), diag(:), as(:), cs(:)
+    real, allocatable :: df(:), rhs(:), diag(:), lower_diag(:), upper_diag(:)
     integer :: neast, nwest
     integer :: ref, i ! do loop counters
     type(stencil_type) :: sten
@@ -61,11 +61,22 @@ contains
 
     rhs = rhs / dx
     ! Solve tridiagonal system of equations
-    alpha_coeffs = 1. / 3.
     diag = [(1., i=1, size(f))]
-    cs = [2., 1. / 4., (alpha_coeffs, i=3, size(f)-2), 1. / 4., 0.]
-    as = [0., 1. / 4., (alpha_coeffs, i=3, size(f)-2), 1. / 4., 2.]
-    df = thomas(as, diag, cs, rhs)
+    ! Both upper and lower diagonals are declared of size n = size(f)
+    ! instead of n-1, out of convenience. Components upper_diag(n) and
+    ! lower_diag(1) will not be accessed by the thomas solver as they
+    ! do not appear in the tridiagonal system.
+    upper_diag = [ &
+         & self%east_stencils%get_upper(), &
+         & (self%bulk_stencil%get_upper(), i=neast + 1, size(f) - nwest), &
+         & reverse(self%west_stencils%get_upper()) &
+         ]
+    lower_diag = [ &
+         & self%east_stencils%get_upper(), &
+         & (self%bulk_stencil%get_lower(), i=neast + 1, size(f) - nwest), &
+         & reverse(self%west_stencils%get_upper()) &
+         ]
+    df = thomas(lower_diag, diag, upper_diag, rhs)
   end function diff
 
   pure function diff_periodic(self, f, dx) result(df)
@@ -76,5 +87,11 @@ contains
 
     rhs = self%bulk_stencil%apply_along(f)
   end function diff_periodic
+
+  pure function reverse(x)
+    real, intent(in) :: x(:)
+    real, allocatable :: reverse(:)
+    reverse = x(size(x):1:-1)
+  end function reverse
 
 end module differentiate
