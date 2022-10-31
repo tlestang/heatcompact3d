@@ -82,10 +82,10 @@ contains
     rpad = size(f) + maxval(self%nodes)
     allocate(f_padded(lpad:rpad))
     do i = lpad, 0
-       f_padded(i) = f(size(f) + i)
+       f_padded(i) = f(size(f) + i - 1)
     end do
     do i = size(f) + 1, rpad
-       f_padded(i) = f(i - size(f))
+       f_padded(i) = f(i - size(f) + 1)
     end do
     f_padded(1:size(f)) = f
     allocate(apply_stencil_along, source = f)
