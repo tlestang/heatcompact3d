@@ -67,7 +67,7 @@ contains
 
   pure function diff_nonperiodic(self, f, dx) result(df)
     class(nonperiodic_differentiator_type), intent(in) :: self
-    real, allocatable, intent(in) :: f(:)
+    real, intent(in) :: f(:)
     real, intent(in) :: dx
     real, allocatable :: df(:), rhs(:), diag(:), lower_diag(:), upper_diag(:)
     integer :: neast, nwest
@@ -115,7 +115,7 @@ contains
 
   pure function diff_periodic(self, f, dx) result(df)
     class(differentiator_type), intent(in) :: self
-    real, allocatable, intent(in) :: f(:)
+    real, intent(in) :: f(:)
     real, intent(in) :: dx
     real, allocatable :: df(:), rhs(:), diag(:), lower_diag(:), upper_diag(:)
     real, allocatable :: u(:), v(:), q(:), y(:)

@@ -57,7 +57,7 @@ contains
 
   pure real function apply_stencil(self, f, ref)
     class(stencil_type), intent(in) :: self
-    real, allocatable, intent(in) :: f(:)
+    real, intent(in) :: f(:)
     integer, intent(in) :: ref
     real, allocatable :: eval(:)
 
@@ -67,8 +67,8 @@ contains
 
   pure function apply_stencil_along(self, f)
     class(stencil_type), intent(in) :: self
-    real, allocatable, intent(in) :: f(:)
-    real, allocatable :: apply_stencil_along(:), f_padded(:)
+    real, intent(in) :: f(:)
+    real, allocatable :: apply_stencil_along(:), f_padded(:), eval(:)
     integer :: ref, i, lpad, rpad
 
     lpad = minval(self%nodes) + 1
@@ -83,7 +83,10 @@ contains
     f_padded(1:size(f)) = f
     allocate(apply_stencil_along, source = f)
     do ref = 1, size(f)
-       apply_stencil_along(ref) = self%apply(f_padded, ref)
+       ! Would be nice to reuse self%apply_stencil here but any
+       ! negative indices are lost when passing f_padded
+       eval = f_padded(self%nodes + ref)
+       apply_stencil_along(ref) = dot_product(eval, self%coeffs)
     end do
   end function apply_stencil_along
 
