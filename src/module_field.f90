@@ -56,34 +56,37 @@ contains
   end function is_equal
 
   pure function rhs(self)
-    use differentiate, only: differentiator_type, dirichlet_differentiator
+    use differentiate, only: differentiator_type, &
+       & sixth_order_compact, sixth_order_compact_2nd
 
     class(Field), intent(in) :: self
     real, allocatable :: ddx(:, :, :), ddy(:, :, :), ddz(:, :, :)
     type(Field) :: rhs
     integer :: ix, iy, iz
-    type(differentiator_type) :: differentiator
+    real :: dx2
+    class(differentiator_type), allocatable :: differ
 
-    differentiator = dirichlet_differentiator()
+    dx2 = self%dx * self%dx
+    differ = sixth_order_compact_2nd()
 
     allocate(ddx, source=self%data)
     do iz = 1,self%nz()
        do iy = 1,self%ny()
-          ddx(:, iy, iz) = differentiator%diff2(self%data(:, iy, iz), self%dx)
+          ddx(:, iy, iz) = differ%diff(self%data(:, iy, iz), dx2)
        end do
     end do
 
     allocate(ddy, source=self%data)
     do iz = 1,self%nz()
        do ix = 1,self%nx()
-          ddy(ix, :, iz) = differentiator%diff2(self%data(ix, :, iz), self%dx)
+          ddy(ix, :, iz) = differ%diff(self%data(ix, :, iz), dx2)
        end do
     end do
 
     allocate(ddz, source=self%data)
     do iy = 1,self%ny()
        do ix = 1,self%nx()
-          ddz(ix, iy, :) = differentiator%diff2(self%data(ix, iy, :), self%dx)
+          ddz(ix, iy, :) = differ%diff(self%data(ix, iy, :), dx2)
        end do
     end do
 
