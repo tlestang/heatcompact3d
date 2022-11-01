@@ -1,6 +1,7 @@
 module differentiate
-  use stencil, only: stencil_type, sixth_order_compact_stencil
-  use boundary_schemes, only: boundary_type
+  use stencil, only: stencil_type
+  use boundary_schemes, only: boundary_type, sixth_order_compact_stencil, &
+       & sixth_order_compact_second_stencil
   use thomas_module, only: thomas
   implicit none
 
@@ -31,14 +32,14 @@ contains
     sixth_order_compact_nonperiodic = nonperiodic_differentiator_type( &
          & east_stencils = east%first_order_east, &
          & west_stencils = west%first_order_west, &
-         & bulk_stencil = sixth_order_compact_stencil &
+         & bulk_stencil = sixth_order_compact_stencil() &
          & )
   end function sixth_order_compact_nonperiodic
 
   pure function sixth_order_compact_periodic()
     type(differentiator_type) :: sixth_order_compact_periodic
     sixth_order_compact_periodic = differentiator_type( &
-         & bulk_stencil = sixth_order_compact_stencil &
+         & bulk_stencil = sixth_order_compact_stencil() &
          & )
   end function sixth_order_compact_periodic
 
