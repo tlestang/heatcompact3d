@@ -16,12 +16,13 @@ test_differentiate: module_thomas.o module_stencil.o module_boundary_schemes.o \
                        module_boundary_schemes.o module_differentiate.o \
                        test_differentiate.o
 
-test_time_integration: module_thomas.o module_coefficients.o module_differentiate.o \
-                       module_field.o module_time_integration.o \
+test_time_integration: module_thomas.o module_stencil.o module_boundary_schemes.o \
+                       module_differentiate.o module_field.o module_time_integration.o \
                        test_time_integration.o
 	gfortran -g -o test_time_integration module_thomas.o \
-                    module_coefficients.o module_differentiate.o module_field.o \
-                    module_time_integration.o test_time_integration.o
+                    module_stencil.o module_boundary_schemes.o \
+                    module_differentiate.o module_field.o module_time_integration.o \
+                    test_time_integration.o
 
 module_%.o : ../src/module_%.f90
 	gfortran -g -c $< -o $@
