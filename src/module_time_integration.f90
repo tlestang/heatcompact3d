@@ -33,8 +33,14 @@ contains
 
     nt = floor((self%endtime - self%starttime) / self%dt)
     do i = 1, nt
-       afield = afield%rhs() *  self%alpha * self%dt + afield
+       afield = euler_timestep(afield, self%dt)
     end do
   end subroutine integrate_euler
 
+  pure function euler_timestep(afield, dt) result(res)
+    type(Field), intent(in) :: afield
+    real, intent(in) :: dt
+    type(Field) :: res
+    res = afield%rhs() *  dt + afield
+  end function euler_timestep
 end module time_integration
