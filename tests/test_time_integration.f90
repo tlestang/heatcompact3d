@@ -1,7 +1,7 @@
 program test_field
   use iso_fortran_env, only: stderr => error_unit
   use field_module, only: Field
-  use time_integration, only: euler_integrator_type
+  use time_integration, only: euler_integrator_type, AB2_integrator_type
   implicit none
 
   real :: u0(16, 16, 16)
@@ -9,8 +9,9 @@ program test_field
   real, parameter :: tol = 0.1
   integer :: i, j, k, nx, ny, nz
   logical :: allpass
-  real :: dx
+  real :: dx, dt, dt2, dt3
   type(euler_integrator_type) :: euler
+  type(AB2_integrator_type) :: AB2
 
   nx = size(u0, 1)
   ny = size(u0, 2)
@@ -29,6 +30,8 @@ program test_field
 
   allpass = .true.
   dt = 0.1
+  dt2 = dt * dt
+  dt3 = dt * dt * dt
 
   temp_field = Field(u0, dx)
   euler = euler_integrator_type(starttime=0., endtime=0.3, dt=dt)
@@ -41,6 +44,17 @@ program test_field
   else
      write(stderr, '(a)') 'Foward integration (Euler) is computed correctly... passed.'
   end if
+
+  temp_field = Field(u0, dx)
+  AB2 = AB2_integrator_type(starttime=0., endtime=0.3, dt=dt)
+  call AB2%integrate(temp_field)
+  expected = Field( &
+       & 0.25 * (-243.*dt3 + 144.*dt2 - 36.*dt + 4) * u0, dx)
+  if (.not. expected%is_equal(temp_field, tol)) then
+     write(stderr, '(a)') 'Foward integration (Adams-Bashforth 2) is computed correctly... failed.'
+     allpass = .false.
+  else
+     write(stderr, '(a)') 'Foward integration (Adams-Bashforth 2) is computed correctly... passed.'
   end if
 
   if (allpass) then
