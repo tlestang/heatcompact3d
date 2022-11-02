@@ -1,7 +1,8 @@
 program test_field
   use iso_fortran_env, only: stderr => error_unit
   use field_module, only: Field
-  use time_integration, only: euler_integrator_type, AB2_integrator_type
+  use time_integration, only: euler_integrator_type, AB2_integrator_type, &
+       & RK3_integrator_type
   implicit none
 
   real :: u0(16, 16, 16)
@@ -12,6 +13,7 @@ program test_field
   real :: dx, dt, dt2, dt3
   type(euler_integrator_type) :: euler
   type(AB2_integrator_type) :: AB2
+  type(RK3_integrator_type) :: RK3
 
   nx = size(u0, 1)
   ny = size(u0, 2)
@@ -55,6 +57,18 @@ program test_field
      allpass = .false.
   else
      write(stderr, '(a)') 'Foward integration (Adams-Bashforth 2) is computed correctly... passed.'
+  end if
+
+  temp_field = Field(u0, dx)
+  RK3 = RK3_integrator_type(starttime=0., endtime=0.2, dt=dt)
+  call RK3%integrate(temp_field)
+  expected = Field( &
+       &  (9.*dt3 - 9.*dt2 + 6.*dt - 2)**2 * u0 / 4., dx)
+  if (.not. expected%is_equal(temp_field, tol)) then
+     write(stderr, '(a)') 'Foward integration (Runge-Kutta 3) is computed correctly... failed.'
+     allpass = .false.
+  else
+     write(stderr, '(a)') 'Foward integration (Runge-Kutta 3) is computed correctly... passed.'
   end if
 
   if (allpass) then
