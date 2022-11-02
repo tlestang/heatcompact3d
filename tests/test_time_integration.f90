@@ -28,17 +28,19 @@ program test_field
   end do
 
   allpass = .true.
+  dt = 0.1
 
   temp_field = Field(u0, dx)
-  euler = euler_integrator_type(starttime=0., endtime=0.5, dt=0.1)
+  euler = euler_integrator_type(starttime=0., endtime=0.3, dt=dt)
   call euler%integrate(temp_field)
   expected = Field( &
-       & (1. - 3. * 0.1) ** 5 * u0, dx)
+       & (1. - 3. * dt) ** 3 * u0, dx)
   if (.not. expected%is_equal(temp_field, tol)) then
-     write(stderr, '(a)') 'Foward integration is computed correctly... failed.'
+     write(stderr, '(a)') 'Foward integration (Euler) is computed correctly... failed.'
      allpass = .false.
   else
-     write(stderr, '(a)') 'Foward integration is computed correctly... passed.'
+     write(stderr, '(a)') 'Foward integration (Euler) is computed correctly... passed.'
+  end if
   end if
 
   if (allpass) then

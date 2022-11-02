@@ -31,7 +31,7 @@ contains
     integer :: nt
     integer :: i
 
-    nt = floor((self%endtime - self%starttime) / self%dt) - 1
+    nt = floor((self%endtime - self%starttime) / self%dt)
     do i = 1, nt
        afield = afield%rhs() *  self%alpha * self%dt + afield
     end do
