@@ -20,6 +20,11 @@ module time_integration
      procedure :: integrate => integrate_AB2
   end type AB2_integrator_type
 
+  type, extends(integrator_type) :: RK3_integrator_type
+   contains
+     procedure :: integrate => integrate_RK3
+  end type RK3_integrator_type
+
   abstract interface
      subroutine integrate_proc(self, afield)
        import integrator_type, Field
@@ -57,6 +62,24 @@ contains
     end do
     afield = fields(2)
   end subroutine integrate_AB2
+
+  subroutine integrate_RK3(self, afield)
+    class(RK3_integrator_type), intent(in) :: self
+    type(Field), intent(inout) :: afield
+    type(Field) :: afield2
+    integer :: nt, i
+
+    nt = floor((self%endtime - self%starttime) / self%dt)
+    do i = 1, nt
+       ! First fractional step is Euler like
+       afield2 = afield%rhs() * (8. / 15.) * self%dt + afield
+       ! Second and third steps are AB2 like
+       afield = afield2%rhs() * (5. / 12.) * self%dt &
+            & + afield%rhs() * (- 17. / 60.) * self%dt + afield2
+       afield = afield%rhs() * (3. / 4.) * self%dt &
+            & + afield2%rhs() * (- 5. / 12.) * self%dt + afield
+    end do
+  end subroutine integrate_RK3
 
   pure function euler_timestep(afield, dt) result(res)
     type(Field), intent(in) :: afield
