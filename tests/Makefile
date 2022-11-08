@@ -33,13 +33,8 @@ test_%.o : test_%.f90
 clean:
 	rm *.o *.mod
 test: test_stencil test_thomas test_differentiate test_field test_time_integration
-	echo "-*-*-*- TESTING STENCIL MODULE -*-*-*-"
 	./test_stencil
-	echo "-*-*-*- TESTING THOMAS SOLVER MODULE -*-*-*-"
 	./test_thomas
-	echo "-*-*-*- TESTING SPATIAL DIFFERENTIATION MODULE -*-*-*-"
 	./test_differentiate
-	echo "-*-*-*- TESTING FIELD MODULE -*-*-*-"
 	./test_field
-	echo "-*-*-*- TESTING TIME INTEGRATION MODULE -*-*-*-"
 	./test_time_integration
