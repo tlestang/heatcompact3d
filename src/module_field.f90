@@ -14,8 +14,7 @@ module field_module
      !! Discrete mesh spacing
    contains
      procedure, public :: nx, ny, nz
-     procedure, public :: is_equal
-     procedure, public :: rhs
+     procedure, public :: is_equal, rhs, dump
      procedure, private :: field_add_field, field_sub_field, &
           & field_mul_real
      generic :: operator(+) => field_add_field
@@ -71,6 +70,26 @@ contains
     elmt_is_equal = abs(self%data - lhs%data) < tol
     is_equal = all(elmt_is_equal)
   end function is_equal
+
+  subroutine dump(self, file_path, fmt)
+    !! Write field data to ASCII file
+    class(field), intent(in) :: self
+    character(*), intent(in) :: file_path
+    !! Relative path to file to output file
+    character(*), optional :: fmt
+    !! Format string
+    integer :: fileunit, i, j, k
+    if(.not. present(fmt)) fmt = 'f8.1'
+
+    open(newunit=fileunit, file=file_path, action='write')
+    do k = 1, size(self%data, 3)
+       do j = 1, size(self%data, 2)
+          do i = 1, size(self%data, 1)
+             write(fileunit, fmt) self%data(i, j, k)
+          end do
+       end do
+    end do
+  end subroutine dump
 
   pure function rhs(self)
     !! Evaluates right hand side of heat equation on a field instance.
