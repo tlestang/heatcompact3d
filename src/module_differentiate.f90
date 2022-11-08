@@ -6,8 +6,24 @@ module differentiate
   implicit none
 
   type :: differentiator_type
+     !! Abstract derived type describing a differentiator. Instances
+     !! of extended type provide a type bound method `diff` that
+     !! applies a differentiation stencil along a one dimensional
+     !! array (sometime called pencil).
+     !!
+     !! \[g_i = \frac{(af_{i-2} + bf_{i-1} + cf_{i+1} +
+     !! df_{i+2})}{dx}, \forall i=1,n\],
+     !!
+     !! ```
+     !! real :: f(*)
+     !! real, allocatable :: df
+     !! type(differentiator_type) :: differ
+     !!
+     !! differ = sixth_order_compact()
+     !! df = differ%diff(f, dx)
+     !! ```
      private
-     type(stencil_type) :: bulk_stencil
+     type(stencil_type) :: bulk_stencil !! Differentiation stencil
    contains
      procedure, public :: diff => diff_periodic
   end type differentiator_type
