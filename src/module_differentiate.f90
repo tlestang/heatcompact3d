@@ -1,4 +1,34 @@
 module differentiate
+  !! This module implements differentiation over a one dimensional
+  !! pencil.  It exports concrete derived types
+  !!
+  !! - `differentiator_type` :: periodic differentiation
+  !! - `nonperiodic_differentiator_type` :: non periodic differentiation
+  !!
+  !! Both types provide access to a single type-procedure `diff` that
+  !! performs the differentiation and return the derivative evaluated
+  !! over the input pencil.
+  !!
+  !! Instances of differentiator derived types are created on the
+  !! client side via constructor procedures `<method>_<order>`
+  !! (e.g. `sixth_order_compact_1`). These constructor procedures are
+  !! implemented as a generic interface to concrete constructors for
+  !! the periodic case (no boundary conditions are specified) or the
+  !! noneriodic case (boundary conditions are specified). See module
+  !! `boundary_schemes`.
+  !!
+  !! ```
+  !! use boundary_schemes, only:: get_dirichlet_4th
+  !! real :: f(:), df(:), dx
+  !! ! ...
+  !! ! ...
+  !! differentiatior = sixth_order_compact_1( &
+  !!      & east = get_dirichlet_4th(), &
+  !!      & west = get_dirichlet_4th(), &
+  !!      & )
+  !! df = differentiatior%diff(f, dx)
+  !! ```
+
   use stencil, only: stencil_type
   use boundary_schemes, only: boundary_type, sixth_order_compact_stencil, &
        & sixth_order_compact_second_stencil
