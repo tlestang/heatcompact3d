@@ -1,12 +1,12 @@
 program test_field
   use iso_fortran_env, only: stderr => error_unit
-  use field_module, only: Field
+  use field_module, only: field_type
   use time_integration, only: euler_integrator_type, AB2_integrator_type, &
        & RK3_integrator_type
   implicit none
 
   real :: u0(16, 16, 16)
-  type(Field) :: temp_field, expected
+  type(field_type) :: temp_field, expected
   real, parameter :: tol = 0.1
   integer :: i, j, k, nx, ny, nz
   logical :: allpass
@@ -35,10 +35,10 @@ program test_field
   dt2 = dt * dt
   dt3 = dt * dt * dt
 
-  temp_field = Field(u0, dx)
+  temp_field = field_type(u0, dx)
   euler = euler_integrator_type(starttime=0., endtime=0.3, dt=dt)
   call euler%integrate(temp_field)
-  expected = Field( &
+  expected = field_type( &
        & (1. - 3. * dt) ** 3 * u0, dx)
   if (.not. expected%is_equal(temp_field, tol)) then
      write(stderr, '(a)') 'Foward integration (Euler) is computed correctly... failed.'
@@ -47,10 +47,10 @@ program test_field
      write(stderr, '(a)') 'Foward integration (Euler) is computed correctly... passed.'
   end if
 
-  temp_field = Field(u0, dx)
+  temp_field = field_type(u0, dx)
   AB2 = AB2_integrator_type(starttime=0., endtime=0.3, dt=dt)
   call AB2%integrate(temp_field)
-  expected = Field( &
+  expected = field_type( &
        & 0.25 * (-243.*dt3 + 144.*dt2 - 36.*dt + 4) * u0, dx)
   if (.not. expected%is_equal(temp_field, tol)) then
      write(stderr, '(a)') 'Foward integration (Adams-Bashforth 2) is computed correctly... failed.'
@@ -59,10 +59,10 @@ program test_field
      write(stderr, '(a)') 'Foward integration (Adams-Bashforth 2) is computed correctly... passed.'
   end if
 
-  temp_field = Field(u0, dx)
+  temp_field = field_type(u0, dx)
   RK3 = RK3_integrator_type(starttime=0., endtime=0.2, dt=dt)
   call RK3%integrate(temp_field)
-  expected = Field( &
+  expected = field_type( &
        &  (9.*dt3 - 9.*dt2 + 6.*dt - 2)**2 * u0 / 4., dx)
   if (.not. expected%is_equal(temp_field, tol)) then
      write(stderr, '(a)') 'Foward integration (Runge-Kutta 3) is computed correctly... failed.'

@@ -1,5 +1,5 @@
 module time_integration
-  use field_module, only: Field
+  use field_module, only: field_type
   implicit none
 
   type, abstract :: integrator_type
@@ -27,9 +27,9 @@ module time_integration
 
   abstract interface
      subroutine integrate_proc(self, afield)
-       import integrator_type, Field
+       import integrator_type, field_type
        class(integrator_type), intent(in) :: self
-       type(Field), intent(inout) :: afield
+       type(field_type), intent(inout) :: afield
      end subroutine integrate_proc
   end interface
 
@@ -37,7 +37,7 @@ contains
 
   subroutine integrate_euler(self, afield)
     class(euler_integrator_type), intent(in) :: self
-    type(Field), intent(inout) :: afield
+    type(field_type), intent(inout) :: afield
     integer :: nt
     integer :: i
 
@@ -49,8 +49,8 @@ contains
 
   subroutine integrate_AB2(self, afield)
     class(AB2_integrator_type), intent(in) :: self
-    type(Field), intent(inout) :: afield
-    type(Field) :: fields(2)
+    type(field_type), intent(inout) :: afield
+    type(field_type) :: fields(2)
     integer :: nt
     integer :: i
 
@@ -65,8 +65,8 @@ contains
 
   subroutine integrate_RK3(self, afield)
     class(RK3_integrator_type), intent(in) :: self
-    type(Field), intent(inout) :: afield
-    type(Field) :: afield2
+    type(field_type), intent(inout) :: afield
+    type(field_type) :: afield2
     integer :: nt, i
 
     nt = floor((self%endtime - self%starttime) / self%dt)
@@ -82,17 +82,17 @@ contains
   end subroutine integrate_RK3
 
   pure function euler_timestep(afield, dt) result(res)
-    type(Field), intent(in) :: afield
+    type(field_type), intent(in) :: afield
     real, intent(in) :: dt
-    type(Field) :: res
+    type(field_type) :: res
     res = afield%rhs() *  dt + afield
   end function euler_timestep
 
   pure function AB2_timestep(fields, dt) result(res)
-    type(Field), intent(in) :: fields(2)
+    type(field_type), intent(in) :: fields(2)
     real, intent(in) :: dt
-    type(Field) :: res(2)
-    type(Field) :: f1, f2
+    type(field_type) :: res(2)
+    type(field_type) :: f1, f2
 
     f1 = fields(1)
     f2 = fields(2)
