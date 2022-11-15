@@ -36,22 +36,9 @@ module differentiate
   implicit none
 
   type :: differentiator_type
-     !! Abstract derived type describing a differentiator. Instances
-     !! of extended type provide a type bound method `diff` that
-     !! applies a differentiation stencil along a one dimensional
-     !! array (sometime called pencil).
-     !!
-     !! \[g_i = \frac{(af_{i-2} + bf_{i-1} + cf_{i+1} +
-     !! df_{i+2})}{dx}, \forall i=1,n\],
-     !!
-     !! ```
-     !! real :: f(*)
-     !! real, allocatable :: df
-     !! type(differentiator_type) :: differ
-     !!
-     !! differ = sixth_order_compact()
-     !! df = differ%diff(f, dx)
-     !! ```
+     !! Implements differentiation over a periodic stencil.
+     !! `differentiator_type` provides access a a unique type-bound
+     !! procedure `diff`
      private
      type(stencil_type) :: bulk_stencil !! Differentiation stencil
    contains
@@ -112,6 +99,10 @@ contains
   end function sixth_order_compact_periodic_2nd
 
   pure function diff_nonperiodic(self, f, dx) result(df)
+    !! Apply a differentiation stencil along a one dimensional pencil,
+    !! then apply boundary conditions on both ends. Boundary
+    !! conditions are applied as arrays of type `stencil_type`
+
     class(nonperiodic_differentiator_type), intent(in) :: self
     real, intent(in) :: f(:)
     real, intent(in) :: dx
@@ -160,10 +151,27 @@ contains
   end function diff_nonperiodic
 
   pure function diff_periodic(self, f, dx) result(df)
+    !! Apply a differentiation stencil along a one dimensional pencil,
+    !! assuming periodic boundaries. For instance, with a four point
+    !! stencil \(s = (-2, -1, 1, 2)\) and weights \({g_{i}}_{1 \leq i
+    !! \leq 4}\)
+    !!
+    !! \[ g(1) = g_1f_{n-2} + g_2f_{n-1} + g_3f_{2} + g_4f_{3} \]
+    !! \[ g(2) = g_1f_{n-1} + g_2f_{1} + g_3f_{3} + g_4f_{4} \]
+    !!
+    !! \[ g(i) = g_1f_{i-2} + g_2f_{i-1} + g_3f_{i+1} + g_4f_{i+2}, i = 3, n-2\]
+    !!
+    !! \[ g(n-1) = g_1f_{n-3} + g_2f_{n-2} + g_3f_{n} + g_4f_{2} \]
+    !! \[ g(n) = g_1f_{n-2} + g_2f_{n-1} + g_3f_{2} + g_4f_{3} \]
     class(differentiator_type), intent(in) :: self
     real, intent(in) :: f(:)
+    !! Function to be derive, evaluated on pencil
+    real, allocatable :: df(:)
+    !! Derivative, evaluated on pencil
     real, intent(in) :: dx
-    real, allocatable :: df(:), rhs(:), diag(:), lower_diag(:), upper_diag(:)
+    !! Step size
+
+    real, allocatable :: rhs(:), diag(:), lower_diag(:), upper_diag(:)
     real, allocatable :: u(:), v(:), q(:), y(:)
     real :: gamma, up, low
     integer :: nx, i
