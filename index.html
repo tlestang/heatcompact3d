@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Documentation for heatcompact3d">
+    <meta name="author" content="Thibault Lestang" >
+    <link rel="icon" href="./favicon.png">
+
+    <title> heatcompact3d </title>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/pygments.css" rel="stylesheet">
+    <link href="./css/font-awesome.min.css" rel="stylesheet">
+    <link href="./css/local.css" rel="stylesheet">
+    <link  href="./tipuesearch/tipuesearch.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="./js/jquery-2.1.3.min.js"></script>
+    <script src="./js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.html">heatcompact3d </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="./lists/files.html">Source Files</a></li>
+            <li><a href="./lists/modules.html">Modules</a></li>
+            <li><a href="./lists/procedures.html">Procedures</a></li>
+            <li><a href="./lists/absint.html">Abstract Interfaces</a></li>
+                   <li><a href="./lists/types.html">Derived Types</a></li>
+       
+            </ul>
+        
+            </li>
+<li class="visible-xs hidden-sm visible-lg"><a href="./lists/files.html">Source Files</a></li>
+<li class="visible-xs hidden-sm visible-lg"><a href="./lists/modules.html">Modules</a></li>
+<li class="visible-xs hidden-sm visible-lg"><a href="./lists/procedures.html">Procedures</a></li>
+<li class="visible-xs hidden-sm visible-lg"><a href="./lists/absint.html">Abstract Interfaces</a></li>
+                             <li class="visible-xs hidden-sm visible-lg"><a href="./lists/types.html">Derived Types</a></li>
+          </ul>
+        <form action="./search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        
+        </p>
+      </div>
+
+      <div class="row" id='text'>
+        <div class="col-md-8">
+          <h1>heatcompact3d</h1>
+          <p>A 3D heat equation solver based on 6th order compact finite
+differences schemes.</p>
+        </div>
+        <div class="col-md-4">
+	  <div class="well">
+          <h2>Developer Info</h2>
+          <h4>Thibault Lestang</h4>
+          
+       </div>
+       </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-3">
+              <h3>Source Files</h3>
+              <ul>                    <li><a href='./sourcefile/module_boundary_schemes.f90.html'>module_boundary_schemes.f90</a></li>
+                    <li><a href='./sourcefile/module_differentiate.f90.html'>module_differentiate.f90</a></li>
+                    <li><a href='./sourcefile/module_field.f90.html'>module_field.f90</a></li>
+                    <li><a href='./sourcefile/module_stencil.f90.html'>module_stencil.f90</a></li>
+                    <li><a href='./sourcefile/module_thomas.f90.html'>module_thomas.f90</a></li>
+                    <li><a href='./sourcefile/module_time_integration.f90.html'>module_time_integration.f90</a></li>
+</ul>
+          </div>
+		  <div class="col-xs-6 col-sm-3">
+              <h3>Modules</h3>
+              <ul>                    <li><a href='./module/boundary_schemes.html'>boundary_schemes</a></li>
+                    <li><a href='./module/differentiate.html'>differentiate</a></li>
+                    <li><a href='./module/field_module.html'>field_module</a></li>
+                    <li><a href='./module/stencil.html'>stencil</a></li>
+                    <li><a href='./module/thomas_module.html'>thomas_module</a></li>
+                    <li><a href='./module/time_integration.html'>time_integration</a></li>
+</ul>
+          </div>
+		  <div class="col-xs-6 col-sm-3">
+              <h3>Procedures</h3>
+              <ul>                    <li><a href='./proc/ab2_timestep.html'>AB2_timestep</a></li>
+                    <li><a href='./proc/apply_stencil.html'>apply_stencil</a></li>
+                    <li><a href='./proc/apply_stencil_along.html'>apply_stencil_along</a></li>
+                    <li><a href='./proc/diff_nonperiodic.html'>diff_nonperiodic</a></li>
+                    <li><a href='./proc/diff_periodic.html'>diff_periodic</a></li>
+                    <li><a href='./proc/dump.html'>dump</a></li>
+                    <li><a href='./proc/euler_timestep.html'>euler_timestep</a></li>
+                    <li><a href='./proc/field_add_field.html'>field_add_field</a></li>
+                    <li><a href='./proc/field_constructor.html'>field_constructor</a></li>
+                    <li><a href='./proc/field_mul_real.html'>field_mul_real</a></li>
+</ul>
+          </div>
+		  <div class="col-xs-6 col-sm-3">
+              <h3>Derived Types</h3>
+              <ul>                    <li><a href='./type/ab2_integrator_type.html'>AB2_integrator_type</a></li>
+                    <li><a href='./type/boundary_type.html'>boundary_type</a></li>
+                    <li><a href='./type/differentiator_type.html'>differentiator_type</a></li>
+                    <li><a href='./type/euler_integrator_type.html'>euler_integrator_type</a></li>
+                    <li><a href='./type/field_type.html'>field_type</a></li>
+                    <li><a href='./type/integrator_type.html'>integrator_type</a></li>
+                    <li><a href='./type/nonperiodic_differentiator_type.html'>nonperiodic_differentiator_type</a></li>
+                    <li><a href='./type/rk3_integrator_type.html'>RK3_integrator_type</a></li>
+                    <li><a href='./type/stencil_type.html'>stencil_type</a></li>
+</ul>
+          </div>
+      </div>
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-6"><p>heatcompact3d was developed by Thibault Lestang<br>&copy; 2022 
+</p>
+        </div>
+        <div class="col-xs-6 col-md-6">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+          </p>
+        </div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="./js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script src="./tipuesearch/tipuesearch_content.js"></script>
+    <script src="./tipuesearch/tipuesearch_set.js"></script>
+    <script src="./tipuesearch/tipuesearch.js"></script>
+    
+  </body>
+</html>
