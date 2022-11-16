@@ -17,6 +17,12 @@ call AB2%integrate(temp_field)
 temp_field%dump("output.dat")
 ```
 
+## Running the unit tests
+
+```
+make - C tests/ test
+```
+
 ## Layout
 
 ### High-level structure
