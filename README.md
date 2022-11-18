@@ -23,6 +23,31 @@ temp_field%dump("output.dat")
 make - C tests/ test
 ```
 
+## Generating and viewing the documentation
+
+The documentation is generated using
+[ford](https://forddocs.readthedocs.io/en/latest/). It is deployed
+automatically from the `main` branch at
+[https://tlestang.github.io/heatcompact3d/](tlestang.github.io/heatcompact3d/).
+
+To preview the docs locally, you'll need `ford`:
+
+```bash
+pip install --user ford
+```
+
+Then, from the root of the repository:
+
+```bash
+ford heatcompact3d.md
+```
+
+You can then view the documentation in your browser, for instance:
+
+```bash
+firefox doc/index.html
+```
+
 ## Layout
 
 ### High-level structure
