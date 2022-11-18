@@ -1,7 +1,7 @@
 program test_differentiate
   use iso_fortran_env, only: stderr => error_unit
   use differentiate, only: differentiator_type, &
-       & sixth_order_compact, sixth_order_compact_2nd
+       & sixth_order_compact_1, sixth_order_compact_2
   use boundary_schemes, only: boundary_type, get_dirichlet_boundary
   implicit none
 
@@ -21,7 +21,7 @@ program test_differentiate
 
   ! First derivative with periodic boundary conditions
   expected = [(cos((i-1)*dx), i=1,n)]
-  differentiator = sixth_order_compact()
+  differentiator = sixth_order_compact_1()
   df = differentiator%diff(f, dx)
   if (.not. all(abs(df - expected) < tol)) then
      allpass = .false.
@@ -34,7 +34,7 @@ program test_differentiate
   ! First derivative with dirichlet both ends
   expected = [(cos((i-1)*dx), i=1,n)]
   dirichlet = get_dirichlet_boundary()
-  differentiator = sixth_order_compact( &
+  differentiator = sixth_order_compact_1( &
        & east = dirichlet, &
        & west = dirichlet &
        & )
@@ -49,7 +49,7 @@ program test_differentiate
 
   ! Second derivative with periodic boundary conditions
   expected = [(- sin((i-1)*dx), i=1, n)]
-  differentiator = sixth_order_compact_2nd()
+  differentiator = sixth_order_compact_2()
   df = differentiator%diff(f, dx * dx)
   if (.not. all(abs(df - expected) < tol)) then
      allpass = .false.

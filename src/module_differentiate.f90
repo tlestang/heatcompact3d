@@ -52,51 +52,51 @@ module differentiate
      procedure, public :: diff => diff_nonperiodic
   end type nonperiodic_differentiator_type
 
-  interface sixth_order_compact
-     module procedure :: sixth_order_compact_periodic
-     module procedure :: sixth_order_compact_nonperiodic
-  end interface sixth_order_compact
+  interface sixth_order_compact_1
+     module procedure :: sixth_order_compact_1_periodic
+     module procedure :: sixth_order_compact_1_nonperiodic
+  end interface sixth_order_compact_1
 
-  interface sixth_order_compact_2nd
-     module procedure :: sixth_order_compact_periodic_2nd
-     module procedure :: sixth_order_compact_nonperiodic_2nd
-  end interface sixth_order_compact_2nd
+  interface sixth_order_compact_2
+     module procedure :: sixth_order_compact_2_periodic
+     module procedure :: sixth_order_compact_2_nonperiodic
+  end interface sixth_order_compact_2
 
 contains
 
-  pure function sixth_order_compact_nonperiodic(east, west)
+  pure function sixth_order_compact_1_nonperiodic(east, west)
     type(boundary_type), intent(in) :: east, west
-    type(nonperiodic_differentiator_type) :: sixth_order_compact_nonperiodic
-    sixth_order_compact_nonperiodic = nonperiodic_differentiator_type( &
+    type(nonperiodic_differentiator_type) :: sixth_order_compact_1_nonperiodic
+    sixth_order_compact_1_nonperiodic = nonperiodic_differentiator_type( &
          & east_stencils = east%first_order_east, &
          & west_stencils = west%first_order_west, &
          & bulk_stencil = sixth_order_compact_stencil() &
          & )
-  end function sixth_order_compact_nonperiodic
+  end function sixth_order_compact_1_nonperiodic
 
-  pure function sixth_order_compact_periodic()
-    type(differentiator_type) :: sixth_order_compact_periodic
-    sixth_order_compact_periodic = differentiator_type( &
+  pure function sixth_order_compact_1_periodic()
+    type(differentiator_type) :: sixth_order_compact_1_periodic
+    sixth_order_compact_1_periodic = differentiator_type( &
          & bulk_stencil = sixth_order_compact_stencil() &
          & )
-  end function sixth_order_compact_periodic
+  end function sixth_order_compact_1_periodic
 
-  pure function sixth_order_compact_nonperiodic_2nd(east, west)
+  pure function sixth_order_compact_2_nonperiodic(east, west)
     type(boundary_type), intent(in) :: east, west
-    type(nonperiodic_differentiator_type) :: sixth_order_compact_nonperiodic_2nd
-    sixth_order_compact_nonperiodic_2nd = nonperiodic_differentiator_type( &
+    type(nonperiodic_differentiator_type) :: sixth_order_compact_2_nonperiodic
+    sixth_order_compact_2_nonperiodic = nonperiodic_differentiator_type( &
          & east_stencils = east%second_order_east, &
          & west_stencils = west%second_order_west, &
          & bulk_stencil = sixth_order_compact_second_stencil() &
          & )
-  end function sixth_order_compact_nonperiodic_2nd
+  end function sixth_order_compact_2_nonperiodic
 
-  pure function sixth_order_compact_periodic_2nd()
-    type(differentiator_type) :: sixth_order_compact_periodic_2nd
-    sixth_order_compact_periodic_2nd = differentiator_type( &
+  pure function sixth_order_compact_2_periodic()
+    type(differentiator_type) :: sixth_order_compact_2_periodic
+    sixth_order_compact_2_periodic = differentiator_type( &
          & bulk_stencil = sixth_order_compact_second_stencil() &
          & )
-  end function sixth_order_compact_periodic_2nd
+  end function sixth_order_compact_2_periodic
 
   pure function diff_nonperiodic(self, f, dx) result(df)
     !! Apply a differentiation stencil along a one dimensional pencil,
