@@ -1,34 +1,34 @@
-module time_integration
-  use field_module, only: field_type
+module time_integrator
+  use field, only: field_type
   implicit none
 
-  type, abstract :: integrator_type
+  type, abstract :: time_integrator_type
      real :: starttime, endtime, dt
    contains
      procedure(integrate_proc), public, &
           & deferred :: integrate
-  end type integrator_type
+  end type time_integrator_type
 
-  type, extends(integrator_type) :: euler_integrator_type
+  type, extends(time_integrator_type) :: euler_integrator_type
      real :: alpha = 1.
    contains
      procedure :: integrate => integrate_euler
   end type euler_integrator_type
 
-  type, extends(integrator_type) :: AB2_integrator_type
+  type, extends(time_integrator_type) :: AB2_integrator_type
    contains
      procedure :: integrate => integrate_AB2
   end type AB2_integrator_type
 
-  type, extends(integrator_type) :: RK3_integrator_type
+  type, extends(time_integrator_type) :: RK3_integrator_type
    contains
      procedure :: integrate => integrate_RK3
   end type RK3_integrator_type
 
   abstract interface
      subroutine integrate_proc(self, afield)
-       import integrator_type, field_type
-       class(integrator_type), intent(in) :: self
+       import time_integrator_type, field_type
+       class(time_integrator_type), intent(in) :: self
        type(field_type), intent(inout) :: afield
      end subroutine integrate_proc
   end interface
@@ -100,4 +100,4 @@ contains
     res(1) = f2
   end function AB2_timestep
 
-end module time_integration
+end module time_integrator

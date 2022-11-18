@@ -84,7 +84,7 @@
 			 <table class="table table-striped">
 			 <thead><tr><th>Procedure</th><th>Location</th><th>Procedure Type</th><th>Description</th></tr></thead>
 			 <tbody>
-			   <tr><td><a href='../proc/ab2_timestep.html'>AB2_timestep</a></td><td><a href='../module/time_integration.html'>time_integration</a></td><td>Function</td><td></td></tr>
+			   <tr><td><a href='../proc/ab2_timestep.html'>AB2_timestep</a></td><td><a href='../module/time_integrator.html'>time_integrator</a></td><td>Function</td><td></td></tr>
 			   <tr><td><a href='../proc/apply_stencil.html'>apply_stencil</a></td><td><a href='../module/stencil.html'>stencil</a></td><td>Function</td><td></td></tr>
 			   <tr><td><a href='../proc/apply_stencil_along.html'>apply_stencil_along</a></td><td><a href='../module/stencil.html'>stencil</a></td><td>Function</td><td></td></tr>
 			   <tr><td><a href='../proc/diff_nonperiodic.html'>diff_nonperiodic</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Function</td><td><p>Apply a differentiation stencil along a one dimensional pencil,
@@ -95,37 +95,37 @@ assuming periodic boundaries. For instance, with a four point
 stencil <script type="math/tex">s = (-2, -1, 1, 2)</script> and weights <script type="math/tex">{g_{i}}_{1 \leq i
 \leq 4}</script>
 </p><a href="../proc/diff_periodic.html" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
-			   <tr><td><a href='../proc/dump.html'>dump</a></td><td><a href='../module/field_module.html'>field_module</a></td><td>Subroutine</td><td><p>Write field data to ASCII file</p></td></tr>
-			   <tr><td><a href='../proc/euler_timestep.html'>euler_timestep</a></td><td><a href='../module/time_integration.html'>time_integration</a></td><td>Function</td><td></td></tr>
-			   <tr><td><a href='../proc/field_add_field.html'>field_add_field</a></td><td><a href='../module/field_module.html'>field_module</a></td><td>Function</td><td></td></tr>
-			   <tr><td><a href='../proc/field_constructor.html'>field_constructor</a></td><td><a href='../module/field_module.html'>field_module</a></td><td>Function</td><td></td></tr>
-			   <tr><td><a href='../proc/field_mul_real.html'>field_mul_real</a></td><td><a href='../module/field_module.html'>field_module</a></td><td>Function</td><td><p>Multiply a <code>field_type</code> instance by a <code>real</code> number.</p><a href="../proc/field_mul_real.html" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
-			   <tr><td><a href='../proc/field_sub_field.html'>field_sub_field</a></td><td><a href='../module/field_module.html'>field_module</a></td><td>Function</td><td></td></tr>
-			   <tr><td><a href='../interface/field_type.html'>field_type</a></td><td><a href='../module/field_module.html'>field_module</a></td><td>Interface</td><td></td></tr>
+			   <tr><td><a href='../proc/dump.html'>dump</a></td><td><a href='../module/field.html'>field</a></td><td>Subroutine</td><td><p>Write field data to ASCII file</p></td></tr>
+			   <tr><td><a href='../proc/euler_timestep.html'>euler_timestep</a></td><td><a href='../module/time_integrator.html'>time_integrator</a></td><td>Function</td><td></td></tr>
+			   <tr><td><a href='../proc/field_add_field.html'>field_add_field</a></td><td><a href='../module/field.html'>field</a></td><td>Function</td><td></td></tr>
+			   <tr><td><a href='../proc/field_constructor.html'>field_constructor</a></td><td><a href='../module/field.html'>field</a></td><td>Function</td><td></td></tr>
+			   <tr><td><a href='../proc/field_mul_real.html'>field_mul_real</a></td><td><a href='../module/field.html'>field</a></td><td>Function</td><td><p>Multiply a <code>field_type</code> instance by a <code>real</code> number.</p><a href="../proc/field_mul_real.html" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
+			   <tr><td><a href='../proc/field_sub_field.html'>field_sub_field</a></td><td><a href='../module/field.html'>field</a></td><td>Function</td><td></td></tr>
+			   <tr><td><a href='../interface/field_type.html'>field_type</a></td><td><a href='../module/field.html'>field</a></td><td>Interface</td><td></td></tr>
 			   <tr><td><a href='../proc/flip.html'>flip</a></td><td><a href='../module/stencil.html'>stencil</a></td><td>Function</td><td></td></tr>
 			   <tr><td><a href='../proc/get_dirichlet_boundary.html'>get_dirichlet_boundary</a></td><td><a href='../module/boundary_schemes.html'>boundary_schemes</a></td><td>Function</td><td></td></tr>
 			   <tr><td><a href='../proc/get_lower.html'>get_lower</a></td><td><a href='../module/stencil.html'>stencil</a></td><td>Function</td><td></td></tr>
 			   <tr><td><a href='../proc/get_upper.html'>get_upper</a></td><td><a href='../module/stencil.html'>stencil</a></td><td>Function</td><td></td></tr>
-			   <tr><td><a href='../proc/integrate_ab2.html'>integrate_AB2</a></td><td><a href='../module/time_integration.html'>time_integration</a></td><td>Subroutine</td><td></td></tr>
-			   <tr><td><a href='../proc/integrate_euler.html'>integrate_euler</a></td><td><a href='../module/time_integration.html'>time_integration</a></td><td>Subroutine</td><td></td></tr>
-			   <tr><td><a href='../proc/integrate_rk3.html'>integrate_RK3</a></td><td><a href='../module/time_integration.html'>time_integration</a></td><td>Subroutine</td><td></td></tr>
-			   <tr><td><a href='../proc/is_equal.html'>is_equal</a></td><td><a href='../module/field_module.html'>field_module</a></td><td>Function</td><td><p>Compare two field_type instance based on their data value</p><a href="../proc/is_equal.html" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
+			   <tr><td><a href='../proc/integrate_ab2.html'>integrate_AB2</a></td><td><a href='../module/time_integrator.html'>time_integrator</a></td><td>Subroutine</td><td></td></tr>
+			   <tr><td><a href='../proc/integrate_euler.html'>integrate_euler</a></td><td><a href='../module/time_integrator.html'>time_integrator</a></td><td>Subroutine</td><td></td></tr>
+			   <tr><td><a href='../proc/integrate_rk3.html'>integrate_RK3</a></td><td><a href='../module/time_integrator.html'>time_integrator</a></td><td>Subroutine</td><td></td></tr>
+			   <tr><td><a href='../proc/is_equal.html'>is_equal</a></td><td><a href='../module/field.html'>field</a></td><td>Function</td><td><p>Compare two field_type instance based on their data value</p><a href="../proc/is_equal.html" class="pull-right"><emph>Read more&hellip;</emph></a></td></tr>
 			   <tr><td><a href='../proc/is_equal~2.html'>is_equal</a></td><td><a href='../module/stencil.html'>stencil</a></td><td>Function</td><td></td></tr>
-			   <tr><td><a href='../proc/nx.html'>nx</a></td><td><a href='../module/field_module.html'>field_module</a></td><td>Function</td><td><p>Returns domain size in <script type="math/tex">\mathbf{x}</script> direction</p></td></tr>
-			   <tr><td><a href='../proc/ny.html'>ny</a></td><td><a href='../module/field_module.html'>field_module</a></td><td>Function</td><td><p>Returns domain size in <script type="math/tex">\mathbf{y}</script> direction</p></td></tr>
-			   <tr><td><a href='../proc/nz.html'>nz</a></td><td><a href='../module/field_module.html'>field_module</a></td><td>Function</td><td><p>Returns domain size in <script type="math/tex">\mathbf{z}</script> direction</p></td></tr>
+			   <tr><td><a href='../proc/nx.html'>nx</a></td><td><a href='../module/field.html'>field</a></td><td>Function</td><td><p>Returns domain size in <script type="math/tex">\mathbf{x}</script> direction</p></td></tr>
+			   <tr><td><a href='../proc/ny.html'>ny</a></td><td><a href='../module/field.html'>field</a></td><td>Function</td><td><p>Returns domain size in <script type="math/tex">\mathbf{y}</script> direction</p></td></tr>
+			   <tr><td><a href='../proc/nz.html'>nz</a></td><td><a href='../module/field.html'>field</a></td><td>Function</td><td><p>Returns domain size in <script type="math/tex">\mathbf{z}</script> direction</p></td></tr>
 			   <tr><td><a href='../proc/reverse.html'>reverse</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Function</td><td></td></tr>
-			   <tr><td><a href='../proc/rhs.html'>rhs</a></td><td><a href='../module/field_module.html'>field_module</a></td><td>Function</td><td><p>Evaluates right hand side of heat equation on a field instance.
+			   <tr><td><a href='../proc/rhs.html'>rhs</a></td><td><a href='../module/field.html'>field</a></td><td>Function</td><td><p>Evaluates right hand side of heat equation on a field instance.
 <script type="math/tex; mode=display"> F(T) = \Delta T = \frac{\partial^2 T}{\partial x^2} +
 \frac{\partial^2 T}{\partial y^2} + \frac{\partial^2
 T}{\partial z^2} </script>
 </p></td></tr>
-			   <tr><td><a href='../interface/sixth_order_compact.html'>sixth_order_compact</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Interface</td><td></td></tr>
-			   <tr><td><a href='../interface/sixth_order_compact_2nd.html'>sixth_order_compact_2nd</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Interface</td><td></td></tr>
-			   <tr><td><a href='../proc/sixth_order_compact_nonperiodic.html'>sixth_order_compact_nonperiodic</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Function</td><td></td></tr>
-			   <tr><td><a href='../proc/sixth_order_compact_nonperiodic_2nd.html'>sixth_order_compact_nonperiodic_2nd</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Function</td><td></td></tr>
-			   <tr><td><a href='../proc/sixth_order_compact_periodic.html'>sixth_order_compact_periodic</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Function</td><td></td></tr>
-			   <tr><td><a href='../proc/sixth_order_compact_periodic_2nd.html'>sixth_order_compact_periodic_2nd</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Function</td><td></td></tr>
+			   <tr><td><a href='../interface/sixth_order_compact_1.html'>sixth_order_compact_1</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Interface</td><td></td></tr>
+			   <tr><td><a href='../proc/sixth_order_compact_1_nonperiodic.html'>sixth_order_compact_1_nonperiodic</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Function</td><td></td></tr>
+			   <tr><td><a href='../proc/sixth_order_compact_1_periodic.html'>sixth_order_compact_1_periodic</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Function</td><td></td></tr>
+			   <tr><td><a href='../interface/sixth_order_compact_2.html'>sixth_order_compact_2</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Interface</td><td></td></tr>
+			   <tr><td><a href='../proc/sixth_order_compact_2_nonperiodic.html'>sixth_order_compact_2_nonperiodic</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Function</td><td></td></tr>
+			   <tr><td><a href='../proc/sixth_order_compact_2_periodic.html'>sixth_order_compact_2_periodic</a></td><td><a href='../module/differentiate.html'>differentiate</a></td><td>Function</td><td></td></tr>
 			   <tr><td><a href='../proc/sixth_order_compact_second_stencil.html'>sixth_order_compact_second_stencil</a></td><td><a href='../module/boundary_schemes.html'>boundary_schemes</a></td><td>Function</td><td></td></tr>
 			   <tr><td><a href='../proc/sixth_order_compact_stencil.html'>sixth_order_compact_stencil</a></td><td><a href='../module/boundary_schemes.html'>boundary_schemes</a></td><td>Function</td><td></td></tr>
 			   <tr><td><a href='../proc/stencil_mul_real.html'>stencil_mul_real</a></td><td><a href='../module/stencil.html'>stencil</a></td><td>Function</td><td></td></tr>

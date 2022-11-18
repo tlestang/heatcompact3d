@@ -1,4 +1,4 @@
-module field_module
+module field
   implicit none
 
   type :: field_type
@@ -98,7 +98,7 @@ contains
     !! T}{\partial z^2} \]
     !!
     use differentiate, only: differentiator_type, &
-       & sixth_order_compact, sixth_order_compact_2nd
+       & sixth_order_compact_1, sixth_order_compact_2
 
     class(field_type), intent(in) :: self
     real, allocatable :: ddx(:, :, :), ddy(:, :, :), ddz(:, :, :)
@@ -108,7 +108,7 @@ contains
     class(differentiator_type), allocatable :: differ
 
     dx2 = self%dx * self%dx
-    differ = sixth_order_compact_2nd()
+    differ = sixth_order_compact_2() ! Periodic boundaries
 
     allocate(ddx, source=self%data)
     do iz = 1,self%nz()
@@ -160,4 +160,4 @@ contains
     field_mul_real%dx = self%dx
   end function field_mul_real
 
-end module field_module
+end module field
