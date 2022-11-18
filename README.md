@@ -29,16 +29,16 @@ make - C tests/ test
 
 Two client facing derived-types: `integrator_type` and `field_type`.
 
-Derived type `field_type` (`field_mod.f90`) models a three-dimensional
+Derived type `field_type` (`module_field.f90`) models a three-dimensional
 temperature field satisfying the heat equation discretized over a
 unifomr spatial mesh of spacing `dx`. Type-bound function `rhs` of
 `field_type` returns a new `field_type` instance evaluating the
 right-hand side of the heat equation ($\Delta T$) over the mesh.
 
-Type `integrator_type` (`integrator_mod.f90`) provides a base abstract
+Type `time_integrator_type` (`module_time_integrator.f90`) provides a base abstract
 derived type for time integration methods such as Euler,
 Adams-Bashforth or Runge-Kutta methods. Type-bound method `integrate`
-of `integrator_type` takes a `field_type` instance and overwrites it
+of `time_integrator_type` takes a `field_type` instance and overwrites it
 with the result of the time integration. Currently available integrators:
 
 - `euler_integrator_type`
@@ -49,7 +49,7 @@ with the result of the time integration. Currently available integrators:
 
 Spatial differentation for both first order and second order
 derivatives is implemented in the `differentiate` module
-(`differentiate_mod.f90`). The `differentiate` module provides access
+(`module_differentiate.f90`). The `differentiate` module provides access
 to derived type `differentiator_type`, which `diff` type-bound
 function implements differentiation of a one dimensional pencil, /e.g/
 

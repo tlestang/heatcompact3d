@@ -1,7 +1,7 @@
 program test_field
   use iso_fortran_env, only: stderr => error_unit
-  use field_module, only: field_type
-  use time_integration, only: euler_integrator_type, AB2_integrator_type, &
+  use field, only: field_type
+  use time_integrator, only: euler_integrator_type, AB2_integrator_type, &
        & RK3_integrator_type
   implicit none
 

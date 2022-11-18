@@ -1,6 +1,6 @@
 program test_field
   use iso_fortran_env, only: stderr => error_unit
-  use field_module, only: field_type
+  use field, only: field_type
   implicit none
 
   real :: u0(16, 16, 16)

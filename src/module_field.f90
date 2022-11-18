@@ -1,4 +1,4 @@
-module field_module
+module field
   implicit none
 
   type :: field_type
@@ -160,4 +160,4 @@ contains
     field_mul_real%dx = self%dx
   end function field_mul_real
 
-end module field_module
+end module field
