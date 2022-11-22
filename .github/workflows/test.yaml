@@ -1,0 +1,20 @@
+name: Run unit test suites
+
+on:
+  push:
+    branches: main
+
+jobs:
+  unit-tests:
+    strategy:
+      matrix:
+        os: [ubuntu-18.04, ubuntu-20.04, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Display GCC version number
+      run: gcc --version
+    - name: Build and run all test suites
+      run: make -C tests/ test
