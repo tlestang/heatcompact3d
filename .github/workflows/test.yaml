@@ -16,5 +16,9 @@ jobs:
         fetch-depth: 0
     - name: Display GCC version number
       run: gcc --version
-    - name: Build and run all test suites
-      run: make -C tests/ test
+    - name: Configure build
+      run: cmake -S . -B build
+    - name: Build tests
+      run: make -C build
+    - name: Run the tests
+      run: make -C build test

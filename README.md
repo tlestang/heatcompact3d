@@ -17,10 +17,18 @@ call AB2%integrate(temp_field)
 temp_field%dump("output.dat")
 ```
 
-## Running the unit tests
+## Building and run the tests
+
+Configure with
 
 ```
-make - C tests/ test
+cmake -S . -B build
+```
+
+Tests are built and run from the build directory:
+
+```
+make && make test
 ```
 
 ## Generating and viewing the documentation
