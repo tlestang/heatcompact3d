@@ -29,7 +29,7 @@ module time_integrator
      subroutine integrate_proc(self, afield)
        import time_integrator_type, field_type
        class(time_integrator_type), intent(in) :: self
-       type(field_type), intent(inout) :: afield
+       class(field_type), intent(inout) :: afield
      end subroutine integrate_proc
   end interface
 
@@ -37,7 +37,7 @@ contains
 
   subroutine integrate_euler(self, afield)
     class(euler_integrator_type), intent(in) :: self
-    type(field_type), intent(inout) :: afield
+    class(field_type), allocatable, intent(inout) :: afield
     integer :: nt
     integer :: i
 
@@ -49,24 +49,24 @@ contains
 
   subroutine integrate_AB2(self, afield)
     class(AB2_integrator_type), intent(in) :: self
-    type(field_type), intent(inout) :: afield
-    type(field_type) :: fields(2)
+    class(field_type), allocatable, intent(inout) :: afield
+    class(field_type), allocatable :: f1, f2
     integer :: nt
     integer :: i
 
     nt = floor((self%endtime - self%starttime) / self%dt)
-    fields(1) = afield
-    fields(2) = euler_timestep(afield, self%dt)
+    f1 = afield
+    f2 = euler_timestep(afield, self%dt)
     do i = 2, nt
-       fields = AB2_timestep(fields, self%dt)
+       call AB2_timestep(f1, f2, self%dt)
     end do
-    afield = fields(2)
+    afield = f2
   end subroutine integrate_AB2
 
   subroutine integrate_RK3(self, afield)
     class(RK3_integrator_type), intent(in) :: self
-    type(field_type), intent(inout) :: afield
-    type(field_type) :: afield2
+    class(field_type), allocatable, intent(inout) :: afield
+    class(field_type), allocatable :: afield2
     integer :: nt, i
 
     nt = floor((self%endtime - self%starttime) / self%dt)
@@ -82,22 +82,18 @@ contains
   end subroutine integrate_RK3
 
   pure function euler_timestep(afield, dt) result(res)
-    type(field_type), intent(in) :: afield
+    class(field_type), intent(in) :: afield
     real, intent(in) :: dt
-    type(field_type) :: res
-    res = afield%rhs() *  dt + afield
+    class(field_type), allocatable :: res
+      res = afield%rhs() *  dt + afield
   end function euler_timestep
 
-  pure function AB2_timestep(fields, dt) result(res)
-    type(field_type), intent(in) :: fields(2)
+  subroutine AB2_timestep(f1, f2, dt)
+    class(field_type), allocatable, intent(inout) :: f1, f2
     real, intent(in) :: dt
-    type(field_type) :: res(2)
-    type(field_type) :: f1, f2
 
-    f1 = fields(1)
-    f2 = fields(2)
-    res(2) = f2%rhs() * 1.5 * dt - f1%rhs() * 0.5 * dt + f2
-    res(1) = f2
-  end function AB2_timestep
+    f2 = f2%rhs() * 1.5 * dt - f1%rhs() * 0.5 * dt + f2
+    f1 = f2
+  end subroutine AB2_timestep
 
 end module time_integrator
