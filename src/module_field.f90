@@ -8,7 +8,6 @@ module field
      !! real :: u0(nx, ny, nz), dx
      !! afield = field_type(u0, dx)
      !! ```
-     private
      real, allocatable :: data(:, :, :)
      real :: dx
      !! Discrete mesh spacing
