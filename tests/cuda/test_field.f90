@@ -10,6 +10,8 @@ program test_field_cuda
   logical :: allpass
   real :: dx
 
+  type(dim3) :: threads
+
   nx = size(u0, 1)
   ny = size(u0, 2)
   nz = size(u0, 3)
@@ -28,9 +30,12 @@ program test_field_cuda
 
   allpass = .true.
 
-  expected = field_cpu_type(-1. * 3. * u0, dx)
-  rhs = temp_field%rhs()
-  rhs%dev_to_host()
+  threads = dim3(16, 16, 16)
+  rhs%data_dev = rhs%data
+  rhs = temp_field%rhs<<<1, threads>>>()
+  rhs%data = rhs%data_dev
+
+  expected = field_gpu_type(-1. * 3. * u0, dx)
   if(.not. expected%is_equal(rhs, tol)) then
      write(stderr, '(a)') 'Field right hand side is computed correctly... failed.'
      allpass = .false.

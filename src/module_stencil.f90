@@ -1,7 +1,7 @@
 module stencil
   implicit none
   type :: stencil_type
-     integer, allocatable :: nodes(:)
+     integer, allocatable:: nodes(:)
      real, allocatable :: coeffs(:)
      real :: lower, upper
    contains
@@ -29,18 +29,28 @@ contains
   pure elemental type(stencil_type) function stencil_mul_real(self, a)
     class(stencil_type), intent(in) :: self
     real, intent(in) :: a
+    integer, allocatable :: nodes(:)
+    real, allocatable :: coeffs(:)
+
+    nodes = self%nodes
+    coeffs = self%coeffs
     stencil_mul_real = stencil_type( &
-         & nodes = self%nodes, &
-         & coeffs = a * self%coeffs, &
+         & nodes = nodes, &
+         & coeffs = a * coeffs, &
          & lower = self%lower, upper = self%upper &
          & )
   end function stencil_mul_real
 
   pure elemental type(stencil_type) function flip(self)
     class(stencil_type), intent(in) :: self
+    integer, allocatable :: nodes(:)
+    real, allocatable :: coeffs(:)
+
+    nodes = self%nodes
+    coeffs = self%coeffs
     flip = stencil_type( &
-         & nodes = - self%nodes, &
-         & coeffs = self%coeffs, &
+         & nodes = - nodes, &
+         & coeffs = coeffs, &
          & lower = self%lower, upper = self%upper &
          & )
   end function flip
