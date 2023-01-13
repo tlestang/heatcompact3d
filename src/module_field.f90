@@ -1,7 +1,7 @@
 module field
   implicit none
 
-  type :: field_type
+  type, abstract :: field_type
      !! Implement a 3D scalar field, for instance a temperature field.
      !! ```f90
      !! type(field_type) = afield
@@ -14,7 +14,8 @@ module field
      !! Discrete mesh spacing
    contains
      procedure, public :: nx, ny, nz
-     procedure, public :: is_equal, rhs, dump
+     procedure, public :: is_equal, dump
+     procedure(rhs_field), deferred :: rhs
      procedure, private :: field_add_field, field_sub_field, &
           & field_mul_real
      generic :: operator(+) => field_add_field
@@ -22,19 +23,15 @@ module field
      generic :: operator(*) => field_mul_real
   end type field_type
 
-  interface field_type
-     module procedure field_constructor
-  end interface field_type
+  interface
+     pure function rhs_field(self)
+       import :: field_type
+       class(field_type), intent(in) :: self
+       class(field_type), allocatable :: rhs_field
+     end function rhs_field
+  end interface
 
 contains
-
-  function field_constructor(initial, dx) result(afield)
-    real, intent(in) :: initial(:, :, :) !! Initial state
-    real, intent(in) :: dx !! Spatial mesh spacing
-    type(field_type) :: afield
-    allocate(afield%data, source=initial)
-    afield%dx = dx
-  end function field_constructor
 
   pure integer function nx(self)
     !! Returns domain size in \(\mathbf{x}\) direction
@@ -91,71 +88,33 @@ contains
     end do
   end subroutine dump
 
-  pure function rhs(self)
-    !! Evaluates right hand side of heat equation on a field instance.
-    !! \[ F(T) = \Delta T = \frac{\partial^2 T}{\partial x^2} +
-    !! \frac{\partial^2 T}{\partial y^2} + \frac{\partial^2
-    !! T}{\partial z^2} \]
-    !!
-    use differentiate, only: differentiator_type, &
-       & sixth_order_compact_1, sixth_order_compact_2
-
-    class(field_type), intent(in) :: self
-    real, allocatable :: ddx(:, :, :), ddy(:, :, :), ddz(:, :, :)
-    type(field_type) :: rhs
-    integer :: ix, iy, iz
-    real :: dx2
-    class(differentiator_type), allocatable :: differ
-
-    dx2 = self%dx * self%dx
-    differ = sixth_order_compact_2() ! Periodic boundaries
-
-    allocate(ddx, source=self%data)
-    do iz = 1,self%nz()
-       do iy = 1,self%ny()
-          ddx(:, iy, iz) = differ%diff(self%data(:, iy, iz), dx2)
-       end do
-    end do
-
-    allocate(ddy, source=self%data)
-    do iz = 1,self%nz()
-       do ix = 1,self%nx()
-          ddy(ix, :, iz) = differ%diff(self%data(ix, :, iz), dx2)
-       end do
-    end do
-
-    allocate(ddz, source=self%data)
-    do iy = 1,self%ny()
-       do ix = 1,self%nx()
-          ddz(ix, iy, :) = differ%diff(self%data(ix, iy, :), dx2)
-       end do
-    end do
-
-    rhs%data = ddx + ddy + ddz
-    rhs%dx = self%dx
-  end function rhs
-
-  pure type(field_type) function field_add_field(self, afield)
+  pure function field_add_field(self, afield)
     class(field_type), intent(in) :: self, afield
+    class(field_type), allocatable :: field_add_field
+    allocate(field_add_field, mold=self)
     field_add_field%data = self%data + afield%data
     field_add_field%dx = self%dx
   end function field_add_field
 
-  pure type(field_type) function field_sub_field(self, afield)
+  pure function field_sub_field(self, afield)
     class(field_type), intent(in) :: self, afield
+    class(field_type), allocatable :: field_sub_field
+    allocate(field_sub_field, mold=self)
     field_sub_field%data = self%data - afield%data
     field_sub_field%dx = self%dx
   end function field_sub_field
 
-  pure type(field_type) function field_mul_real(self, a)
-    !! Multiply a `field_type` instance by a `real` number.
+  pure function field_mul_real(self, a)
+    !! Multiply a `field_cpu_type` instance by a `real` number.
     !! ```
-    !! f1 = field_type(u0, dx)
+    !! f1 = field_cpu_type(u0, dx)
     !! f2 = f1 * 1.3
-    !! f2%is_equal(field_type(u0 * 1.3, dx)) ! true
+    !! f2%is_equal(field_cpu_type(u0 * 1.3, dx)) ! true
     !! ```
     class(field_type), intent(in) :: self !! Left hand side
     real, intent(in) :: a !! Scalar to multiply field instance with
+    class(field_type), allocatable :: field_mul_real
+    allocate(field_mul_real, mold=self)
     field_mul_real%data = self%data * a
     field_mul_real%dx = self%dx
   end function field_mul_real
