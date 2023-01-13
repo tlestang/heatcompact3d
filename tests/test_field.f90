@@ -1,10 +1,10 @@
 program test_field
   use iso_fortran_env, only: stderr => error_unit
-  use field, only: field_type
+  use field_cpu, only: field_cpu_type
   implicit none
 
   real :: u0(16, 16, 16)
-  type(field_type) :: temp_field, rhs, expected
+  class(field_cpu_type), allocatable :: temp_field, rhs, expected
   real, parameter :: tol = 0.1
   integer :: i, j, k, nx, ny, nz
   logical :: allpass
@@ -24,7 +24,7 @@ program test_field
         end do
      end do
   end do
-  temp_field = field_type(u0, dx)
+  temp_field = field_cpu_type(u0, dx)
 
   allpass = .true.
 
@@ -36,14 +36,14 @@ program test_field
      write(stderr, '(a)') 'Field data has the correct rank and size... passed.'
   end if
 
-  if(.not. temp_field%is_equal(field_type(u0, dx), tol)) then
+  if(.not. temp_field%is_equal(field_cpu_type(u0, dx), tol)) then
      write(stderr, '(a)') 'Field equal operator... failed.'
      allpass = .false.
   else
      write(stderr, '(a)') 'Field equal operator... passed.'
   end if
 
-  expected = field_type(-1. * 3. * u0, dx)
+  expected = field_cpu_type(-1. * 3. * u0, dx)
   rhs = temp_field%rhs()
   if(.not. expected%is_equal(rhs, tol)) then
      write(stderr, '(a)') 'Field right hand side is computed correctly... failed.'
@@ -52,7 +52,7 @@ program test_field
      write(stderr, '(a)') 'Field right hand side is computed correctly... passed.'
   end if
 
-  expected = field_type(2. * u0, dx)
+  expected = field_cpu_type(2. * u0, dx)
   if(.not. expected%is_equal(temp_field + temp_field, tol)) then
      write(stderr, '(a)') 'Field-Field addition is computed correctly... failed.'
      allpass = .false.
@@ -60,7 +60,7 @@ program test_field
      write(stderr, '(a)') 'Field-Field addition is computed correctly... passed.'
   end if
 
-  expected = field_type(reshape([(0., i=1, size(u0, 1)**3)], [16, 16, 16]), dx)
+  expected = field_cpu_type(reshape([(0., i=1, size(u0, 1)**3)], [16, 16, 16]), dx)
   if(.not. expected%is_equal(temp_field - temp_field, tol)) then
      write(stderr, '(a)') 'Field-Field difference is computed correctly... failed.'
      allpass = .false.
@@ -68,7 +68,7 @@ program test_field
      write(stderr, '(a)') 'Field-Field difference is computed correctly... passed.'
   end if
 
-  expected = field_type(1.5 * u0, dx)
+  expected = field_cpu_type(1.5 * u0, dx)
   if(.not. expected%is_equal(temp_field * 1.5, tol)) then
      write(stderr, '(a)') 'Field-Scalar multiplication is computed correctly... failed.'
      allpass = .false.
