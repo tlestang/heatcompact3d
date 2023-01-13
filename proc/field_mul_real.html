@@ -90,7 +90,7 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title=" 1.9% of total for procedures.">6 statements</a>
+               title=" 2.4% of total for procedures.">8 statements</a>
           </li>
 
             <li id="source-file">
@@ -148,10 +148,10 @@
 </h2>
     
 
-    <p>Multiply a <code>field_type</code> instance by a <code>real</code> number.</p>
-<div class="codehilite"><pre><span></span><code>f1 = field_type(u0, dx)
+    <p>Multiply a <code>field_cpu_type</code> instance by a <code>real</code> number.</p>
+<div class="codehilite"><pre><span></span><code>f1 = field_cpu_type(u0, dx)
 f2 = f1 * 1.3
-f2%is_equal(field_type(u0 * 1.3, dx)) ! true
+f2%is_equal(field_cpu_type(u0 * 1.3, dx)) ! true
 </code></pre></div>
 
     <h3>Arguments</h3>
@@ -201,7 +201,7 @@ f2%is_equal(field_type(u0 * 1.3, dx)) ! true
       <h3>Return Value
         <small>
           <span class="anchor" id="variable-field_mul_real"></span>
-          type(<a href='../type/field_type.html'>field_type</a>)
+          class(<a href='../type/field_type.html'>field_type</a>), allocatable
         </small>
       </h3>
       

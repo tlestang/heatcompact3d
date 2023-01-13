@@ -90,7 +90,7 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title="26.1% of total for modules and submodules.">108 statements</a>
+               title="18.5% of total for modules and submodules.">80 statements</a>
           </li>
 
             <li id="source-file">
@@ -133,7 +133,7 @@
       </div>
       <div id="inters-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/field.html#interface-field_type">field_type</a>
+            <a class="list-group-item" href="../module/field.html#interface-rhs_field">rhs_field</a>
         </div>
       </div>
     </div>
@@ -160,12 +160,10 @@
       </div>
       <div id="funcs-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/field.html#proc-field_constructor">field_constructor</a>
             <a class="list-group-item" href="../module/field.html#proc-nx">nx</a>
             <a class="list-group-item" href="../module/field.html#proc-ny">ny</a>
             <a class="list-group-item" href="../module/field.html#proc-nz">nz</a>
             <a class="list-group-item" href="../module/field.html#proc-is_equal">is_equal</a>
-            <a class="list-group-item" href="../module/field.html#proc-rhs">rhs</a>
             <a class="list-group-item" href="../module/field.html#proc-field_add_field">field_add_field</a>
             <a class="list-group-item" href="../module/field.html#proc-field_sub_field">field_sub_field</a>
             <a class="list-group-item" href="../module/field.html#proc-field_mul_real">field_mul_real</a>
@@ -222,7 +220,7 @@
       </div>
       <div id="inters-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/field.html#interface-field_type">field_type</a>
+            <a class="list-group-item" href="../module/field.html#interface-rhs_field">rhs_field</a>
         </div>
       </div>
     </div>
@@ -249,12 +247,10 @@
       </div>
       <div id="funcs-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/field.html#proc-field_constructor">field_constructor</a>
             <a class="list-group-item" href="../module/field.html#proc-nx">nx</a>
             <a class="list-group-item" href="../module/field.html#proc-ny">ny</a>
             <a class="list-group-item" href="../module/field.html#proc-nz">nz</a>
             <a class="list-group-item" href="../module/field.html#proc-is_equal">is_equal</a>
-            <a class="list-group-item" href="../module/field.html#proc-rhs">rhs</a>
             <a class="list-group-item" href="../module/field.html#proc-field_add_field">field_add_field</a>
             <a class="list-group-item" href="../module/field.html#proc-field_sub_field">field_sub_field</a>
             <a class="list-group-item" href="../module/field.html#proc-field_mul_real">field_mul_real</a>
@@ -293,17 +289,16 @@
    <h2>Interfaces</h2>
        <div class="panel panel-default">
     <div class="panel-heading codesum">
-      <span class="anchor" id="interface-field_type"></span>
-      <h3>public        interface <a href='../interface/field_type.html'>field_type</a> 
+      <span class="anchor" id="interface-rhs_field"></span>
+      <h3>        interface
       </h3>
     </div>
     <ul class="list-group">
-          <li class="list-group-item">
-                <h3>
-    public  function <a href='../proc/field_constructor.html'>field_constructor</a>(initial, dx) result(afield)  
+        <li class="list-group-item">
+              <h3>
+    public pure function rhs_field(self)  
 
     </h3>
-    
   
 
   <h4>Arguments</h4>
@@ -320,31 +315,16 @@
         <tr>
             <td>
               <span class="anchor" ></span>
-              real,
+              class(<a href='../type/field_type.html'>field_type</a>),
             </td>
 <td>intent(in)</td>
               <td></td>            <td>
               
             </td>
             <td>::</td>
-            <td><strong>initial</strong>(:,:,:)</td>
+            <td><strong>self</strong></td>
             <td>
-<p>Initial state</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              real,
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>dx</strong></td>
-            <td>
-<p>Spatial mesh spacing</p>
+                
             </td>
         </tr>
     </tbody>
@@ -352,11 +332,11 @@
 
     <h4>
     Return Value
-    <small>type(<a href='../type/field_type.html'>field_type</a>)</small>
+    <small>class(<a href='../type/field_type.html'>field_type</a>), allocatable</small>
     </h4>
     
 
-          </li>
+        </li>
     </ul>
   </div>
 
@@ -378,24 +358,55 @@
     <div class="panel-body">
       <p>Implement a 3D scalar field, for instance a temperature field.</p><a href="../type/field_type.html" class="pull-right"><emph>Read more&hellip;</emph></a>
 
+        <h4>Components</h4>
+          <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Visibility</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+<th></th><th>Initial</th>        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-data"></span>
+              real,
+            </td>
+              <td>public,</td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>data</strong>(:,:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
 
-        <h4>Constructor</h4>
-          
-        <table class="table table-striped varlist">
-          <tbody>
-                <tr>
-                  <td>
-                        public
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dx~2"></span>
+              real,
+            </td>
+              <td>public</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dx</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+<p>Discrete mesh spacing</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
 
-                    
-                    function
-                    <strong><a href='../proc/field_constructor.html'>field_constructor</a></strong>
-                    (initial, dx)
-                  </td>
-                  <td></td>
-                </tr>
-          </tbody>
-        </table>
+
 
 
         <h4>Type-Bound Procedures</h4>
@@ -437,16 +448,16 @@
                 <td>
                     procedure
                     ,                  public
-                  :: <strong><a href='../type/field_type.html#boundprocedure-rhs'>rhs</a></strong>
+                  :: <strong><a href='../type/field_type.html#boundprocedure-is_equal'>is_equal</a></strong>
 <small>Function</small>                </td>
                 <td></td>
               </tr>
               <tr>
                 <td>
                     procedure
-                    ,                  public
-                  :: <strong><a href='../type/field_type.html#boundprocedure-is_equal'>is_equal</a></strong>
-<small>Function</small>                </td>
+(rhs_field)                    ,                  public
+                  :: <strong><a href='../type/field_type.html#boundprocedure-rhs'>rhs</a></strong>
+<small></small>                </td>
                 <td></td>
               </tr>
               <tr>
@@ -490,66 +501,6 @@ generic,
  
     <section>
     <h2>Functions</h2>
-      <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-field_constructor"></span><h3>public  function <a href='../proc/field_constructor.html'>field_constructor</a>(initial, dx) result(afield)  
-</h3></div>
-    <div class="panel-body">
-          
-  
-
-  <h4>Arguments</h4>
-      <table class="table table-striped varlist">
-    <thead>
-      <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              real,
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>initial</strong>(:,:,:)</td>
-            <td>
-<p>Initial state</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              real,
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>dx</strong></td>
-            <td>
-<p>Spatial mesh spacing</p>
-            </td>
-        </tr>
-    </tbody>
-  </table>
-
-    <h4>
-    Return Value
-    <small>type(<a href='../type/field_type.html'>field_type</a>)</small>
-    </h4>
-    
-
-    </div>
-  </div>
-
       <div class="panel panel-default">
     <div class="panel-heading codesum"><span class="anchor" id="proc-nx"></span><h3>public pure function <a href='../proc/nx.html'>nx</a>(self)  
 </h3></div>
@@ -762,55 +713,6 @@ fields values</p>
   </div>
 
       <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-rhs"></span><h3>public pure function <a href='../proc/rhs.html'>rhs</a>(self)  
-</h3></div>
-    <div class="panel-body">
-          
-  <p>Evaluates right hand side of heat equation on a field instance.
-<script type="math/tex; mode=display"> F(T) = \Delta T = \frac{\partial^2 T}{\partial x^2} +
-\frac{\partial^2 T}{\partial y^2} + \frac{\partial^2
-T}{\partial z^2} </script>
-</p>
-
-  <h4>Arguments</h4>
-      <table class="table table-striped varlist">
-    <thead>
-      <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              class(<a href='../type/field_type.html'>field_type</a>),
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>self</strong></td>
-            <td>
-
-            </td>
-        </tr>
-    </tbody>
-  </table>
-
-    <h4>
-    Return Value
-    <small>type(<a href='../type/field_type.html'>field_type</a>)</small>
-    </h4>
-    
-
-    </div>
-  </div>
-
-      <div class="panel panel-default">
     <div class="panel-heading codesum"><span class="anchor" id="proc-field_add_field"></span><h3>public pure function <a href='../proc/field_add_field.html'>field_add_field</a>(self, afield)  
 </h3></div>
     <div class="panel-body">
@@ -863,7 +765,7 @@ T}{\partial z^2} </script>
 
     <h4>
     Return Value
-    <small>type(<a href='../type/field_type.html'>field_type</a>)</small>
+    <small>class(<a href='../type/field_type.html'>field_type</a>), allocatable</small>
     </h4>
     
 
@@ -923,7 +825,7 @@ T}{\partial z^2} </script>
 
     <h4>
     Return Value
-    <small>type(<a href='../type/field_type.html'>field_type</a>)</small>
+    <small>class(<a href='../type/field_type.html'>field_type</a>), allocatable</small>
     </h4>
     
 
@@ -935,7 +837,7 @@ T}{\partial z^2} </script>
 </h3></div>
     <div class="panel-body">
           
-  <p>Multiply a <code>field_type</code> instance by a <code>real</code> number.</p><a href="../proc/field_mul_real.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+  <p>Multiply a <code>field_cpu_type</code> instance by a <code>real</code> number.</p><a href="../proc/field_mul_real.html" class="pull-right"><emph>Read more&hellip;</emph></a>
 
   <h4>Arguments</h4>
       <table class="table table-striped varlist">
@@ -983,7 +885,7 @@ T}{\partial z^2} </script>
 
     <h4>
     Return Value
-    <small>type(<a href='../type/field_type.html'>field_type</a>)</small>
+    <small>class(<a href='../type/field_type.html'>field_type</a>), allocatable</small>
     </h4>
     
 

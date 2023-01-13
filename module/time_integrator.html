@@ -90,7 +90,7 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title="19.8% of total for modules and submodules.">82 statements</a>
+               title="18.0% of total for modules and submodules.">78 statements</a>
           </li>
 
             <li id="source-file">
@@ -164,7 +164,6 @@
       <div id="funcs-0" class="panel-collapse collapse">
         <div class="list-group">
             <a class="list-group-item" href="../module/time_integrator.html#proc-euler_timestep">euler_timestep</a>
-            <a class="list-group-item" href="../module/time_integrator.html#proc-ab2_timestep">AB2_timestep</a>
         </div>
       </div>
     </div>
@@ -180,6 +179,7 @@
             <a class="list-group-item" href="../module/time_integrator.html#proc-integrate_euler">integrate_euler</a>
             <a class="list-group-item" href="../module/time_integrator.html#proc-integrate_ab2">integrate_AB2</a>
             <a class="list-group-item" href="../module/time_integrator.html#proc-integrate_rk3">integrate_RK3</a>
+            <a class="list-group-item" href="../module/time_integrator.html#proc-ab2_timestep">AB2_timestep</a>
         </div>
       </div>
     </div>
@@ -263,7 +263,6 @@
       <div id="funcs-1" class="panel-collapse collapse">
         <div class="list-group">
             <a class="list-group-item" href="../module/time_integrator.html#proc-euler_timestep">euler_timestep</a>
-            <a class="list-group-item" href="../module/time_integrator.html#proc-ab2_timestep">AB2_timestep</a>
         </div>
       </div>
     </div>
@@ -279,6 +278,7 @@
             <a class="list-group-item" href="../module/time_integrator.html#proc-integrate_euler">integrate_euler</a>
             <a class="list-group-item" href="../module/time_integrator.html#proc-integrate_ab2">integrate_AB2</a>
             <a class="list-group-item" href="../module/time_integrator.html#proc-integrate_rk3">integrate_RK3</a>
+            <a class="list-group-item" href="../module/time_integrator.html#proc-ab2_timestep">AB2_timestep</a>
         </div>
       </div>
     </div>
@@ -341,7 +341,7 @@
         <tr>
             <td>
               <span class="anchor" ></span>
-              type(<a href='../type/field_type.html'>field_type</a>),
+              class(<a href='../type/field_type.html'>field_type</a>),
             </td>
 <td>intent(inout)</td>
               <td></td>            <td>
@@ -800,7 +800,7 @@
         <tr>
             <td>
               <span class="anchor" ></span>
-              type(<a href='../type/field_type.html'>field_type</a>),
+              class(<a href='../type/field_type.html'>field_type</a>),
             </td>
 <td>intent(in)</td>
               <td></td>            <td>
@@ -832,67 +832,7 @@
 
     <h4>
     Return Value
-    <small>type(<a href='../type/field_type.html'>field_type</a>)</small>
-    </h4>
-    
-
-    </div>
-  </div>
-
-      <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-ab2_timestep"></span><h3>public pure function <a href='../proc/ab2_timestep.html'>AB2_timestep</a>(fields, dt) result(res)  
-</h3></div>
-    <div class="panel-body">
-          
-  
-
-  <h4>Arguments</h4>
-      <table class="table table-striped varlist">
-    <thead>
-      <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              type(<a href='../type/field_type.html'>field_type</a>),
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>fields</strong>(2)</td>
-            <td>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              real,
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>dt</strong></td>
-            <td>
-
-            </td>
-        </tr>
-    </tbody>
-  </table>
-
-    <h4>
-    Return Value
-    <small>type(<a href='../type/field_type.html'>field_type</a>), (2)</small>
+    <small>class(<a href='../type/field_type.html'>field_type</a>), allocatable</small>
     </h4>
     
 
@@ -940,11 +880,11 @@
         <tr>
             <td>
               <span class="anchor" ></span>
-              type(<a href='../type/field_type.html'>field_type</a>),
+              class(<a href='../type/field_type.html'>field_type</a>),
             </td>
-<td>intent(inout)</td>
+<td>intent(inout),</td>
               <td></td>            <td>
-              
+              allocatable
             </td>
             <td>::</td>
             <td><strong>afield</strong></td>
@@ -995,11 +935,11 @@
         <tr>
             <td>
               <span class="anchor" ></span>
-              type(<a href='../type/field_type.html'>field_type</a>),
+              class(<a href='../type/field_type.html'>field_type</a>),
             </td>
-<td>intent(inout)</td>
+<td>intent(inout),</td>
               <td></td>            <td>
-              
+              allocatable
             </td>
             <td>::</td>
             <td><strong>afield</strong></td>
@@ -1050,14 +990,84 @@
         <tr>
             <td>
               <span class="anchor" ></span>
-              type(<a href='../type/field_type.html'>field_type</a>),
+              class(<a href='../type/field_type.html'>field_type</a>),
             </td>
-<td>intent(inout)</td>
+<td>intent(inout),</td>
+              <td></td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>afield</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+    </div>
+  </div>
+
+      <div class="panel panel-default">
+    <div class="panel-heading codesum"><span class="anchor" id="proc-ab2_timestep"></span><h3>public  subroutine <a href='../proc/ab2_timestep.html'>AB2_timestep</a>(f1, f2, dt)  
+</h3></div>
+    <div class="panel-body">
+          
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              class(<a href='../type/field_type.html'>field_type</a>),
+            </td>
+<td>intent(inout),</td>
+              <td></td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>f1</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              class(<a href='../type/field_type.html'>field_type</a>),
+            </td>
+<td>intent(inout),</td>
+              <td></td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>f2</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(in)</td>
               <td></td>            <td>
               
             </td>
             <td>::</td>
-            <td><strong>afield</strong></td>
+            <td><strong>dt</strong></td>
             <td>
 
             </td>

@@ -8,7 +8,7 @@
     <meta name="author" content="Thibault Lestang" >
     <link rel="icon" href="../favicon.png">
 
-    <title>boundary_schemes &ndash; heatcompact3d</title>
+    <title>field_cpu &ndash; heatcompact3d</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -78,7 +78,7 @@
 
     <div class="container">
   <div class="row">
-    <h1>boundary_schemes 
+    <h1>field_cpu 
     <small>Module</small>
     
     </h1>
@@ -90,17 +90,17 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title=" 6.5% of total for modules and submodules.">28 statements</a>
+               title="11.8% of total for modules and submodules.">51 statements</a>
           </li>
 
             <li id="source-file">
               <i class="fa fa-code"></i>
-              <a href="../src/module_boundary_schemes.f90"> Source File</a>
+              <a href="../src/module_field_cpu.f90"> Source File</a>
             </li>
         </ul>
         <ol class="breadcrumb in-well text-right">
-              <li><a href='../sourcefile/module_boundary_schemes.f90.html'>module_boundary_schemes.f90</a></li>
-          <li class="active">boundary_schemes</li>
+              <li><a href='../sourcefile/module_field_cpu.f90.html'>module_field_cpu.f90</a></li>
+          <li class="active">field_cpu</li>
         </ol>
       </div>
     </div>
@@ -118,27 +118,26 @@
       <div id="sidebar">
       <h3>Contents</h3>
   
+  
+  
+  
+  
+  
+  
+  
       <div class="panel panel-primary">
       <div class="panel-heading text-left">
         <h3 class="panel-title">
-          <a data-toggle="collapse" href="#vars-0">Variables</a>
+          <a data-toggle="collapse" href="#inters-0">Interfaces</a>
         </h3>
       </div>
-      <div id="vars-0" class="panel-collapse collapse">
+      <div id="inters-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/boundary_schemes.html#variable-sixth_order_compact_coeffs">sixth_order_compact_coeffs</a>
-            <a class="list-group-item" href="../module/boundary_schemes.html#variable-sixth_order_compact_coeffs_2">sixth_order_compact_coeffs_2</a>
+            <a class="list-group-item" href="../module/field_cpu.html#interface-field_cpu_type">field_cpu_type</a>
         </div>
       </div>
     </div>
 
-  
-  
-  
-  
-  
-  
-  
   
       <div class="panel panel-primary">
       <div class="panel-heading text-left">
@@ -148,7 +147,7 @@
       </div>
       <div id="types-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/boundary_schemes.html#type-boundary_type">boundary_type</a>
+            <a class="list-group-item" href="../module/field_cpu.html#type-field_cpu_type">field_cpu_type</a>
         </div>
       </div>
     </div>
@@ -161,9 +160,8 @@
       </div>
       <div id="funcs-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/boundary_schemes.html#proc-sixth_order_compact_stencil">sixth_order_compact_stencil</a>
-            <a class="list-group-item" href="../module/boundary_schemes.html#proc-sixth_order_compact_second_stencil">sixth_order_compact_second_stencil</a>
-            <a class="list-group-item" href="../module/boundary_schemes.html#proc-get_dirichlet_boundary">get_dirichlet_boundary</a>
+            <a class="list-group-item" href="../module/field_cpu.html#proc-field_cpu_constructor">field_cpu_constructor</a>
+            <a class="list-group-item" href="../module/field_cpu.html#proc-rhs">rhs</a>
         </div>
       </div>
     </div>
@@ -190,7 +188,7 @@
       <ul class="list-group">
           <li class="list-group-item">
             <ul class="list-inline">
-                <li><a href='../module/stencil.html'>stencil</a></li>
+                <li><a href='../module/field.html'>field</a></li>
             </ul>
           </li>
       </ul>
@@ -202,27 +200,26 @@
     <section class="visible-xs visible-sm hidden-md">
         <h3>Contents</h3>
   
+  
+  
+  
+  
+  
+  
+  
       <div class="panel panel-primary">
       <div class="panel-heading text-left">
         <h3 class="panel-title">
-          <a data-toggle="collapse" href="#vars-1">Variables</a>
+          <a data-toggle="collapse" href="#inters-1">Interfaces</a>
         </h3>
       </div>
-      <div id="vars-1" class="panel-collapse collapse">
+      <div id="inters-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/boundary_schemes.html#variable-sixth_order_compact_coeffs">sixth_order_compact_coeffs</a>
-            <a class="list-group-item" href="../module/boundary_schemes.html#variable-sixth_order_compact_coeffs_2">sixth_order_compact_coeffs_2</a>
+            <a class="list-group-item" href="../module/field_cpu.html#interface-field_cpu_type">field_cpu_type</a>
         </div>
       </div>
     </div>
 
-  
-  
-  
-  
-  
-  
-  
   
       <div class="panel panel-primary">
       <div class="panel-heading text-left">
@@ -232,7 +229,7 @@
       </div>
       <div id="types-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/boundary_schemes.html#type-boundary_type">boundary_type</a>
+            <a class="list-group-item" href="../module/field_cpu.html#type-field_cpu_type">field_cpu_type</a>
         </div>
       </div>
     </div>
@@ -245,9 +242,8 @@
       </div>
       <div id="funcs-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/boundary_schemes.html#proc-sixth_order_compact_stencil">sixth_order_compact_stencil</a>
-            <a class="list-group-item" href="../module/boundary_schemes.html#proc-sixth_order_compact_second_stencil">sixth_order_compact_second_stencil</a>
-            <a class="list-group-item" href="../module/boundary_schemes.html#proc-get_dirichlet_boundary">get_dirichlet_boundary</a>
+            <a class="list-group-item" href="../module/field_cpu.html#proc-field_cpu_constructor">field_cpu_constructor</a>
+            <a class="list-group-item" href="../module/field_cpu.html#proc-rhs">rhs</a>
         </div>
       </div>
     </div>
@@ -265,69 +261,91 @@
     <br class="visible-xs visible-sm hidden-md">
 
 
+    
+    
     <section>
-    <h2>Variables</h2>
+   <h2>Interfaces</h2>
+       <div class="panel panel-default">
+    <div class="panel-heading codesum">
+      <span class="anchor" id="interface-field_cpu_type"></span>
+      <h3>public        interface <a href='../interface/field_cpu_type.html'>field_cpu_type</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    public  function <a href='../proc/field_cpu_constructor.html'>field_cpu_constructor</a>(initial, dx) result(afield)  
+
+    </h3>
+    
+  
+
+  <h4>Arguments</h4>
       <table class="table table-striped varlist">
     <thead>
       <tr>
         <th>Type</th>
-<th>Visibility</th>        <th>Attributes</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
         <th></th>
         <th>Name</th>
-<th></th><th>Initial</th>        <th></th>
+        <th></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-sixth_order_compact_coeffs"></span>
+              <span class="anchor" ></span>
               real,
             </td>
-              <td>public,</td>
-            <td>
-parameter               
+<td>intent(in)</td>
+              <td></td>            <td>
+              
             </td>
             <td>::</td>
-            <td><strong>sixth_order_compact_coeffs</strong>(4)</td>
-<td> =</td>
-                <td>[-1./36., -7./9., +7./9., +1./36.]</td>
+            <td><strong>initial</strong>(:,:,:)</td>
             <td>
-                
+<p>Initial state</p>
             </td>
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-sixth_order_compact_coeffs_2"></span>
+              <span class="anchor" ></span>
               real,
             </td>
-              <td>public,</td>
-            <td>
-parameter               
+<td>intent(in)</td>
+              <td></td>            <td>
+              
             </td>
             <td>::</td>
-            <td><strong>sixth_order_compact_coeffs_2</strong>(5)</td>
-<td> =</td>
-                <td>[3./44., 12./11., -2.*(12./11.+3./44.), 12./11., 3./44.]</td>
+            <td><strong>dx</strong></td>
             <td>
-                
+<p>Spatial mesh spacing</p>
             </td>
         </tr>
     </tbody>
   </table>
 
+    <h4>
+    Return Value
+    <small>type(<a href='../type/field_cpu_type.html'>field_cpu_type</a>)</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
     </section>
-    <br>
-    
-    
+  <br>
 
     
     <section>
      <h2>Derived Types</h2>
        <div class="panel panel-default">
     <div class="panel-heading codesum">
-      <span class="anchor" id="type-boundary_type"></span>
+      <span class="anchor" id="type-field_cpu_type"></span>
       <h3>
-        type, public&nbsp;::&nbsp;
-        <a href='../type/boundary_type.html'>boundary_type</a>
+        type, public, extends(<a href='../type/field_type.html'>field_type</a>)&nbsp;::&nbsp;
+        <a href='../type/field_cpu_type.html'>field_cpu_type</a>
         
       </h3>
     </div>
@@ -347,15 +365,15 @@ parameter
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-first_order_east"></span>
-              type(<a href='../type/stencil_type.html'>stencil_type</a>),
+              <span class="anchor" id="variable-data"></span>
+              real,
             </td>
-              <td>public</td>
+              <td>public,</td>
             <td>
-              
+              allocatable
             </td>
             <td>::</td>
-            <td><strong>first_order_east</strong>(2)</td>
+            <td><strong>data</strong>(:,:,:)</td>
                 <td></td>
                 <td></td>
             <td>
@@ -364,61 +382,127 @@ parameter
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-second_order_east"></span>
-              type(<a href='../type/stencil_type.html'>stencil_type</a>),
+              <span class="anchor" id="variable-dx~2"></span>
+              real,
             </td>
               <td>public</td>
             <td>
               
             </td>
             <td>::</td>
-            <td><strong>second_order_east</strong>(2)</td>
+            <td><strong>dx</strong></td>
                 <td></td>
                 <td></td>
             <td>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" id="variable-first_order_west"></span>
-              type(<a href='../type/stencil_type.html'>stencil_type</a>),
-            </td>
-              <td>public</td>
-            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>first_order_west</strong>(2)</td>
-                <td></td>
-                <td></td>
-            <td>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" id="variable-second_order_west"></span>
-              type(<a href='../type/stencil_type.html'>stencil_type</a>),
-            </td>
-              <td>public</td>
-            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>second_order_west</strong>(2)</td>
-                <td></td>
-                <td></td>
-            <td>
-
+<p>Discrete mesh spacing</p>
             </td>
         </tr>
     </tbody>
   </table>
 
 
+        <h4>Constructor</h4>
+          
+        <table class="table table-striped varlist">
+          <tbody>
+                <tr>
+                  <td>
+                        public
+
+                    
+                    function
+                    <strong><a href='../proc/field_cpu_constructor.html'>field_cpu_constructor</a></strong>
+                    (initial, dx)
+                  </td>
+                  <td></td>
+                </tr>
+          </tbody>
+        </table>
 
 
+        <h4>Type-Bound Procedures</h4>
+        <table class="table table-striped varlist">
+          <tbody>
+              <tr>
+                <td>
+                    procedure
+                    ,                  public
+                  :: <strong><a href='../type/field_type.html#boundprocedure-nz'>nz</a></strong>
+<small>Function</small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                    procedure
+                    ,                  public
+                  :: <strong><a href='../type/field_type.html#boundprocedure-ny'>ny</a></strong>
+<small>Function</small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                    procedure
+                    ,                  public
+                  :: <strong><a href='../type/field_type.html#boundprocedure-nx'>nx</a></strong>
+<small>Function</small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                    procedure
+                    ,                  public
+                  :: <strong><a href='../type/field_type.html#boundprocedure-dump'>dump</a></strong>
+<small>Subroutine</small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                    procedure
+                    ,                  public
+                  :: <strong><a href='../type/field_type.html#boundprocedure-is_equal'>is_equal</a></strong>
+<small>Function</small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+generic,
+                  public
+                  :: <strong><a href='../type/field_cpu_type.html#boundprocedure-operator%28%2B%29~2'>operator(+)</a></strong>
+ =>
+                    field_add_field
+<small></small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+generic,
+                  public
+                  :: <strong><a href='../type/field_cpu_type.html#boundprocedure-operator%28-%29~2'>operator(-)</a></strong>
+ =>
+                    field_sub_field
+<small></small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+generic,
+                  public
+                  :: <strong><a href='../type/field_cpu_type.html#boundprocedure-operator%28ASTERISK%29~2'>operator(*)</a></strong>
+ =>
+                    field_mul_real
+<small></small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                    procedure
+                    ,                  public
+                  :: <strong><a href='../type/field_cpu_type.html#boundprocedure-rhs~2'>rhs</a></strong>
+<small>Function</small>                </td>
+                <td></td>
+              </tr>
+          </tbody>
+        </table>
     </div>
   </div>
 
@@ -429,17 +513,59 @@ parameter
     <section>
     <h2>Functions</h2>
       <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-sixth_order_compact_stencil"></span><h3>public pure function <a href='../proc/sixth_order_compact_stencil.html'>sixth_order_compact_stencil</a>()  
+    <div class="panel-heading codesum"><span class="anchor" id="proc-field_cpu_constructor"></span><h3>public  function <a href='../proc/field_cpu_constructor.html'>field_cpu_constructor</a>(initial, dx) result(afield)  
 </h3></div>
     <div class="panel-body">
           
   
 
   <h4>Arguments</h4>
-    <em>None</em>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>initial</strong>(:,:,:)</td>
+            <td>
+<p>Initial state</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dx</strong></td>
+            <td>
+<p>Spatial mesh spacing</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
     <h4>
     Return Value
-    <small>type(<a href='../type/stencil_type.html'>stencil_type</a>)</small>
+    <small>type(<a href='../type/field_cpu_type.html'>field_cpu_type</a>)</small>
     </h4>
     
 
@@ -447,35 +573,48 @@ parameter
   </div>
 
       <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-sixth_order_compact_second_stencil"></span><h3>public pure function <a href='../proc/sixth_order_compact_second_stencil.html'>sixth_order_compact_second_stencil</a>()  
+    <div class="panel-heading codesum"><span class="anchor" id="proc-rhs"></span><h3>public pure function <a href='../proc/rhs.html'>rhs</a>(self)  
 </h3></div>
     <div class="panel-body">
           
-  
+  <p>Evaluates right hand side of heat equation on a field instance.
+<script type="math/tex; mode=display"> F(T) = \Delta T = \frac{\partial^2 T}{\partial x^2} +
+\frac{\partial^2 T}{\partial y^2} + \frac{\partial^2
+T}{\partial z^2} </script>
+</p>
 
   <h4>Arguments</h4>
-    <em>None</em>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              class(<a href='../type/field_cpu_type.html'>field_cpu_type</a>),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>self</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
     <h4>
     Return Value
-    <small>type(<a href='../type/stencil_type.html'>stencil_type</a>)</small>
-    </h4>
-    
-
-    </div>
-  </div>
-
-      <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-get_dirichlet_boundary"></span><h3>public  function <a href='../proc/get_dirichlet_boundary.html'>get_dirichlet_boundary</a>()  
-</h3></div>
-    <div class="panel-body">
-          
-  
-
-  <h4>Arguments</h4>
-    <em>None</em>
-    <h4>
-    Return Value
-    <small>type(<a href='../type/boundary_type.html'>boundary_type</a>)</small>
+    <small>class(<a href='../type/field_type.html'>field_type</a>), allocatable</small>
     </h4>
     
 

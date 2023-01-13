@@ -79,7 +79,7 @@
     <div class="container">
   <div class="row">
     <h1>AB2_timestep
-      <small>Function</small>
+      <small>Subroutine</small>
       
     </h1>
       <div class="row" id="info-bar">
@@ -90,7 +90,7 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title=" 3.1% of total for procedures.">10 statements</a>
+               title=" 1.8% of total for procedures.">6 statements</a>
           </li>
 
             <li id="source-file">
@@ -144,7 +144,7 @@
     </div>
     
     <div class="col-md-9" id='text'>
-    <h2>public pure function AB2_timestep(fields, dt) result(res)  
+    <h2>public  subroutine AB2_timestep(f1, f2, dt)  
 </h2>
     
 
@@ -162,15 +162,30 @@
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-fields"></span>
-              type(<a href='../type/field_type.html'>field_type</a>),
+              <span class="anchor" id="variable-f1"></span>
+              class(<a href='../type/field_type.html'>field_type</a>),
             </td>
-<td>intent(in)</td>
+<td>intent(inout),</td>
               <td></td>            <td>
-              
+              allocatable
             </td>
             <td>::</td>
-            <td><strong>fields</strong>(2)</td>
+            <td><strong>f1</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-f2"></span>
+              class(<a href='../type/field_type.html'>field_type</a>),
+            </td>
+<td>intent(inout),</td>
+              <td></td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>f2</strong></td>
             <td>
                 
             </td>
@@ -193,13 +208,6 @@
     </tbody>
   </table>
 
-      <h3>Return Value
-        <small>
-          <span class="anchor" id="variable-res~2"></span>
-          type(<a href='../type/field_type.html'>field_type</a>), (2)
-        </small>
-      </h3>
-      
     <br>
 
     <section class="visible-xs visible-sm hidden-md">
