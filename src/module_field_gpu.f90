@@ -3,7 +3,7 @@ module field_gpu
   implicit none
 
   type, extends(field_type) :: field_gpu_type
-     real, allocatable, device :: data(:, :, :)
+     real, allocatable, device :: data_dev(:, :, :)
    contains
      procedure, public :: rhs
   end type field_gpu_type
@@ -18,8 +18,16 @@ contains
     class(field_gpu_type), intent(in) :: self
     class(field_type), allocatable :: rhs
 
+    i = threadIdx%x
+    j = threadIdx%y
+    k = threadIdx%z
     allocate(rhs, mold=self)
-    rhs%data = 2. * self%data
+    rhs%data_dev(i, j, k) = 2. * self%data_dev(i, j, k)
     rhs%dx = self%dx
   end function rhs
+
+  pure subroutine dev_to_host(self)
+    class(field_gpu_type), intent(inout) :: self
+    self%data = self%data_dev
+  end subroutine dev_to_host
 end module field_gpu
