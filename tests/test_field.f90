@@ -44,7 +44,8 @@ program test_field
   end if
 
   expected = field_cpu_type(-1. * 3. * u0, dx)
-  rhs = temp_field%rhs()
+  allocate(rhs, source=temp_field)
+  rhs%data = temp_field%rhs()
   if(.not. expected%is_equal(rhs, tol)) then
      write(stderr, '(a)') 'Field right hand side is computed correctly... failed.'
      allpass = .false.

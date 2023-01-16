@@ -26,7 +26,7 @@ module field
      pure function rhs_field(self)
        import :: field_type
        class(field_type), intent(in) :: self
-       class(field_type), allocatable :: rhs_field
+       real, allocatable :: rhs_field(:, :, :)
      end function rhs_field
   end interface
 
