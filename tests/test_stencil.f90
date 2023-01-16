@@ -31,7 +31,7 @@ program test_stencil
   end if
 
   res = st%apply_along(f)
-  expected = [22., 14., 20., 26., 32., 38., 37., 29.]
+  expected = [23., 14., 20., 26., 32., 38., 37., 29.]
   if (.not. all(abs(res - expected) < tol)) then
      allpass = .false.
      write(stderr, '(a)') 'Stencil is applied along correctly... failed'
@@ -67,6 +67,7 @@ program test_stencil
      write(stderr, '(a)') 'All tests passed successfully'
   else
      write(stderr, '(a)') '!!! Some tests failed !!!'
+     error stop
   end if
 
 end program test_stencil

@@ -34,6 +34,7 @@ program test_thomas
      write(stderr, '(a)') 'All tests passed successfully'
   else
      write(stderr, '(a)') '!!! Some tests failed !!!'
+     error stop
   end if
 
 end program test_thomas

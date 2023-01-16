@@ -76,6 +76,7 @@ program test_field
      write(stderr, '(a)') 'All tests passed successfully'
   else
      write(stderr, '(a)') '!!! Some tests failed !!!'
+     error stop
   end if
 
 end program test_field
