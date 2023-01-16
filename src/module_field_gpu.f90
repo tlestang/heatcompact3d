@@ -4,7 +4,6 @@ module field_gpu
   implicit none
 
   type, extends(field_type) :: field_gpu_type
-     real, allocatable, device :: data_dev(:, :, :)
    contains
      procedure, public :: rhs
   end type field_gpu_type
@@ -25,27 +24,30 @@ contains
 
   pure function rhs(self)
     class(field_gpu_type), intent(in) :: self
-    class(field_type), allocatable :: rhs
+    real, allocatable :: rhs(:, :, :)
+    real, allocatable, device :: rhs_dev(:, :, :), data_dev(:, :, :)
     type(dim3) :: threads
 
     threads = dim3(16, 16, 16)
-    allocate(field_gpu_type :: rhs)
-    select type (rhs)
-       type is (field_gpu_type)
-          allocate(rhs%data_dev, mold=self%data_dev)
-          call rhs_kernel<<<1, threads>>>(self%data_dev, rhs%data_dev)
+    select type (self)
+    type is (field_gpu_type)
+       allocate(data_dev, mold=self%data)
+       allocate(rhs_dev, mold=self%data)
+       rhs_dev = self%data
+       call rhs_kernel<<<1, threads>>>(data_dev, rhs_dev)
+       rhs = rhs_dev
        end select
      end function rhs
 
-  attributes(global) pure subroutine rhs_kernel(u, rhs)
-    real, intent(in) :: u(:, :, :)
+  attributes(global) pure subroutine rhs_kernel(data, rhs)
+    real, intent(in) :: data(:, :, :)
     real, intent(out) :: rhs(:, :, :)
     integer :: i, j, k
 
     i = threadIdx%x
     j = threadIdx%y
     k = threadIdx%z
-    rhs(i, j, k) = 2. * u(i, j, k)
+    rhs(i, j, k) = 2. * data(i, j, k)
    end subroutine rhs_kernel
 
 end module field_gpu
