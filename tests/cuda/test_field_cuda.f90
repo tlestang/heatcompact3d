@@ -28,10 +28,8 @@ program test_field_cuda
 
   allpass = .true.
 
-  temp_field%data_dev = temp_field%data
-  rhs = temp_field%rhs()
-  rhs%data = rhs%data_dev
-
+  allocate(rhs, source=temp_field)
+  rhs%data = temp_field%rhs()
   expected = field_gpu_type(-1. * 3. * u0, dx)
   if(.not. expected%is_equal(rhs, tol)) then
      write(stderr, '(a)') 'Field right hand side is computed correctly... failed.'
@@ -45,4 +43,4 @@ program test_field_cuda
   else
      write(stderr, '(a)') '!!! Some tests failed !!!'
   end if
-end program test_field
+end program test_field_cuda
