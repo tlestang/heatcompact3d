@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(heatcompact3d LANGUAGES Fortran)
+project(heatcompact3d LANGUAGES Fortran CUDA)
 enable_testing()
 
 file(GLOB SRC
@@ -14,6 +14,15 @@ file(GLOB TESTSRC
   RELATIVE ${CMAKE_SOURCE_DIR}
   ${CMAKE_SOURCE_DIR}/tests/*.f90
 )
+
+file(GLOB CUDATESTSRC
+  LIST_DIRECTORIES false
+  RELATIVE ${CMAKE_SOURCE_DIR}
+  ${CMAKE_SOURCE_DIR}/tests/cuda/*.f90
+)
+
+list(APPEND TESTSRC ${CUDATESTSRC})
+
 foreach(testsrc IN LISTS TESTSRC)
   get_filename_component(test_name ${testsrc} NAME_WE)
   add_executable(${test_name} ${testsrc})
