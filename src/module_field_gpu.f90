@@ -25,20 +25,51 @@ contains
   pure function rhs(self)
     class(field_gpu_type), intent(in) :: self
     real, allocatable :: rhs(:, :, :)
-    real, allocatable, device :: rhs_dev(:, :, :), data_dev(:, :, :)
-    type(dim3) :: threads
+    real, allocatable, device :: rhs_dev(:, :, :), data_dev(:, :, :), temp_dev(:, :, :)
+    type(dim3) :: threads, grid
+    integer, parameter :: th = 16
 
-    threads = dim3(16, 16, 16)
     select type (self)
     type is (field_gpu_type)
        allocate(data_dev, mold=self%data)
        allocate(rhs_dev, mold=self%data)
+       allocate(temp_dev, mold=self%data)
+
        rhs_dev = self%data
-       call rhs_kernel<<<1, threads>>>(data_dev, rhs_dev)
+       grid = dim3(ceiling(real(self%ny())/th), ceiling(real(self%nz())/th), 1)
+       threads = dim3(th, th, 1)
+       call rhs_x<<<grid, threads>>>(data_dev, rhs_dev, temp_dev)
+
        rhs = rhs_dev
        end select
      end function rhs
 
+  attributes(global) pure subroutine rhs_x(data, rhs, temp)
+    real, intent(in) :: data(:, :, :)
+    real, intent(out) :: rhs(:, :, :)
+    real, intent(inout) :: temp(:, :, :)
+    integer :: x, y, z, nx, ny, nz
+
+    nx = size(data, dim=1)
+    ny = size(data, dim=2)
+    nz = size(data, dim=3)
+    y = blockDim%x*(blockIdx%x-1) + threadIdx%x
+    z = blockDim%y*(blockIdx%y-1) + threadIdx%y
+
+    if ( y <= ny .and. z <= nz ) then
+       do x = 1, nx
+          temp(x, y, z) = data(x, y, z)
+       end do
+       do x = 1, nx
+          temp(x, y, z) = 2.*temp(x, y, z)
+       end do
+       do x = 1, nx
+          rhs(x, y, z) = temp(x, y, z)
+       end do
+    end if
+
+   end subroutine rhs_x
+  
   attributes(global) pure subroutine rhs_kernel(data, rhs)
     real, intent(in) :: data(:, :, :)
     real, intent(out) :: rhs(:, :, :)
