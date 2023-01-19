@@ -72,12 +72,12 @@ contains
     nt = floor((self%endtime - self%starttime) / self%dt)
     do i = 1, nt
        ! First fractional step is Euler like
-       afield2 = afield%rhs() * (8. / 15.) * self%dt + afield
+       afield2 = afield + afield%rhs() * (8. / 15.) * self%dt
        ! Second and third steps are AB2 like
-       afield = afield2%rhs() * (5. / 12.) * self%dt &
-            & + afield%rhs() * (- 17. / 60.) * self%dt + afield2
-       afield = afield%rhs() * (3. / 4.) * self%dt &
-            & + afield2%rhs() * (- 5. / 12.) * self%dt + afield
+       afield = afield2 + afield2%rhs() * (5. / 12.) * self%dt &
+            & + afield%rhs() * (- 17. / 60.) * self%dt
+       afield = afield + afield%rhs() * (3. / 4.) * self%dt &
+            & + afield2%rhs() * (- 5. / 12.) * self%dt
     end do
   end subroutine integrate_RK3
 
@@ -85,14 +85,14 @@ contains
     class(field_type), intent(in) :: afield
     real, intent(in) :: dt
     class(field_type), allocatable :: res
-      res = afield%rhs() *  dt + afield
+      res = afield + afield%rhs() *  dt
   end function euler_timestep
 
   subroutine AB2_timestep(f1, f2, dt)
     class(field_type), allocatable, intent(inout) :: f1, f2
     real, intent(in) :: dt
 
-    f2 = f2%rhs() * 1.5 * dt - f1%rhs() * 0.5 * dt + f2
+    f2 = f2 + f2%rhs() * 1.5 * dt + (-1. * f1%rhs() * 0.5 * dt)
     f1 = f2
   end subroutine AB2_timestep
 

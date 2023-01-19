@@ -32,7 +32,7 @@ contains
 
     class(field_cpu_type), intent(in) :: self
     real, allocatable :: ddx(:, :, :), ddy(:, :, :), ddz(:, :, :)
-    class(field_type), allocatable :: rhs
+    real, allocatable :: rhs(:, :, :)
     integer :: ix, iy, iz
     real :: dx2
     class(differentiator_type), allocatable :: differ
@@ -61,9 +61,7 @@ contains
        end do
     end do
 
-    allocate(rhs, source=self)
-    rhs%data = ddx + ddy + ddz
-    rhs%dx = self%dx
+    rhs = ddx + ddy + ddz
   end function rhs
 
 end module field_cpu
