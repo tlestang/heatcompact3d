@@ -90,7 +90,7 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title="<p>10.8% of total for derived types.</p>Including implementation: 93 statements, 24.6% of total for derived types.">4 statements</a>
+               title="<p> 9.7% of total for derived types.</p>Including implementation: 99 statements, 19.6% of total for derived types.">4 statements</a>
           </li>
 
             <li id="source-file">
@@ -704,7 +704,7 @@ fields values</p>
   </div>
 
             <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-operator%28%2B%29~2"></span><h3>generic, public :: <strong>operator(+)</strong>  => field_add_field         
+    <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-operator%28%2B%29~2"></span><h3>generic, public :: <strong>operator(+)</strong>  => field_add_field, field_add_real         
     </h3></div>
     <ul class="list-group">
         <li class="list-group-item">
@@ -751,6 +751,64 @@ fields values</p>
             </td>
             <td>::</td>
             <td><strong>afield</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>class(<a href='../type/field_type.html'>field_type</a>), allocatable</small>
+    </h4>
+    
+
+        </li>
+        <li class="list-group-item">
+                  <h3>
+    public pure function <a href='../proc/field_add_real.html'>field_add_real</a>(self, a)  
+</h3>
+    
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              class(<a href='../type/field_type.html'>field_type</a>),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>self</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong>(:,:,:)</td>
             <td>
 
             </td>
@@ -948,7 +1006,7 @@ T}{\partial z^2} </script>
 
     <h4>
     Return Value
-    <small>class(<a href='../type/field_type.html'>field_type</a>), allocatable</small>
+    <small>real, allocatable, (:,:,:)</small>
     </h4>
     
 

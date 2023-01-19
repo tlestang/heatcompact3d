@@ -8,7 +8,7 @@
     <meta name="author" content="Thibault Lestang" >
     <link rel="icon" href="../favicon.png">
 
-    <title>nonperiodic_differentiator_type &ndash; heatcompact3d </title>
+    <title>field_gpu_type &ndash; heatcompact3d</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -78,8 +78,8 @@
 
     <div class="container">
   <div class="row">
-    <h1>nonperiodic_differentiator_type
-      <small>Derived Type</small>
+    <h1>field_gpu_type
+      <small>Interface</small>
       
     </h1>
       <div class="row" id="info-bar">
@@ -90,18 +90,18 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title="<p> 8.3% of total for derived types.</p>Including implementation: 33 statements,  6.5% of total for derived types.">6 statements</a>
+               title="<p> 0.7% of total for procedures.</p>Including implementation: 10 statements,  2.2% of total for procedures.">3 statements</a>
           </li>
 
             <li id="source-file">
               <i class="fa fa-code"></i>
-              <a href="../src/module_differentiate.f90"> Source File</a>
+              <a href="../src/module_field_gpu.f90"> Source File</a>
             </li>
         </ul>
         <ol class="breadcrumb in-well text-right">
-              <li><a href='../sourcefile/module_differentiate.f90.html'>module_differentiate.f90</a></li>
-              <li><a href='../module/differentiate.html'>differentiate</a></li>
-          <li class="active">nonperiodic_differentiator_type</li>
+              <li><a href='../sourcefile/module_field_gpu.f90.html'>module_field_gpu.f90</a></li>
+              <li><a href='../module/field_gpu.html'>field_gpu</a></li>
+          <li class="active">field_gpu_type</li>
         </ol>
       </div>
     </div>
@@ -116,23 +116,11 @@
   
   <div class="row">
     <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
-      <div id="sidebar">
+        <div id="sidebar">
       <h3>Contents</h3>
   
-      <div class="panel panel-primary">
-      <div class="panel-heading text-left">
-        <h3 class="panel-title">
-          <a data-toggle="collapse" href="#vars-0">Variables</a>
-        </h3>
-      </div>
-      <div id="vars-0" class="panel-collapse collapse">
-        <div class="list-group">
-            <a class="list-group-item" href="../type/nonperiodic_differentiator_type.html#variable-east_stencils">east_stencils</a>
-            <a class="list-group-item" href="../type/nonperiodic_differentiator_type.html#variable-west_stencils">west_stencils</a>
-        </div>
-      </div>
-    </div>
-
+  
+  
   
   
   
@@ -151,17 +139,16 @@
       <div class="panel panel-primary">
       <div class="panel-heading text-left">
         <h3 class="panel-title">
-          <a data-toggle="collapse" href="#boundprocs-0">Type-Bound Procedures</a>
+          <a data-toggle="collapse" href="#modprocs-0">Module Procedures</a>
         </h3>
       </div>
-      <div id="boundprocs-0" class="panel-collapse collapse">
+      <div id="modprocs-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../type/nonperiodic_differentiator_type.html#boundprocedure-diff~2">diff</a>
+            <a class="list-group-item" href="../interface/field_gpu_type.html#moduleprocedure-field_gpu_constructor">field_gpu_constructor</a>
         </div>
       </div>
     </div>
 
-  
 
 
   </div>
@@ -169,27 +156,14 @@
     </div>
     
     <div class="col-md-9" id='text'>
-      <h2>type, public, extends(<a href='../type/differentiator_type.html'>differentiator_type</a>) :: nonperiodic_differentiator_type</h2>
-    
-    <br>
+      <h2>public interface field_gpu_type</h2>
+   
 
-    <section class="visible-xs visible-sm hidden-md">
-        <h3>Contents</h3>
+     <section class="visible-xs visible-sm hidden-md">
+         <h3>Contents</h3>
   
-      <div class="panel panel-primary">
-      <div class="panel-heading text-left">
-        <h3 class="panel-title">
-          <a data-toggle="collapse" href="#vars-1">Variables</a>
-        </h3>
-      </div>
-      <div id="vars-1" class="panel-collapse collapse">
-        <div class="list-group">
-            <a class="list-group-item" href="../type/nonperiodic_differentiator_type.html#variable-east_stencils">east_stencils</a>
-            <a class="list-group-item" href="../type/nonperiodic_differentiator_type.html#variable-west_stencils">west_stencils</a>
-        </div>
-      </div>
-    </div>
-
+  
+  
   
   
   
@@ -208,90 +182,30 @@
       <div class="panel panel-primary">
       <div class="panel-heading text-left">
         <h3 class="panel-title">
-          <a data-toggle="collapse" href="#boundprocs-1">Type-Bound Procedures</a>
+          <a data-toggle="collapse" href="#modprocs-1">Module Procedures</a>
         </h3>
       </div>
-      <div id="boundprocs-1" class="panel-collapse collapse">
+      <div id="modprocs-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../type/nonperiodic_differentiator_type.html#boundprocedure-diff~2">diff</a>
+            <a class="list-group-item" href="../interface/field_gpu_type.html#moduleprocedure-field_gpu_constructor">field_gpu_constructor</a>
         </div>
       </div>
     </div>
 
+
+
+     </section>
+     <br class="visible-xs visible-sm hidden-md">
+     
+
+
+   <h2>Module Procedures</h2>
+      <div class="panel panel-default">
+    <div class="panel-heading codesum"><span class="anchor" id="proc-field_gpu_constructor"></span><h3>public  function <a href='../proc/field_gpu_constructor.html'>field_gpu_constructor</a>(initial, dx) result(afield)  
+</h3></div>
+    <div class="panel-body">
+          
   
-
-
-    </section>
-    <br class="visible-xs visible-sm hidden-md">
-
-    <section>
-    <h2>Components</h2>
-      <table class="table table-striped varlist">
-    <thead>
-      <tr>
-        <th>Type</th>
-<th>Visibility</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-<th></th><th>Initial</th>        <th></th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-              <span class="anchor" id="variable-east_stencils"></span>
-              type(<a href='../type/stencil_type.html'>stencil_type</a>),
-            </td>
-              <td>public</td>
-            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>east_stencils</strong>(2)</td>
-                <td></td>
-                <td></td>
-            <td>
-                
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" id="variable-west_stencils"></span>
-              type(<a href='../type/stencil_type.html'>stencil_type</a>),
-            </td>
-              <td>public</td>
-            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>west_stencils</strong>(2)</td>
-                <td></td>
-                <td></td>
-            <td>
-                
-            </td>
-        </tr>
-    </tbody>
-  </table>
-
-    </section>
-    <br>
-    
-
-
-      <section>
-        <h2>Type-Bound Procedures</h2>
-            <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-diff~2"></span><h3>procedure, public :: <strong>diff</strong>  => <a href='../proc/diff_nonperiodic.html'>diff_nonperiodic</a>         
-    </h3></div>
-    <ul class="list-group">
-        <li class="list-group-item">
-                  <h3>
-    public pure function <a href='../proc/diff_nonperiodic.html'>diff_nonperiodic</a>(self, f, dx) result(df)  
-</h3>
-    
-  <p>Apply a differentiation stencil along a one dimensional pencil,
-then apply boundary conditions on both ends. Boundary
-conditions are applied as arrays of type <code>stencil_type</code></p>
 
   <h4>Arguments</h4>
       <table class="table table-striped varlist">
@@ -307,21 +221,6 @@ conditions are applied as arrays of type <code>stencil_type</code></p>
         <tr>
             <td>
               <span class="anchor" ></span>
-              class(<a href='../type/nonperiodic_differentiator_type.html'>nonperiodic_differentiator_type</a>),
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>self</strong></td>
-            <td>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
               real,
             </td>
 <td>intent(in)</td>
@@ -329,9 +228,9 @@ conditions are applied as arrays of type <code>stencil_type</code></p>
               
             </td>
             <td>::</td>
-            <td><strong>f</strong>(:)</td>
+            <td><strong>initial</strong>(:,:,:)</td>
             <td>
-
+<p>Initial state</p>
             </td>
         </tr>
         <tr>
@@ -346,7 +245,7 @@ conditions are applied as arrays of type <code>stencil_type</code></p>
             <td>::</td>
             <td><strong>dx</strong></td>
             <td>
-
+<p>Spatial mesh spacing</p>
             </td>
         </tr>
     </tbody>
@@ -354,19 +253,16 @@ conditions are applied as arrays of type <code>stencil_type</code></p>
 
     <h4>
     Return Value
-    <small>real, allocatable, (:)</small>
+    <small>type(<a href='../type/field_gpu_type.html'>field_gpu_type</a>)</small>
     </h4>
     
 
-        </li>
-    </ul>
-  </div>
-
-      </section>
-
-    
     </div>
   </div>
+
+
+ </div>
+</div>
 
     <hr>    
     </div> <!-- /container -->

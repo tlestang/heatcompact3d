@@ -16,8 +16,8 @@ module field
      procedure, public :: is_equal, dump
      procedure(rhs_field), deferred :: rhs
      procedure, private :: field_add_field, field_sub_field, &
-          & field_mul_real
-     generic :: operator(+) => field_add_field
+          & field_mul_real, field_add_real
+     generic :: operator(+) => field_add_field, field_add_real
      generic :: operator(-) => field_sub_field
      generic :: operator(*) => field_mul_real
   end type field_type
@@ -26,7 +26,7 @@ module field
      pure function rhs_field(self)
        import :: field_type
        class(field_type), intent(in) :: self
-       class(field_type), allocatable :: rhs_field
+       real, allocatable :: rhs_field(:, :, :)
      end function rhs_field
   end interface
 
@@ -94,6 +94,15 @@ contains
     field_add_field%data = self%data + afield%data
     field_add_field%dx = self%dx
   end function field_add_field
+
+  pure function field_add_real(self, a)
+    class(field_type), intent(in) :: self
+    real, intent(in) :: a(:, :, :)
+    class(field_type), allocatable :: field_add_real
+    allocate(field_add_real, mold=self)
+    field_add_real%data = self%data + a
+    field_add_real%dx = self%dx
+  end function field_add_real
 
   pure function field_sub_field(self, afield)
     class(field_type), intent(in) :: self, afield

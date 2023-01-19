@@ -8,7 +8,7 @@
     <meta name="author" content="Thibault Lestang" >
     <link rel="icon" href="../favicon.png">
 
-    <title>field_type &ndash; heatcompact3d </title>
+    <title>field_gpu_type &ndash; heatcompact3d </title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -78,7 +78,7 @@
 
     <div class="container">
   <div class="row">
-    <h1>field_type
+    <h1>field_gpu_type
       <small>Derived Type</small>
       
     </h1>
@@ -90,18 +90,18 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title="<p>16.7% of total for derived types.</p>Including implementation: 107 statements, 21.2% of total for derived types.">12 statements</a>
+               title="<p> 9.7% of total for derived types.</p>Including implementation: 93 statements, 18.4% of total for derived types.">4 statements</a>
           </li>
 
             <li id="source-file">
               <i class="fa fa-code"></i>
-              <a href="../src/module_field.f90"> Source File</a>
+              <a href="../src/module_field_gpu.f90"> Source File</a>
             </li>
         </ul>
         <ol class="breadcrumb in-well text-right">
-              <li><a href='../sourcefile/module_field.f90.html'>module_field.f90</a></li>
-              <li><a href='../module/field.html'>field</a></li>
-          <li class="active">field_type</li>
+              <li><a href='../sourcefile/module_field_gpu.f90.html'>module_field_gpu.f90</a></li>
+              <li><a href='../module/field_gpu.html'>field_gpu</a></li>
+          <li class="active">field_gpu_type</li>
         </ol>
       </div>
     </div>
@@ -127,14 +127,26 @@
       </div>
       <div id="vars-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../type/field_type.html#variable-data">data</a>
-            <a class="list-group-item" href="../type/field_type.html#variable-dx~2">dx</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#variable-data">data</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#variable-dx~2">dx</a>
         </div>
       </div>
     </div>
 
   
-  
+      <div class="panel panel-primary">
+      <div class="panel-heading text-left">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" href="#cons-0">Constructor</a>
+        </h3>
+      </div>
+      <div id="cons-0" class="panel-collapse collapse">
+        <div class="list-group">
+            <a class="list-group-item" href="../type/field_gpu_type.html#interface-field_gpu_type">field_gpu_type</a>
+        </div>
+      </div>
+    </div>
+
   
   
   
@@ -156,15 +168,15 @@
       </div>
       <div id="boundprocs-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-nz">nz</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-ny">ny</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-nx">nx</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-dump">dump</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-is_equal">is_equal</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-rhs">rhs</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-operator%28%2B%29">operator(+)</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-operator%28-%29">operator(-)</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-operator%28ASTERISK%29">operator(*)</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-nz">nz</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-ny">ny</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-nx">nx</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-dump">dump</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-is_equal">is_equal</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-operator%28%2B%29~3">operator(+)</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-operator%28-%29~3">operator(-)</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-operator%28ASTERISK%29~4">operator(*)</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-rhs~3">rhs</a>
         </div>
       </div>
     </div>
@@ -177,12 +189,8 @@
     </div>
     
     <div class="col-md-9" id='text'>
-      <h2>type, public, abstract :: field_type</h2>
-    <p>Implement a 3D scalar field, for instance a temperature field.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">type</span><span class="p">(</span><span class="n">field_type</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">afield</span><span class="w"></span>
-<span class="kt">real</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">u0</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="w"> </span><span class="n">ny</span><span class="p">,</span><span class="w"> </span><span class="n">nz</span><span class="p">),</span><span class="w"> </span><span class="n">dx</span><span class="w"></span>
-<span class="n">afield</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">field_type</span><span class="p">(</span><span class="n">u0</span><span class="p">,</span><span class="w"> </span><span class="n">dx</span><span class="p">)</span><span class="w"></span>
-</code></pre></div>
+      <h2>type, public, extends(<a href='../type/field_type.html'>field_type</a>) :: field_gpu_type</h2>
+    
     <br>
 
     <section class="visible-xs visible-sm hidden-md">
@@ -196,14 +204,26 @@
       </div>
       <div id="vars-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../type/field_type.html#variable-data">data</a>
-            <a class="list-group-item" href="../type/field_type.html#variable-dx~2">dx</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#variable-data">data</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#variable-dx~2">dx</a>
         </div>
       </div>
     </div>
 
   
-  
+      <div class="panel panel-primary">
+      <div class="panel-heading text-left">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" href="#cons-1">Constructor</a>
+        </h3>
+      </div>
+      <div id="cons-1" class="panel-collapse collapse">
+        <div class="list-group">
+            <a class="list-group-item" href="../type/field_gpu_type.html#interface-field_gpu_type">field_gpu_type</a>
+        </div>
+      </div>
+    </div>
+
   
   
   
@@ -225,15 +245,15 @@
       </div>
       <div id="boundprocs-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-nz">nz</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-ny">ny</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-nx">nx</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-dump">dump</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-is_equal">is_equal</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-rhs">rhs</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-operator%28%2B%29">operator(+)</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-operator%28-%29">operator(-)</a>
-            <a class="list-group-item" href="../type/field_type.html#boundprocedure-operator%28ASTERISK%29">operator(*)</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-nz">nz</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-ny">ny</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-nx">nx</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-dump">dump</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-is_equal">is_equal</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-operator%28%2B%29~3">operator(+)</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-operator%28-%29~3">operator(-)</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-operator%28ASTERISK%29~4">operator(*)</a>
+            <a class="list-group-item" href="../type/field_gpu_type.html#boundprocedure-rhs~3">rhs</a>
         </div>
       </div>
     </div>
@@ -296,6 +316,79 @@
     </section>
     <br>
     
+      <section>
+        <h2>Constructor</h2>
+            <div class="panel panel-default">
+    <div class="panel-heading codesum">
+      <span class="anchor" id="interface-field_gpu_type"></span>
+      <h3>public        interface <a href='../interface/field_gpu_type.html'>field_gpu_type</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    public  function <a href='../proc/field_gpu_constructor.html'>field_gpu_constructor</a>(initial, dx) result(afield)  
+
+    </h3>
+    
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>initial</strong>(:,:,:)</td>
+            <td>
+<p>Initial state</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dx</strong></td>
+            <td>
+<p>Spatial mesh spacing</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>type(<a href='../type/field_gpu_type.html'>field_gpu_type</a>)</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+      </section>
+      <br>
 
 
       <section>
@@ -611,56 +704,7 @@ fields values</p>
   </div>
 
             <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-rhs"></span><h3>procedure(<a href='../interface/rhs_field.html'>rhs_field</a>), public, deferred :: <strong>rhs</strong>          
-    </h3></div>
-    <ul class="list-group">
-        <li class="list-group-item">
-                  <h3>
-    pure function rhs_field(self)  
-<small>Prototype</small></h3>
-  
-
-  <h4>Arguments</h4>
-      <table class="table table-striped varlist">
-    <thead>
-      <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              class(<a href='../type/field_type.html'>field_type</a>),
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>self</strong></td>
-            <td>
-                
-            </td>
-        </tr>
-    </tbody>
-  </table>
-
-    <h4>
-    Return Value
-    <small>real, allocatable, (:,:,:)</small>
-    </h4>
-    
-
-        </li>
-    </ul>
-  </div>
-
-            <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-operator%28%2B%29"></span><h3>generic, public :: <strong>operator(+)</strong>  => field_add_field, field_add_real         
+    <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-operator%28%2B%29~3"></span><h3>generic, public :: <strong>operator(+)</strong>  => field_add_field, field_add_real         
     </h3></div>
     <ul class="list-group">
         <li class="list-group-item">
@@ -783,7 +827,7 @@ fields values</p>
   </div>
 
             <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-operator%28-%29"></span><h3>generic, public :: <strong>operator(-)</strong>  => field_sub_field         
+    <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-operator%28-%29~3"></span><h3>generic, public :: <strong>operator(-)</strong>  => field_sub_field         
     </h3></div>
     <ul class="list-group">
         <li class="list-group-item">
@@ -848,7 +892,7 @@ fields values</p>
   </div>
 
             <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-operator%28ASTERISK%29"></span><h3>generic, public :: <strong>operator(*)</strong>  => field_mul_real         
+    <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-operator%28ASTERISK%29~4"></span><h3>generic, public :: <strong>operator(*)</strong>  => field_mul_real         
     </h3></div>
     <ul class="list-group">
         <li class="list-group-item">
@@ -909,6 +953,56 @@ f2%is_equal(field_cpu_type(u0 * 1.3, dx)) ! true
     <h4>
     Return Value
     <small>class(<a href='../type/field_type.html'>field_type</a>), allocatable</small>
+    </h4>
+    
+
+        </li>
+    </ul>
+  </div>
+
+            <div class="panel panel-default">
+    <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-rhs~3"></span><h3>procedure, public :: <strong>rhs</strong>          
+    </h3></div>
+    <ul class="list-group">
+        <li class="list-group-item">
+                  <h3>
+    public pure function <a href='../proc/rhs~2.html'>rhs</a>(self)  
+</h3>
+    
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              class(<a href='../type/field_gpu_type.html'>field_gpu_type</a>),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>self</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real, allocatable, (:,:,:)</small>
     </h4>
     
 

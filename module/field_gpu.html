@@ -8,7 +8,7 @@
     <meta name="author" content="Thibault Lestang" >
     <link rel="icon" href="../favicon.png">
 
-    <title>differentiate &ndash; heatcompact3d</title>
+    <title>field_gpu &ndash; heatcompact3d</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -78,7 +78,7 @@
 
     <div class="container">
   <div class="row">
-    <h1>differentiate 
+    <h1>field_gpu 
     <small>Module</small>
     
     </h1>
@@ -90,17 +90,17 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title="18.1% of total for modules and submodules.">102 statements</a>
+               title="20.6% of total for modules and submodules.">116 statements</a>
           </li>
 
             <li id="source-file">
               <i class="fa fa-code"></i>
-              <a href="../src/module_differentiate.f90"> Source File</a>
+              <a href="../src/module_field_gpu.f90"> Source File</a>
             </li>
         </ul>
         <ol class="breadcrumb in-well text-right">
-              <li><a href='../sourcefile/module_differentiate.f90.html'>module_differentiate.f90</a></li>
-          <li class="active">differentiate</li>
+              <li><a href='../sourcefile/module_field_gpu.f90.html'>module_field_gpu.f90</a></li>
+          <li class="active">field_gpu</li>
         </ol>
       </div>
     </div>
@@ -133,8 +133,7 @@
       </div>
       <div id="inters-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/differentiate.html#interface-sixth_order_compact_1">sixth_order_compact_1</a>
-            <a class="list-group-item" href="../module/differentiate.html#interface-sixth_order_compact_2">sixth_order_compact_2</a>
+            <a class="list-group-item" href="../module/field_gpu.html#interface-field_gpu_type">field_gpu_type</a>
         </div>
       </div>
     </div>
@@ -148,8 +147,7 @@
       </div>
       <div id="types-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/differentiate.html#type-differentiator_type">differentiator_type</a>
-            <a class="list-group-item" href="../module/differentiate.html#type-nonperiodic_differentiator_type">nonperiodic_differentiator_type</a>
+            <a class="list-group-item" href="../module/field_gpu.html#type-field_gpu_type">field_gpu_type</a>
         </div>
       </div>
     </div>
@@ -162,18 +160,27 @@
       </div>
       <div id="funcs-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/differentiate.html#proc-sixth_order_compact_1_nonperiodic">sixth_order_compact_1_nonperiodic</a>
-            <a class="list-group-item" href="../module/differentiate.html#proc-sixth_order_compact_1_periodic">sixth_order_compact_1_periodic</a>
-            <a class="list-group-item" href="../module/differentiate.html#proc-sixth_order_compact_2_nonperiodic">sixth_order_compact_2_nonperiodic</a>
-            <a class="list-group-item" href="../module/differentiate.html#proc-sixth_order_compact_2_periodic">sixth_order_compact_2_periodic</a>
-            <a class="list-group-item" href="../module/differentiate.html#proc-diff_nonperiodic">diff_nonperiodic</a>
-            <a class="list-group-item" href="../module/differentiate.html#proc-diff_periodic">diff_periodic</a>
-            <a class="list-group-item" href="../module/differentiate.html#proc-reverse">reverse</a>
+            <a class="list-group-item" href="../module/field_gpu.html#proc-field_gpu_constructor">field_gpu_constructor</a>
+            <a class="list-group-item" href="../module/field_gpu.html#proc-rhs~2">rhs</a>
         </div>
       </div>
     </div>
 
-  
+      <div class="panel panel-primary">
+      <div class="panel-heading text-left">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" href="#subs-0">Subroutines</a>
+        </h3>
+      </div>
+      <div id="subs-0" class="panel-collapse collapse">
+        <div class="list-group">
+            <a class="list-group-item" href="../module/field_gpu.html#proc-rhs_x">rhs_x</a>
+            <a class="list-group-item" href="../module/field_gpu.html#proc-rhs_y">rhs_y</a>
+            <a class="list-group-item" href="../module/field_gpu.html#proc-rhs_z">rhs_z</a>
+        </div>
+      </div>
+    </div>
+
   
   
   
@@ -187,32 +194,7 @@
     </div>
     
     <div class="col-md-9" id='text'>
-    <p>This module implements differentiation over a one dimensional
-pencil.  It exports concrete derived types</p>
-<ul>
-<li><code>differentiator_type</code> :: periodic differentiation</li>
-<li><code>nonperiodic_differentiator_type</code> :: non periodic differentiation</li>
-</ul>
-<p>Both types provide access to a single type-procedure <code>diff</code> that
-performs the differentiation and return the derivative evaluated
-over the input pencil.</p>
-<p>Instances of differentiator derived types are created on the
-client side via constructor procedures <code>&lt;method&gt;_&lt;order&gt;</code>
-(e.g. <code>sixth_order_compact_1</code>). These constructor procedures are
-implemented as a generic interface to concrete constructors for
-the periodic case (no boundary conditions are specified) or the
-noneriodic case (boundary conditions are specified). See module
-<code>boundary_schemes</code>.</p>
-<div class="codehilite"><pre><span></span><code>use boundary_schemes, only:: get_dirichlet_4th
-real :: f(:), df(:), dx
-! ...
-! ...
-differentiatior = sixth_order_compact_1( &amp;
-     &amp; east = get_dirichlet_4th(), &amp;
-     &amp; west = get_dirichlet_4th(), &amp;
-     &amp; )
-df = differentiatior%diff(f, dx)
-</code></pre></div>
+    
 <br>        <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Uses</h3>
@@ -220,9 +202,8 @@ df = differentiatior%diff(f, dx)
       <ul class="list-group">
           <li class="list-group-item">
             <ul class="list-inline">
-                <li><a href='../module/thomas_module.html'>thomas_module</a></li>
-                <li><a href='../module/boundary_schemes.html'>boundary_schemes</a></li>
-                <li><a href='../module/stencil.html'>stencil</a></li>
+                <li>cudafor</li>
+                <li><a href='../module/field.html'>field</a></li>
             </ul>
           </li>
       </ul>
@@ -249,8 +230,7 @@ df = differentiatior%diff(f, dx)
       </div>
       <div id="inters-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/differentiate.html#interface-sixth_order_compact_1">sixth_order_compact_1</a>
-            <a class="list-group-item" href="../module/differentiate.html#interface-sixth_order_compact_2">sixth_order_compact_2</a>
+            <a class="list-group-item" href="../module/field_gpu.html#interface-field_gpu_type">field_gpu_type</a>
         </div>
       </div>
     </div>
@@ -264,8 +244,7 @@ df = differentiatior%diff(f, dx)
       </div>
       <div id="types-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/differentiate.html#type-differentiator_type">differentiator_type</a>
-            <a class="list-group-item" href="../module/differentiate.html#type-nonperiodic_differentiator_type">nonperiodic_differentiator_type</a>
+            <a class="list-group-item" href="../module/field_gpu.html#type-field_gpu_type">field_gpu_type</a>
         </div>
       </div>
     </div>
@@ -278,18 +257,27 @@ df = differentiatior%diff(f, dx)
       </div>
       <div id="funcs-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/differentiate.html#proc-sixth_order_compact_1_nonperiodic">sixth_order_compact_1_nonperiodic</a>
-            <a class="list-group-item" href="../module/differentiate.html#proc-sixth_order_compact_1_periodic">sixth_order_compact_1_periodic</a>
-            <a class="list-group-item" href="../module/differentiate.html#proc-sixth_order_compact_2_nonperiodic">sixth_order_compact_2_nonperiodic</a>
-            <a class="list-group-item" href="../module/differentiate.html#proc-sixth_order_compact_2_periodic">sixth_order_compact_2_periodic</a>
-            <a class="list-group-item" href="../module/differentiate.html#proc-diff_nonperiodic">diff_nonperiodic</a>
-            <a class="list-group-item" href="../module/differentiate.html#proc-diff_periodic">diff_periodic</a>
-            <a class="list-group-item" href="../module/differentiate.html#proc-reverse">reverse</a>
+            <a class="list-group-item" href="../module/field_gpu.html#proc-field_gpu_constructor">field_gpu_constructor</a>
+            <a class="list-group-item" href="../module/field_gpu.html#proc-rhs~2">rhs</a>
         </div>
       </div>
     </div>
 
-  
+      <div class="panel panel-primary">
+      <div class="panel-heading text-left">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" href="#subs-1">Subroutines</a>
+        </h3>
+      </div>
+      <div id="subs-1" class="panel-collapse collapse">
+        <div class="list-group">
+            <a class="list-group-item" href="../module/field_gpu.html#proc-rhs_x">rhs_x</a>
+            <a class="list-group-item" href="../module/field_gpu.html#proc-rhs_y">rhs_y</a>
+            <a class="list-group-item" href="../module/field_gpu.html#proc-rhs_z">rhs_z</a>
+        </div>
+      </div>
+    </div>
+
   
   
   
@@ -308,31 +296,14 @@ df = differentiatior%diff(f, dx)
    <h2>Interfaces</h2>
        <div class="panel panel-default">
     <div class="panel-heading codesum">
-      <span class="anchor" id="interface-sixth_order_compact_1"></span>
-      <h3>public        interface <a href='../interface/sixth_order_compact_1.html'>sixth_order_compact_1</a> 
+      <span class="anchor" id="interface-field_gpu_type"></span>
+      <h3>public        interface <a href='../interface/field_gpu_type.html'>field_gpu_type</a> 
       </h3>
     </div>
     <ul class="list-group">
           <li class="list-group-item">
                 <h3>
-    public pure function <a href='../proc/sixth_order_compact_1_periodic.html'>sixth_order_compact_1_periodic</a>()  
-
-    </h3>
-    
-  
-
-  <h4>Arguments</h4>
-    <em>None</em>
-    <h4>
-    Return Value
-    <small>type(<a href='../type/differentiator_type.html'>differentiator_type</a>)</small>
-    </h4>
-    
-
-          </li>
-          <li class="list-group-item">
-                <h3>
-    public pure function <a href='../proc/sixth_order_compact_1_nonperiodic.html'>sixth_order_compact_1_nonperiodic</a>(east, west)  
+    public  function <a href='../proc/field_gpu_constructor.html'>field_gpu_constructor</a>(initial, dx) result(afield)  
 
     </h3>
     
@@ -352,31 +323,31 @@ df = differentiatior%diff(f, dx)
         <tr>
             <td>
               <span class="anchor" ></span>
-              type(<a href='../type/boundary_type.html'>boundary_type</a>),
+              real,
             </td>
 <td>intent(in)</td>
               <td></td>            <td>
               
             </td>
             <td>::</td>
-            <td><strong>east</strong></td>
+            <td><strong>initial</strong>(:,:,:)</td>
             <td>
-
+<p>Initial state</p>
             </td>
         </tr>
         <tr>
             <td>
               <span class="anchor" ></span>
-              type(<a href='../type/boundary_type.html'>boundary_type</a>),
+              real,
             </td>
 <td>intent(in)</td>
               <td></td>            <td>
               
             </td>
             <td>::</td>
-            <td><strong>west</strong></td>
+            <td><strong>dx</strong></td>
             <td>
-
+<p>Spatial mesh spacing</p>
             </td>
         </tr>
     </tbody>
@@ -384,93 +355,7 @@ df = differentiatior%diff(f, dx)
 
     <h4>
     Return Value
-    <small>type(<a href='../type/nonperiodic_differentiator_type.html'>nonperiodic_differentiator_type</a>)</small>
-    </h4>
-    
-
-          </li>
-    </ul>
-  </div>
-
-       <div class="panel panel-default">
-    <div class="panel-heading codesum">
-      <span class="anchor" id="interface-sixth_order_compact_2"></span>
-      <h3>public        interface <a href='../interface/sixth_order_compact_2.html'>sixth_order_compact_2</a> 
-      </h3>
-    </div>
-    <ul class="list-group">
-          <li class="list-group-item">
-                <h3>
-    public pure function <a href='../proc/sixth_order_compact_2_periodic.html'>sixth_order_compact_2_periodic</a>()  
-
-    </h3>
-    
-  
-
-  <h4>Arguments</h4>
-    <em>None</em>
-    <h4>
-    Return Value
-    <small>type(<a href='../type/differentiator_type.html'>differentiator_type</a>)</small>
-    </h4>
-    
-
-          </li>
-          <li class="list-group-item">
-                <h3>
-    public pure function <a href='../proc/sixth_order_compact_2_nonperiodic.html'>sixth_order_compact_2_nonperiodic</a>(east, west)  
-
-    </h3>
-    
-  
-
-  <h4>Arguments</h4>
-      <table class="table table-striped varlist">
-    <thead>
-      <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              type(<a href='../type/boundary_type.html'>boundary_type</a>),
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>east</strong></td>
-            <td>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              type(<a href='../type/boundary_type.html'>boundary_type</a>),
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>west</strong></td>
-            <td>
-
-            </td>
-        </tr>
-    </tbody>
-  </table>
-
-    <h4>
-    Return Value
-    <small>type(<a href='../type/nonperiodic_differentiator_type.html'>nonperiodic_differentiator_type</a>)</small>
+    <small>type(<a href='../type/field_gpu_type.html'>field_gpu_type</a>)</small>
     </h4>
     
 
@@ -486,45 +371,10 @@ df = differentiatior%diff(f, dx)
      <h2>Derived Types</h2>
        <div class="panel panel-default">
     <div class="panel-heading codesum">
-      <span class="anchor" id="type-differentiator_type"></span>
+      <span class="anchor" id="type-field_gpu_type"></span>
       <h3>
-        type, public&nbsp;::&nbsp;
-        <a href='../type/differentiator_type.html'>differentiator_type</a>
-        
-      </h3>
-    </div>
-    <div class="panel-body">
-      <p>Implements differentiation over a periodic stencil.
-<code>differentiator_type</code> provides access a a unique type-bound
-procedure <code>diff</code></p>
-
-
-
-
-        <h4>Type-Bound Procedures</h4>
-        <table class="table table-striped varlist">
-          <tbody>
-              <tr>
-                <td>
-                    procedure
-                    ,                  public
-                  :: <strong><a href='../type/differentiator_type.html#boundprocedure-diff'>diff</a></strong>
- =>
-                    <a href='../proc/diff_periodic.html'>diff_periodic</a>
-<small>Function</small>                </td>
-                <td></td>
-              </tr>
-          </tbody>
-        </table>
-    </div>
-  </div>
-
-       <div class="panel panel-default">
-    <div class="panel-heading codesum">
-      <span class="anchor" id="type-nonperiodic_differentiator_type"></span>
-      <h3>
-        type, public, extends(<a href='../type/differentiator_type.html'>differentiator_type</a>)&nbsp;::&nbsp;
-        <a href='../type/nonperiodic_differentiator_type.html'>nonperiodic_differentiator_type</a>
+        type, public, extends(<a href='../type/field_type.html'>field_type</a>)&nbsp;::&nbsp;
+        <a href='../type/field_gpu_type.html'>field_gpu_type</a>
         
       </h3>
     </div>
@@ -544,15 +394,15 @@ procedure <code>diff</code></p>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-east_stencils"></span>
-              type(<a href='../type/stencil_type.html'>stencil_type</a>),
+              <span class="anchor" id="variable-data"></span>
+              real,
             </td>
-              <td>public</td>
+              <td>public,</td>
             <td>
-              
+              allocatable
             </td>
             <td>::</td>
-            <td><strong>east_stencils</strong>(2)</td>
+            <td><strong>data</strong>(:,:,:)</td>
                 <td></td>
                 <td></td>
             <td>
@@ -561,25 +411,42 @@ procedure <code>diff</code></p>
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-west_stencils"></span>
-              type(<a href='../type/stencil_type.html'>stencil_type</a>),
+              <span class="anchor" id="variable-dx~2"></span>
+              real,
             </td>
               <td>public</td>
             <td>
               
             </td>
             <td>::</td>
-            <td><strong>west_stencils</strong>(2)</td>
+            <td><strong>dx</strong></td>
                 <td></td>
                 <td></td>
             <td>
-
+<p>Discrete mesh spacing</p>
             </td>
         </tr>
     </tbody>
   </table>
 
 
+        <h4>Constructor</h4>
+          
+        <table class="table table-striped varlist">
+          <tbody>
+                <tr>
+                  <td>
+                        public
+
+                    
+                    function
+                    <strong><a href='../proc/field_gpu_constructor.html'>field_gpu_constructor</a></strong>
+                    (initial, dx)
+                  </td>
+                  <td></td>
+                </tr>
+          </tbody>
+        </table>
 
 
         <h4>Type-Bound Procedures</h4>
@@ -589,9 +456,77 @@ procedure <code>diff</code></p>
                 <td>
                     procedure
                     ,                  public
-                  :: <strong><a href='../type/nonperiodic_differentiator_type.html#boundprocedure-diff~2'>diff</a></strong>
+                  :: <strong><a href='../type/field_type.html#boundprocedure-nz'>nz</a></strong>
+<small>Function</small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                    procedure
+                    ,                  public
+                  :: <strong><a href='../type/field_type.html#boundprocedure-ny'>ny</a></strong>
+<small>Function</small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                    procedure
+                    ,                  public
+                  :: <strong><a href='../type/field_type.html#boundprocedure-nx'>nx</a></strong>
+<small>Function</small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                    procedure
+                    ,                  public
+                  :: <strong><a href='../type/field_type.html#boundprocedure-dump'>dump</a></strong>
+<small>Subroutine</small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                    procedure
+                    ,                  public
+                  :: <strong><a href='../type/field_type.html#boundprocedure-is_equal'>is_equal</a></strong>
+<small>Function</small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+generic,
+                  public
+                  :: <strong><a href='../type/field_gpu_type.html#boundprocedure-operator%28%2B%29~3'>operator(+)</a></strong>
  =>
-                    <a href='../proc/diff_nonperiodic.html'>diff_nonperiodic</a>
+                    field_add_field, field_add_real
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+generic,
+                  public
+                  :: <strong><a href='../type/field_gpu_type.html#boundprocedure-operator%28-%29~3'>operator(-)</a></strong>
+ =>
+                    field_sub_field
+<small></small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+generic,
+                  public
+                  :: <strong><a href='../type/field_gpu_type.html#boundprocedure-operator%28ASTERISK%29~4'>operator(*)</a></strong>
+ =>
+                    field_mul_real
+<small></small>                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                    procedure
+                    ,                  public
+                  :: <strong><a href='../type/field_gpu_type.html#boundprocedure-rhs~3'>rhs</a></strong>
 <small>Function</small>                </td>
                 <td></td>
               </tr>
@@ -607,7 +542,7 @@ procedure <code>diff</code></p>
     <section>
     <h2>Functions</h2>
       <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-sixth_order_compact_1_nonperiodic"></span><h3>public pure function <a href='../proc/sixth_order_compact_1_nonperiodic.html'>sixth_order_compact_1_nonperiodic</a>(east, west)  
+    <div class="panel-heading codesum"><span class="anchor" id="proc-field_gpu_constructor"></span><h3>public  function <a href='../proc/field_gpu_constructor.html'>field_gpu_constructor</a>(initial, dx) result(afield)  
 </h3></div>
     <div class="panel-body">
           
@@ -624,179 +559,6 @@ procedure <code>diff</code></p>
         <th></th>
     </thead>
     <tbody>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              type(<a href='../type/boundary_type.html'>boundary_type</a>),
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>east</strong></td>
-            <td>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              type(<a href='../type/boundary_type.html'>boundary_type</a>),
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>west</strong></td>
-            <td>
-
-            </td>
-        </tr>
-    </tbody>
-  </table>
-
-    <h4>
-    Return Value
-    <small>type(<a href='../type/nonperiodic_differentiator_type.html'>nonperiodic_differentiator_type</a>)</small>
-    </h4>
-    
-
-    </div>
-  </div>
-
-      <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-sixth_order_compact_1_periodic"></span><h3>public pure function <a href='../proc/sixth_order_compact_1_periodic.html'>sixth_order_compact_1_periodic</a>()  
-</h3></div>
-    <div class="panel-body">
-          
-  
-
-  <h4>Arguments</h4>
-    <em>None</em>
-    <h4>
-    Return Value
-    <small>type(<a href='../type/differentiator_type.html'>differentiator_type</a>)</small>
-    </h4>
-    
-
-    </div>
-  </div>
-
-      <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-sixth_order_compact_2_nonperiodic"></span><h3>public pure function <a href='../proc/sixth_order_compact_2_nonperiodic.html'>sixth_order_compact_2_nonperiodic</a>(east, west)  
-</h3></div>
-    <div class="panel-body">
-          
-  
-
-  <h4>Arguments</h4>
-      <table class="table table-striped varlist">
-    <thead>
-      <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              type(<a href='../type/boundary_type.html'>boundary_type</a>),
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>east</strong></td>
-            <td>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              type(<a href='../type/boundary_type.html'>boundary_type</a>),
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>west</strong></td>
-            <td>
-
-            </td>
-        </tr>
-    </tbody>
-  </table>
-
-    <h4>
-    Return Value
-    <small>type(<a href='../type/nonperiodic_differentiator_type.html'>nonperiodic_differentiator_type</a>)</small>
-    </h4>
-    
-
-    </div>
-  </div>
-
-      <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-sixth_order_compact_2_periodic"></span><h3>public pure function <a href='../proc/sixth_order_compact_2_periodic.html'>sixth_order_compact_2_periodic</a>()  
-</h3></div>
-    <div class="panel-body">
-          
-  
-
-  <h4>Arguments</h4>
-    <em>None</em>
-    <h4>
-    Return Value
-    <small>type(<a href='../type/differentiator_type.html'>differentiator_type</a>)</small>
-    </h4>
-    
-
-    </div>
-  </div>
-
-      <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-diff_nonperiodic"></span><h3>public pure function <a href='../proc/diff_nonperiodic.html'>diff_nonperiodic</a>(self, f, dx) result(df)  
-</h3></div>
-    <div class="panel-body">
-          
-  <p>Apply a differentiation stencil along a one dimensional pencil,
-then apply boundary conditions on both ends. Boundary
-conditions are applied as arrays of type <code>stencil_type</code></p>
-
-  <h4>Arguments</h4>
-      <table class="table table-striped varlist">
-    <thead>
-      <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              class(<a href='../type/nonperiodic_differentiator_type.html'>nonperiodic_differentiator_type</a>),
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>self</strong></td>
-            <td>
-
-            </td>
-        </tr>
         <tr>
             <td>
               <span class="anchor" ></span>
@@ -807,9 +569,9 @@ conditions are applied as arrays of type <code>stencil_type</code></p>
               
             </td>
             <td>::</td>
-            <td><strong>f</strong>(:)</td>
+            <td><strong>initial</strong>(:,:,:)</td>
             <td>
-
+<p>Initial state</p>
             </td>
         </tr>
         <tr>
@@ -824,7 +586,7 @@ conditions are applied as arrays of type <code>stencil_type</code></p>
             <td>::</td>
             <td><strong>dx</strong></td>
             <td>
-
+<p>Spatial mesh spacing</p>
             </td>
         </tr>
     </tbody>
@@ -832,7 +594,7 @@ conditions are applied as arrays of type <code>stencil_type</code></p>
 
     <h4>
     Return Value
-    <small>real, allocatable, (:)</small>
+    <small>type(<a href='../type/field_gpu_type.html'>field_gpu_type</a>)</small>
     </h4>
     
 
@@ -840,86 +602,7 @@ conditions are applied as arrays of type <code>stencil_type</code></p>
   </div>
 
       <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-diff_periodic"></span><h3>public pure function <a href='../proc/diff_periodic.html'>diff_periodic</a>(self, f, dx) result(df)  
-</h3></div>
-    <div class="panel-body">
-          
-  <p>Apply a differentiation stencil along a one dimensional pencil,
-assuming periodic boundaries. For instance, with a four point
-stencil <script type="math/tex">s = (-2, -1, 1, 2)</script> and weights <script type="math/tex">{g_{i}}_{1 \leq i
-\leq 4}</script>
-</p><a href="../proc/diff_periodic.html" class="pull-right"><emph>Read more&hellip;</emph></a>
-
-  <h4>Arguments</h4>
-      <table class="table table-striped varlist">
-    <thead>
-      <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              class(<a href='../type/differentiator_type.html'>differentiator_type</a>),
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>self</strong></td>
-            <td>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              real,
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>f</strong>(:)</td>
-            <td>
-<p>Function to be derive, evaluated on pencil</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-              <span class="anchor" ></span>
-              real,
-            </td>
-<td>intent(in)</td>
-              <td></td>            <td>
-              
-            </td>
-            <td>::</td>
-            <td><strong>dx</strong></td>
-            <td>
-<p>Step size</p>
-            </td>
-        </tr>
-    </tbody>
-  </table>
-
-    <h4>
-    Return Value
-    <small>real, allocatable, (:)</small>
-    </h4>
-    <p>Derivative, evaluated on pencil</p>
-
-    </div>
-  </div>
-
-      <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-reverse"></span><h3>public pure function <a href='../proc/reverse.html'>reverse</a>(x)  
+    <div class="panel-heading codesum"><span class="anchor" id="proc-rhs~2"></span><h3>public pure function <a href='../proc/rhs~2.html'>rhs</a>(self)  
 </h3></div>
     <div class="panel-body">
           
@@ -939,14 +622,14 @@ stencil <script type="math/tex">s = (-2, -1, 1, 2)</script> and weights <script 
         <tr>
             <td>
               <span class="anchor" ></span>
-              real,
+              class(<a href='../type/field_gpu_type.html'>field_gpu_type</a>),
             </td>
 <td>intent(in)</td>
               <td></td>            <td>
               
             </td>
             <td>::</td>
-            <td><strong>x</strong>(:)</td>
+            <td><strong>self</strong></td>
             <td>
 
             </td>
@@ -956,7 +639,7 @@ stencil <script type="math/tex">s = (-2, -1, 1, 2)</script> and weights <script 
 
     <h4>
     Return Value
-    <small>real, allocatable, (:)</small>
+    <small>real, allocatable, (:,:,:)</small>
     </h4>
     
 
@@ -966,6 +649,220 @@ stencil <script type="math/tex">s = (-2, -1, 1, 2)</script> and weights <script 
     </section>
     <br>
 
+    <section>
+    <h2>Subroutines</h2>
+      <div class="panel panel-default">
+    <div class="panel-heading codesum"><span class="anchor" id="proc-rhs_x"></span><h3>public pure subroutine <a href='../proc/rhs_x.html'>rhs_x</a>(data, rhs, temp)  
+</h3></div>
+    <div class="panel-body">
+          
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>data</strong>(:,:,:)</td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(out)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>rhs</strong>(:,:,:)</td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(inout)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>temp</strong>(:,:,:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+    </div>
+  </div>
+
+      <div class="panel panel-default">
+    <div class="panel-heading codesum"><span class="anchor" id="proc-rhs_y"></span><h3>public pure subroutine <a href='../proc/rhs_y.html'>rhs_y</a>(data, rhs, temp)  
+</h3></div>
+    <div class="panel-body">
+          
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>data</strong>(:,:,:)</td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(inout)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>rhs</strong>(:,:,:)</td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(inout)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>temp</strong>(:,:,:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+    </div>
+  </div>
+
+      <div class="panel panel-default">
+    <div class="panel-heading codesum"><span class="anchor" id="proc-rhs_z"></span><h3>public pure subroutine <a href='../proc/rhs_z.html'>rhs_z</a>(data, rhs, temp)  
+</h3></div>
+    <div class="panel-body">
+          
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>data</strong>(:,:,:)</td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(inout)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>rhs</strong>(:,:,:)</td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real,
+            </td>
+<td>intent(inout)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>temp</strong>(:,:,:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+    </div>
+  </div>
+
+    </section>
+    <br>
 
 
 
