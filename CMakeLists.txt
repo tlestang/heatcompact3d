@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(heatcompact3d LANGUAGES Fortran CUDA)
+project(heatcompact3d LANGUAGES Fortran)
 enable_testing()
 
 file(GLOB SRC
