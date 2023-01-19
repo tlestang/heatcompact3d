@@ -7,12 +7,17 @@ file(GLOB SRC
   RELATIVE ${CMAKE_SOURCE_DIR}
   ${CMAKE_SOURCE_DIR}/src/*.f90
 )
-add_library(heatcompact3d STATIC ${SRC})
 
 file(GLOB TESTSRC
   LIST_DIRECTORIES false
   RELATIVE ${CMAKE_SOURCE_DIR}
   ${CMAKE_SOURCE_DIR}/tests/*.f90
+)
+
+file(GLOB CUDASRC
+  LIST_DIRECTORIES false
+  RELATIVE ${CMAKE_SOURCE_DIR}
+  ${CMAKE_SOURCE_DIR}/src/cuda/*.f90
 )
 
 file(GLOB CUDATESTSRC
@@ -21,8 +26,21 @@ file(GLOB CUDATESTSRC
   ${CMAKE_SOURCE_DIR}/tests/cuda/*.f90
 )
 
-list(APPEND TESTSRC ${CUDATESTSRC})
+# If the Fortran compiler is nvfortran, then append CUDA sources to
+# global list of sources
+string(REGEX MATCH "nvfortran" CUDAFORTRAN ${CMAKE_Fortran_COMPILER})
+message("IS ${CUDAFORTRAN}")
+if(CUDAFORTRAN)
+  list(APPEND SRC ${CUDASRC})
+  list(APPEND TESTSRC ${CUDATESTSRC})
+endif()
 
+message(${SRC})
+add_library(heatcompact3d STATIC ${SRC})
+
+# Build the test executables and register them to CTest.
+# TODO Extract test config code into subdirectory, see
+# https://github.com/tlestang/heatcompact3d/issues/8
 foreach(testsrc IN LISTS TESTSRC)
   get_filename_component(test_name ${testsrc} NAME_WE)
   add_executable(${test_name} ${testsrc})
