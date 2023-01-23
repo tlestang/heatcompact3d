@@ -29,7 +29,7 @@ module time_integrator
      subroutine integrate_proc(self, afield)
        import time_integrator_type, field_type
        class(time_integrator_type), intent(in) :: self
-       class(field_type), intent(inout) :: afield
+       class(field_type), allocatable, intent(inout) :: afield
      end subroutine integrate_proc
   end interface
 
